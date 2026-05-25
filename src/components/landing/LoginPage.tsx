@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Shield, Eye, EyeOff, Loader2, Globe, ArrowLeft } from 'lucide-react';
+import { Shield, Eye, EyeOff, Loader2, Globe, ArrowLeft, AlertCircle } from 'lucide-react';
 
 export function LoginPage() {
   const { t, language, setLanguage } = useT();
@@ -28,21 +28,40 @@ export function LoginPage() {
     e.preventDefault();
     setError('');
 
-    if (!email || !password) {
-      setError(language === 'es' ? 'Por favor complete todos los campos' : 'Please fill in all fields');
+    if (!email.trim() || !password) {
+      setError(language === 'es'
+        ? 'Por favor complete todos los campos'
+        : 'Please fill in all fields');
+      return;
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError(language === 'es'
+        ? 'Ingrese un correo electronico valido'
+        : 'Please enter a valid email address');
       return;
     }
 
     setLoading(true);
-    const success = await login(email, password);
+
+    const result = await login(email.trim().toLowerCase(), password);
     setLoading(false);
 
-    if (success) {
-      navigate('dashboard');
+    if (result.success) {
+      toast({
+        title: language === 'es' ? 'Bienvenido de vuelta' : 'Welcome back',
+        description: language === 'es' ? 'Inicio de sesion exitoso' : 'Successfully signed in',
+      });
     } else {
-      const msg = language === 'es' ? 'Credenciales invalidas' : 'Invalid email or password';
-      setError(msg);
-      toast({ title: msg, variant: 'destructive' });
+      const serverError = result.error || '';
+      setError(serverError);
+      toast({
+        title: language === 'es' ? 'Error de inicio de sesion' : 'Sign in failed',
+        description: serverError,
+        variant: 'destructive',
+      });
     }
   };
 
@@ -66,9 +85,14 @@ export function LoginPage() {
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 sm:p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
-              <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm">
-                {error}
-              </div>
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm flex items-start gap-2"
+              >
+                <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <span>{error}</span>
+              </motion.div>
             )}
 
             <div className="space-y-2">
@@ -80,6 +104,7 @@ export function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="h-11"
+                autoComplete="email"
               />
             </div>
 
@@ -93,6 +118,7 @@ export function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="h-11 pr-10"
+                  autoComplete="current-password"
                 />
                 <button
                   type="button"
@@ -125,7 +151,14 @@ export function LoginPage() {
               className="w-full h-11 bg-teal-600 hover:bg-teal-700 text-white font-semibold"
               disabled={loading}
             >
-              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : t.auth.login}
+              {loading ? (
+                <span className="flex items-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  {language === 'es' ? 'Iniciando sesion...' : 'Signing in...'}
+                </span>
+              ) : (
+                t.auth.login
+              )}
             </Button>
           </form>
 

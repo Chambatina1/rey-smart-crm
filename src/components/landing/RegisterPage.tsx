@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Shield, Eye, EyeOff, Loader2, Globe, ArrowLeft } from 'lucide-react';
+import { Shield, Eye, EyeOff, Loader2, Globe, ArrowLeft, AlertCircle } from 'lucide-react';
 
 export function RegisterPage() {
   const { t, language, setLanguage } = useT();
@@ -36,33 +36,64 @@ export function RegisterPage() {
     e.preventDefault();
     setError('');
 
-    if (!form.name || !form.email || !form.password) {
-      setError(language === 'es' ? 'Por favor complete los campos requeridos' : 'Please fill in required fields');
+    // Validate all fields
+    if (!form.name.trim() || !form.email.trim() || !form.password) {
+      setError(language === 'es'
+        ? 'Por favor complete todos los campos requeridos'
+        : 'Please fill in all required fields');
       return;
     }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      setError(language === 'es'
+        ? 'Por favor ingrese un correo electronico valido'
+        : 'Please enter a valid email address');
+      return;
+    }
+
     if (form.password !== form.confirmPassword) {
-      setError(language === 'es' ? 'Las contrasenas no coinciden' : 'Passwords do not match');
+      setError(language === 'es'
+        ? 'Las contrasenas no coinciden'
+        : 'Passwords do not match');
       return;
     }
+
     if (form.password.length < 6) {
-      setError(language === 'es' ? 'La contrasena debe tener al menos 6 caracteres' : 'Password must be at least 6 characters');
+      setError(language === 'es'
+        ? 'La contrasena debe tener al menos 6 caracteres'
+        : 'Password must be at least 6 characters');
       return;
     }
+
     if (!terms) {
-      setError(language === 'es' ? 'Debe aceptar los terminos' : 'You must accept the terms');
+      setError(language === 'es'
+        ? 'Debe aceptar los Terminos de Servicio'
+        : 'You must accept the Terms of Service');
       return;
     }
 
     setLoading(true);
-    const success = await register(form.name, form.email, form.password);
+    setError('');
+
+    const result = await register(form.name.trim(), form.email.trim().toLowerCase(), form.password);
     setLoading(false);
 
-    if (success) {
-      navigate('dashboard');
+    if (result.success) {
+      toast({
+        title: language === 'es' ? 'Cuenta creada exitosamente' : 'Account created successfully',
+        description: language === 'es' ? 'Bienvenido a Rey Smart Solution' : 'Welcome to Rey Smart Solution',
+      });
+      // Navigation happens automatically via page.tsx useEffect
     } else {
-      const msg = language === 'es' ? 'Error al crear la cuenta' : 'Failed to create account';
-      setError(msg);
-      toast({ title: msg, variant: 'destructive' });
+      const serverError = result.error || '';
+      setError(serverError);
+      toast({
+        title: language === 'es' ? 'Error al crear la cuenta' : 'Failed to create account',
+        description: serverError,
+        variant: 'destructive',
+      });
     }
   };
 
@@ -86,9 +117,14 @@ export function RegisterPage() {
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 sm:p-8">
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm">
-                {error}
-              </div>
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm flex items-start gap-2"
+              >
+                <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <span>{error}</span>
+              </motion.div>
             )}
 
             <div className="space-y-2">
@@ -99,6 +135,7 @@ export function RegisterPage() {
                 onChange={updateField('name')}
                 placeholder={language === 'es' ? 'Juan Garcia' : 'John Doe'}
                 className="h-11"
+                autoComplete="name"
               />
             </div>
 
@@ -111,6 +148,7 @@ export function RegisterPage() {
                 onChange={updateField('email')}
                 placeholder="name@example.com"
                 className="h-11"
+                autoComplete="email"
               />
             </div>
 
@@ -123,6 +161,7 @@ export function RegisterPage() {
                 onChange={updateField('phone')}
                 placeholder="(407) 123-4567"
                 className="h-11"
+                autoComplete="tel"
               />
             </div>
 
@@ -136,6 +175,7 @@ export function RegisterPage() {
                   onChange={updateField('password')}
                   placeholder="••••••••"
                   className="h-11 pr-10"
+                  autoComplete="new-password"
                 />
                 <button
                   type="button"
@@ -145,6 +185,13 @@ export function RegisterPage() {
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
+              {form.password && form.password.length < 6 && (
+                <p className="text-xs text-amber-600">
+                  {language === 'es'
+                    ? 'Minimo 6 caracteres'
+                    : 'Minimum 6 characters'}
+                </p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -156,7 +203,15 @@ export function RegisterPage() {
                 onChange={updateField('confirmPassword')}
                 placeholder="••••••••"
                 className="h-11"
+                autoComplete="new-password"
               />
+              {form.confirmPassword && form.password !== form.confirmPassword && (
+                <p className="text-xs text-red-500">
+                  {language === 'es'
+                    ? 'Las contrasenas no coinciden'
+                    : 'Passwords do not match'}
+                </p>
+              )}
             </div>
 
             <div className="flex items-start gap-2 pt-1">
@@ -176,7 +231,14 @@ export function RegisterPage() {
               className="w-full h-11 bg-teal-600 hover:bg-teal-700 text-white font-semibold"
               disabled={loading}
             >
-              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : t.auth.register}
+              {loading ? (
+                <span className="flex items-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  {language === 'es' ? 'Creando cuenta...' : 'Creating account...'}
+                </span>
+              ) : (
+                t.auth.register
+              )}
             </Button>
           </form>
 
