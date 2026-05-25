@@ -302,11 +302,11 @@ export function LandingPage() {
                 {language === 'en' ? 'ES' : 'EN'}
               </button>
               <Button
-                onClick={() => navigate('login')}
+                onClick={() => navigate('dashboard')}
                 variant="outline"
                 className="hidden sm:inline-flex border-teal-600 text-teal-600 hover:bg-teal-50"
               >
-                {t.auth.login}
+                {language === 'es' ? 'Ver Panel' : 'Open Dashboard'}
               </Button>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -335,14 +335,14 @@ export function LandingPage() {
               ))}
               <div className="flex gap-2 mt-3">
                 <Button
-                  onClick={() => { navigate('login'); setMobileMenuOpen(false); }}
+                  onClick={() => { navigate('dashboard'); setMobileMenuOpen(false); }}
                   variant="outline"
                   className="flex-1 border-teal-600 text-teal-600"
                 >
-                  {t.auth.login}
+                  {language === 'es' ? 'Ver Panel' : 'Open Dashboard'}
                 </Button>
                 <Button
-                  onClick={() => { navigate('register'); setMobileMenuOpen(false); }}
+                  onClick={() => { navigate('dashboard'); setMobileMenuOpen(false); }}
                   className="flex-1 bg-teal-600 hover:bg-teal-700 text-white"
                 >
                   {t.landing.getStarted}
@@ -381,7 +381,7 @@ export function LandingPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mt-10">
                 <Button
-                  onClick={() => navigate('register')}
+                  onClick={() => navigate('dashboard')}
                   size="lg"
                   className="bg-white text-teal-700 hover:bg-teal-50 px-8 py-6 text-base font-semibold rounded-xl shadow-lg"
                 >
@@ -492,7 +492,7 @@ export function LandingPage() {
                           </p>
                           <div className="flex flex-wrap gap-3">
                             <Button
-                              onClick={() => navigate('register')}
+                              onClick={() => navigate('dashboard')}
                               className={`${service.btnClass} px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base font-semibold shadow-lg`}
                             >
                               {t.landing.getStarted}
@@ -650,7 +650,7 @@ export function LandingPage() {
             <Button
               variant="outline"
               className="border-teal-600 text-teal-600 hover:bg-teal-50"
-              onClick={() => navigate('login')}
+              onClick={() => navigate('courses')}
             >
               {t.landing.viewAll}
               <ChevronRight className="w-4 h-4 ml-1" />

@@ -73,9 +73,12 @@ const clientNavItems: SidebarItem[] = [
 export function AppLayout({ children }: { children: ReactNode }) {
   const { t, language, setLanguage } = useT();
   const { currentView, navigate, sidebarOpen, setSidebarOpen } = useNavigationStore();
-  const { user, logout } = useAuthStore();
+  const { user } = useAuthStore();
   const [collapsed, setCollapsed] = useState(false);
 
+  // Default demo user for free access mode
+  const displayName = user?.name || 'Rey Smart Solution';
+  const displayEmail = user?.email || 'info@reysmartsolution.com';
   const isClient = user?.role === 'client';
   const navItems = isClient ? clientNavItems : adminNavItems;
 
@@ -121,15 +124,19 @@ export function AppLayout({ children }: { children: ReactNode }) {
 
   const pageTitle = viewTitles[currentView] || '';
 
-  const initials = user?.name
-    ? user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
-    : 'U';
+  const initials = displayName
+    ? displayName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+    : 'RS';
 
   const roleBadgeColor = user?.role === 'admin'
     ? 'bg-red-100 text-red-700'
     : user?.role === 'agent'
       ? 'bg-teal-100 text-teal-700'
-      : 'bg-amber-100 text-amber-700';
+      : user?.role === 'client'
+        ? 'bg-amber-100 text-amber-700'
+        : 'bg-teal-100 text-teal-700';
+
+  const displayRole = user?.role || 'admin';
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
@@ -195,9 +202,9 @@ export function AppLayout({ children }: { children: ReactNode }) {
                 </AvatarFallback>
               </Avatar>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-gray-900 truncate">{user?.name || 'User'}</p>
+                <p className="text-sm font-medium text-gray-900 truncate">{displayName}</p>
                 <span className={`inline-block text-xs px-1.5 py-0.5 rounded-full font-medium ${roleBadgeColor}`}>
-                  {user?.role || 'user'}
+                  {user?.role || 'admin'}
                 </span>
               </div>
             </div>
@@ -264,13 +271,13 @@ export function AppLayout({ children }: { children: ReactNode }) {
                 </AvatarFallback>
               </Avatar>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-gray-900 truncate">{user?.name || 'User'}</p>
+                <p className="text-sm font-medium text-gray-900 truncate">{displayName}</p>
                 <span className={`inline-block text-xs px-1.5 py-0.5 rounded-full font-medium ${roleBadgeColor}`}>
-                  {user?.role || 'user'}
+                  {user?.role || 'admin'}
                 </span>
               </div>
               <button
-                onClick={() => { logout(); setSidebarOpen(false); }}
+                onClick={() => { navigate('landing'); setSidebarOpen(false); }}
                 className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
               >
                 <LogOut className="w-4 h-4" />
@@ -329,14 +336,14 @@ export function AppLayout({ children }: { children: ReactNode }) {
                     </AvatarFallback>
                   </Avatar>
                   <span className="hidden sm:block text-sm font-medium text-gray-700 max-w-[120px] truncate">
-                    {user?.name || 'User'}
+                    {user?.name || 'Admin'}
                   </span>
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
                 <div className="px-2 py-1.5">
-                  <p className="text-sm font-medium text-gray-900 truncate">{user?.name}</p>
-                  <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                  <p className="text-sm font-medium text-gray-900 truncate">{displayName}</p>
+                  <p className="text-xs text-gray-500 truncate">{displayEmail}</p>
                 </div>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => navigate('settings')}>
@@ -349,7 +356,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  onClick={() => { logout(); navigate('landing'); }}
+                  onClick={() => navigate('landing')}
                   className="text-red-600"
                 >
                   <LogOut className="w-4 h-4 mr-2" />
