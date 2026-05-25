@@ -1,0 +1,415 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ===================== USERS & AUTH =====================
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String?
+  name          String
+  phone         String?
+  avatar        String?
+  role          String    @default("client") // admin, agent, client
+  language      String    @default("en") // en, es
+  isActive      Boolean   @default(true)
+  lastLogin     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  clients       Client[]
+  activities    Activity[]
+  sentMessages  Message[]  @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
+  appointmentClients  Appointment[] @relation("AppointmentClients")
+  appointmentAgents   Appointment[] @relation("AppointmentAgents")
+  createdCourses Course[] @relation("CourseCreator")
+  courseEnrollments Enrollment[]
+  conferenceRegistrations ConferenceRegistration[]
+  invoices      Invoice[]
+
+  @@index([role])
+  @@index([email])
+}
+
+model Client {
+  id              String    @id @default(cuid())
+  userId          String    @unique
+  ssnLastFour     String?
+  dateOfBirth     DateTime?
+  address         String?
+  city            String?
+  state           String?
+  zipCode         String?
+  creditScore     Int?
+  creditScoreDate DateTime?
+  status          String    @default("active") // active, inactive, completed, suspended
+  referredBy      String?
+  notes           String?
+  tags            String?   // JSON array stored as string
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  disputes        Dispute[]
+  creditReports   CreditReport[]
+  documents       Document[]
+  payments        Payment[]
+  enrollments     Enrollment[]
+  invoices        Invoice[]
+
+  @@index([status])
+  @@index([userId])
+}
+
+// ===================== CREDIT & DISPUTES =====================
+
+model CreditReport {
+  id              String    @id @default(cuid())
+  clientId        String
+  bureau          String    // equifax, experian, transunion
+  pullDate        DateTime  @default(now())
+  score           Int?
+  rawReport       String?   // JSON report data
+  status          String    @default("pending") // pending, loaded, error
+  createdAt       DateTime  @default(now())
+
+  client          Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  tradeLines      TradeLine[]
+
+  @@index([clientId])
+  @@index([bureau])
+}
+
+model TradeLine {
+  id              String    @id @default(cuid())
+  creditReportId  String
+  accountName     String
+  accountNumber   String?
+  accountType     String?   // revolving, installment, mortgage, collection
+  balance         Float?
+  creditLimit     Float?
+  paymentStatus   String?   // current, late, charge_off, collection
+  monthsReviewed  Int?
+  dateOpened      DateTime?
+  dateClosed      DateTime?
+  disputeStatus   String    @default("none") // none, pending, in_progress, deleted, verified, updated
+  createdAt       DateTime  @default(now())
+
+  creditReport    CreditReport @relation(fields: [creditReportId], references: [id], onDelete: Cascade)
+  disputes        Dispute[]
+
+  @@index([creditReportId])
+}
+
+model Dispute {
+  id              String    @id @default(cuid())
+  clientId        String
+  tradeLineId     String?
+  bureau          String    // equifax, experian, transunion
+  disputeType     String    // late_payment, collection, charge_off, identity_theft, incorrect_info, outdated, other
+  disputeReason   String?
+  status          String    @default("draft") // draft, sent, in_progress, completed, cancelled
+  letterTemplate  String?
+  letterContent   String?
+  sentDate        DateTime?
+  responseDate    DateTime?
+  responseStatus  String?   // deleted, verified, updated, no_response
+  notes           String?
+  round           Int       @default(1)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  client          Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  tradeLine       TradeLine? @relation(fields: [tradeLineId], references: [id], onDelete: SetNull)
+  responses       DisputeResponse[]
+
+  @@index([clientId])
+  @@index([status])
+  @@index([bureau])
+}
+
+model DisputeResponse {
+  id              String    @id @default(cuid())
+  disputeId       String
+  receivedDate    DateTime  @default(now())
+  responseCode    String?
+  outcome         String?   // deleted, verified, updated, reinvestigate
+  notes           String?
+  documentUrl     String?
+
+  dispute         Dispute   @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+
+  @@index([disputeId])
+}
+
+// ===================== EDUCATION & COURSES =====================
+
+model Course {
+  id              String    @id @default(cuid())
+  titleEn         String
+  titleEs         String
+  descriptionEn   String?
+  descriptionEs   String?
+  category        String    // credit_basics, consolidation, budgeting, home_buying, business_credit
+  level           String    @default("beginner") // beginner, intermediate, advanced
+  thumbnail       String?
+  videoUrl        String?
+  content         String?   // Rich text / JSON content
+  duration        Int?      // minutes
+  isPublished     Boolean   @default(false)
+  isFree          Boolean   @default(true)
+  price           Float?
+  createdBy       String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  creator         User?     @relation("CourseCreator", fields: [createdBy], references: [id], onDelete: SetNull)
+  enrollments     Enrollment[]
+  lessons         Lesson[]
+  conferences     Conference[]
+
+  @@index([category])
+  @@index([isPublished])
+}
+
+model Lesson {
+  id              String    @id @default(cuid())
+  courseId        String
+  titleEn         String
+  titleEs         String
+  content         String?
+  videoUrl        String?
+  order           Int       @default(0)
+  duration        Int?      // minutes
+  isPublished     Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+
+  course          Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId])
+}
+
+model Enrollment {
+  id              String    @id @default(cuid())
+  userId          String
+  courseId        String
+  status          String    @default("active") // active, completed, cancelled
+  progress        Float     @default(0) // 0-100
+  enrolledAt      DateTime  @default(now())
+  completedAt     DateTime?
+
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course          Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  client          Client?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+  @@index([userId])
+}
+
+model Conference {
+  id              String    @id @default(cuid())
+  courseId        String?
+  titleEn         String
+  titleEs         String
+  descriptionEn   String?
+  descriptionEs   String?
+  type            String    @default("webinar") // webinar, workshop, seminar, one_on_one
+  date            DateTime
+  duration        Int?      // minutes
+  maxAttendees    Int?
+  meetingLink     String?
+  location        String?
+  isPublished     Boolean   @default(false)
+  isRecurring     Boolean   @default(false)
+  recurrenceRule  String?   // JSON recurrence rules
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  course          Course?   @relation(fields: [courseId], references: [id], onDelete: SetNull)
+  registrations   ConferenceRegistration[]
+
+  @@index([date])
+  @@index([isPublished])
+}
+
+model ConferenceRegistration {
+  id              String    @id @default(cuid())
+  userId          String
+  conferenceId    String
+  status          String    @default("registered") // registered, attended, cancelled
+  registeredAt    DateTime  @default(now())
+
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  conference      Conference @relation(fields: [conferenceId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, conferenceId])
+}
+
+// ===================== APPOINTMENTS =====================
+
+model Appointment {
+  id              String    @id @default(cuid())
+  clientId        String
+  agentId         String
+  title           String
+  description     String?
+  date            DateTime
+  duration        Int?      // minutes
+  type            String    @default("consultation") // consultation, follow_up, review, enrollment
+  status          String    @default("scheduled") // scheduled, confirmed, completed, cancelled, no_show
+  meetingLink     String?
+  notes           String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  clientUser      User      @relation("AppointmentClients", fields: [clientId], references: [id], onDelete: Cascade)
+  agent           User      @relation("AppointmentAgents", fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@index([clientId])
+  @@index([agentId])
+  @@index([date])
+  @@index([status])
+}
+
+// ===================== MESSAGES =====================
+
+model Message {
+  id              String    @id @default(cuid())
+  senderId        String
+  receiverId      String
+  subject         String?
+  content         String
+  isRead          Boolean   @default(false)
+  readAt          DateTime?
+  createdAt       DateTime  @default(now())
+
+  sender          User      @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver        User      @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([isRead])
+}
+
+// ===================== DOCUMENTS =====================
+
+model Document {
+  id              String    @id @default(cuid())
+  clientId        String
+  name            String
+  type            String    // id_proof, address_proof, credit_report, dispute_letter, other
+  fileUrl         String
+  fileSize        Int?
+  mimeType        String?
+  uploadedAt      DateTime  @default(now())
+
+  client          Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([clientId])
+  @@index([type])
+}
+
+// ===================== BILLING & PAYMENTS =====================
+
+model Invoice {
+  id              String    @id @default(cuid())
+  userId          String
+  clientId        String?
+  amount          Float
+  status          String    @default("pending") // pending, paid, overdue, cancelled
+  dueDate         DateTime
+  paidDate        DateTime?
+  items           String?   // JSON invoice items
+  notes           String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  client          Client?   @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  payments        Payment[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([dueDate])
+}
+
+model Payment {
+  id              String    @id @default(cuid())
+  invoiceId       String
+  clientId        String
+  amount          Float
+  method          String    // credit_card, bank_transfer, cash, other
+  status          String    @default("completed") // completed, pending, failed, refunded
+  transactionId   String?
+  paidAt          DateTime  @default(now())
+
+  invoice         Invoice   @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  client          Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([invoiceId])
+  @@index([clientId])
+}
+
+// ===================== ACTIVITY LOG =====================
+
+model Activity {
+  id              String    @id @default(cuid())
+  userId          String?
+  action          String    // client_created, dispute_sent, login, etc.
+  description     String?
+  metadata        String?   // JSON metadata
+  createdAt       DateTime  @default(now())
+
+  user            User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+// ===================== COMPANY SETTINGS =====================
+
+model CompanySettings {
+  id              String    @id @default(cuid())
+  companyName     String    @default("Rey Smart Solution")
+  companyLogo     String?
+  phone           String    @default("(407) 432-8872")
+  email           String    @default("info@reysmartsolution.com")
+  address         String    @default("7800 S US Hwy 17/92, Ste 194, Fern Park, FL 32730")
+  website         String    @default("https://reysmartsolution.com")
+  primaryColor    String    @default("#0f766e") // teal-700
+  accentColor     String    @default("#14b8a6") // teal-500
+  currency        String    @default("USD")
+  timezone        String    @default("America/New_York")
+  language        String    @default("en") // default language
+  enableSms       Boolean   @default(false)
+  enableEmail     Boolean   @default(true)
+  autoReminders   Boolean   @default(true)
+  welcomeEmail    String?
+  smsTemplate     String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Notification {
+  id              String    @id @default(cuid())
+  userId          String
+  title           String
+  titleEs         String?
+  message         String
+  messageEs       String?
+  type            String    @default("info") // info, warning, success, error
+  isRead          Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+
+  @@index([userId])
+  @@index([isRead])
+}
