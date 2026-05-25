@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useT } from '@/hooks/useT';
 import { useNavigationStore } from '@/stores/navigation-store';
@@ -28,7 +28,18 @@ import {
   PhoneCall,
   FileSearch,
   Rocket,
+  Home,
+  Briefcase,
+  ArrowRight,
 } from 'lucide-react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  type CarouselApi,
+} from '@/components/ui/carousel';
 
 /* ── animated counter ──────────────────────────────────────────── */
 function useCountUp(end: number, duration = 2000, startCounting = false) {
@@ -69,6 +80,9 @@ export function LandingPage() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -121,6 +135,89 @@ export function LandingPage() {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
+
+  // Carousel auto-play logic
+  const startAutoPlay = useCallback(() => {
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    autoPlayRef.current = setInterval(() => {
+      carouselApi?.scrollNext();
+    }, 4000);
+  }, [carouselApi]);
+
+  const stopAutoPlay = useCallback(() => {
+    if (autoPlayRef.current) {
+      clearInterval(autoPlayRef.current);
+      autoPlayRef.current = null;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!carouselApi) return;
+    startAutoPlay();
+    const onSelect = () => setCurrentSlide(carouselApi.selectedScrollSnap());
+    carouselApi.on('select', onSelect);
+    return () => {
+      stopAutoPlay();
+      carouselApi.off('select', onSelect);
+    };
+  }, [carouselApi, startAutoPlay, stopAutoPlay]);
+
+  const carouselServices = [
+    {
+      icon: Shield,
+      title: t.landing.creditRepair,
+      desc: t.landing.creditRepairLongDesc,
+      shortDesc: t.landing.creditRepairDesc,
+      gradient: 'from-teal-600 via-teal-500 to-cyan-500',
+      iconBg: 'bg-teal-400/30',
+      btnClass: 'bg-white text-teal-700 hover:bg-teal-50',
+    },
+    {
+      icon: DollarSign,
+      title: t.landing.consolidation,
+      desc: t.landing.consolidationLongDesc,
+      shortDesc: t.landing.consolidationDesc,
+      gradient: 'from-emerald-600 via-emerald-500 to-green-500',
+      iconBg: 'bg-emerald-400/30',
+      btnClass: 'bg-white text-emerald-700 hover:bg-emerald-50',
+    },
+    {
+      icon: GraduationCap,
+      title: t.landing.education,
+      desc: t.landing.educationLongDesc,
+      shortDesc: t.landing.educationDesc,
+      gradient: 'from-amber-500 via-amber-600 to-orange-500',
+      iconBg: 'bg-amber-400/30',
+      btnClass: 'bg-white text-amber-800 hover:bg-amber-50',
+    },
+    {
+      icon: Users,
+      title: t.landing.counseling,
+      desc: t.landing.counselingLongDesc,
+      shortDesc: t.landing.counselingDesc,
+      gradient: 'from-rose-600 via-rose-500 to-pink-500',
+      iconBg: 'bg-rose-400/30',
+      btnClass: 'bg-white text-rose-700 hover:bg-rose-50',
+    },
+    {
+      icon: Home,
+      title: t.landing.homeBuying,
+      desc: t.landing.homeBuyingLongDesc,
+      shortDesc: t.landing.homeBuyingDesc,
+      gradient: 'from-purple-600 via-purple-500 to-violet-500',
+      iconBg: 'bg-purple-400/30',
+      btnClass: 'bg-white text-purple-700 hover:bg-purple-50',
+    },
+    {
+      icon: Briefcase,
+      title: t.landing.businessCredit,
+      desc: t.landing.businessCreditLongDesc,
+      shortDesc: t.landing.businessCreditDesc,
+      gradient: 'from-sky-600 via-sky-500 to-cyan-500',
+      iconBg: 'bg-sky-400/30',
+      btnClass: 'bg-white text-sky-700 hover:bg-sky-50',
+    },
+  ];
 
   const services = [
     { icon: Shield, title: t.landing.creditRepair, desc: t.landing.creditRepairDesc, color: 'bg-teal-100 text-teal-600' },
@@ -339,6 +436,104 @@ export function LandingPage() {
                 </div>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Service Carousel ───────────────────────────── */}
+      <section className="py-16 sm:py-20 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-10"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
+              {t.landing.serviceCarouselTitle}
+            </h2>
+          </motion.div>
+
+          <div className="relative px-8 sm:px-14">
+            <Carousel
+              opts={{ loop: true }}
+              setApi={setCarouselApi}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4">
+                {carouselServices.map((service, i) => (
+                  <CarouselItem key={i} className="pl-4 md:basis-full lg:basis-full">
+                    <div
+                      className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${service.gradient} p-6 sm:p-8 md:p-10 lg:p-12 min-h-[320px] sm:min-h-[360px] flex items-center`}
+                      onMouseEnter={stopAutoPlay}
+                      onMouseLeave={startAutoPlay}
+                    >
+                      {/* Decorative background icon */}
+                      <div className="absolute right-4 bottom-4 sm:right-8 sm:bottom-8 opacity-[0.08] pointer-events-none">
+                        <service.icon className="w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 text-white" />
+                      </div>
+                      {/* Decorative circles */}
+                      <div className="absolute -top-8 -right-8 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
+                      <div className="absolute -bottom-12 left-1/3 w-48 h-48 bg-white/5 rounded-full blur-3xl" />
+
+                      <div className="relative z-10 w-full flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
+                        {/* Icon */}
+                        <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl ${service.iconBg} backdrop-blur-sm flex items-center justify-center flex-shrink-0`}>
+                          <service.icon className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                        </div>
+
+                        {/* Content */}
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2 sm:mb-3">
+                            {service.title}
+                          </h3>
+                          <p className="text-sm sm:text-base text-white/85 leading-relaxed max-w-2xl mb-6">
+                            {service.shortDesc}
+                          </p>
+                          <div className="flex flex-wrap gap-3">
+                            <Button
+                              onClick={() => navigate('register')}
+                              className={`${service.btnClass} px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base font-semibold shadow-lg`}
+                            >
+                              {t.landing.getStarted}
+                              <ArrowRight className="w-4 h-4 ml-1.5" />
+                            </Button>
+                            <Button
+                              variant="outline"
+                              className="border-white/50 text-white hover:bg-white/15 backdrop-blur-sm px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base"
+                            >
+                              {t.landing.learnMore}
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-0 sm:-left-14 bg-white/90 text-gray-800 hover:bg-white border-gray-200 shadow-lg hover:shadow-xl transition-all" />
+              <CarouselNext className="right-0 sm:-right-14 bg-white/90 text-gray-800 hover:bg-white border-gray-200 shadow-lg hover:shadow-xl transition-all" />
+            </Carousel>
+
+            {/* Dot indicators */}
+            <div className="flex justify-center gap-2 mt-6">
+              {carouselServices.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => {
+                    carouselApi?.scrollTo(i);
+                    stopAutoPlay();
+                    startAutoPlay();
+                  }}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                    i === currentSlide
+                      ? 'w-8 bg-teal-600'
+                      : 'w-2.5 bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>

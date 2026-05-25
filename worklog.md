@@ -102,3 +102,25 @@ Stage Summary:
 - 3 files created
 - Client portal with credit score gauges, course enrollment, messaging, scheduling
 - All pages render successfully, server returns 200
+
+---
+Task ID: 4
+Agent: Main Agent
+Task: Fix auth flow and add service carousel to landing page
+
+Work Log:
+- Identified ROOT CAUSE: /api/auth/me returned `{ ...user, client }` instead of `{ user: { ...user, client } }`, causing auth store to set `user: undefined` after registration
+- Fixed /api/auth/me route to wrap response in `{ user: ... }` 
+- Verified registration API works (returns token + user)
+- Verified login API works (returns token + user)
+- Verified /api/auth/me returns correct structure with client profile
+- Added service carousel to LandingPage with 6 slides (Credit Repair, Debt Consolidation, Credit Education, Financial Counseling, Home Buying, Business Credit)
+- Carousel features: auto-play every 4s, loop mode, pause on hover, dot indicators, responsive layout
+- Added new i18n translations for carousel in both EN and ES
+- Ran bun run lint - 0 errors
+- Verified page loads with 200 status
+
+Stage Summary:
+- Auth flow fully fixed: register → token stored → checkAuth → dashboard works
+- Service carousel with 6 bilingual slides added after hero section
+- All existing landing page sections preserved

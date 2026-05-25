@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    return jsonResponse({ ...user, client })
+    return jsonResponse({ user: { ...user, client } })
   } catch (error) {
     console.error('Get me error:', error)
     return errorResponse('Internal server error', 500)
