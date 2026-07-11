@@ -63,7 +63,6 @@ model Client {
   creditReports   CreditReport[]
   documents       Document[]
   payments        Payment[]
-  enrollments     Enrollment[]
   invoices        Invoice[]
 
   @@index([status])
@@ -209,7 +208,6 @@ model Enrollment {
 
   user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   course          Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  client          Client?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, courseId])
   @@index([userId])
@@ -386,8 +384,8 @@ model CompanySettings {
   email           String    @default("info@reysmartsolution.com")
   address         String    @default("7800 S US Hwy 17/92, Ste 194, Fern Park, FL 32730")
   website         String    @default("https://reysmartsolution.com")
-  primaryColor    String    @default("#0f766e") // teal-700
-  accentColor     String    @default("#14b8a6") // teal-500
+  primaryColor    String    @default("#0A1628") // navy
+  accentColor     String    @default("#C9A227") // gold
   currency        String    @default("USD")
   timezone        String    @default("America/New_York")
   language        String    @default("en") // default language
@@ -413,4 +411,31 @@ model Notification {
 
   @@index([userId])
   @@index([isRead])
+}
+
+// ===================== LEADS (landing-page capture) =====================
+
+model Lead {
+  id            String    @id @default(cuid())
+  firstName     String
+  lastName      String
+  email         String
+  phone         String
+  state         String?
+  goal          String?   // credit_repair | consolidation | home_buying | business_credit | education
+  creditScore   String?   // <580 | 580-669 | 670-739 | 740-799 | 800+
+  message       String?
+  language      String    @default("en") // en, es
+  status        String    @default("new") // new, contacted, qualified, enrolled, lost
+  priority      String    @default("medium") // low, medium, high
+  assignedTo    String?   // user id of the advisor
+  notes         String?   // free-form internal notes
+  source        String?   // landing | referral | ads
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([status])
+  @@index([email])
+  @@index([assignedTo])
+  @@index([createdAt])
 }

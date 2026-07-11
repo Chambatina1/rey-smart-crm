@@ -40,6 +40,7 @@ import {
   CarouselNext,
   type CarouselApi,
 } from '@/components/ui/carousel';
+import { LandingForm } from '@/components/landing/LandingForm';
 
 /* ── animated counter ──────────────────────────────────────────── */
 function useCountUp(end: number, duration = 2000, startCounting = false) {
@@ -752,48 +753,70 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* ── Contact Section ─────────────────────────────── */}
-      <section id="contact" className="py-20 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ── Contact / Lead Form Section (split layout) ──── */}
+      <section id="contact" className="relative overflow-hidden bg-[var(--color-primary)] py-20">
+        {/* decorative gold glow */}
+        <div className="pointer-events-none absolute -top-24 right-0 h-96 w-96 rounded-full bg-[var(--color-gold)]/10 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 -left-20 h-72 w-72 rounded-full bg-[var(--color-gold)]/5 blur-3xl" />
+
+        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+          {/* Left — info & trust */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-14"
+            transition={{ duration: 0.5 }}
+            className="text-white"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-white">{t.landing.contactUs}</h2>
-            <p className="mt-4 text-lg text-gray-400">{t.landing.contactSubtitle}</p>
+            <span className="inline-block rounded-full bg-[var(--color-gold)]/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-gold)]">
+              {t.landing.formEyebrow}
+            </span>
+            <h2 className="mt-5 text-3xl font-bold leading-tight sm:text-4xl">
+              {t.landing.formTitle}
+            </h2>
+            <p className="mt-4 max-w-md text-lg text-white/70">{t.landing.formSubtitle}</p>
+
+            {/* trust badges */}
+            <div className="mt-8 grid grid-cols-2 gap-3">
+              {[
+                { icon: Shield, label: language === 'es' ? 'Sin cobros por adelantado' : 'No upfront fees' },
+                { icon: Star, label: language === 'es' ? 'Ley federal' : 'Federal law' },
+                { icon: PhoneCall, label: language === 'es' ? 'Todo el país' : 'Nationwide' },
+                { icon: Users, label: language === 'es' ? 'Profesionales licenciados' : 'Licensed professionals' },
+              ].map((b, i) => (
+                <div key={i} className="flex items-center gap-2.5 rounded-lg bg-white/5 px-3 py-2.5 ring-1 ring-white/10">
+                  <b.icon className="h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />
+                  <span className="text-sm text-white/80">{b.label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* contact info */}
+            <div className="mt-8 space-y-3 text-sm">
+              <a href="tel:+14074328872" className="flex items-center gap-3 text-white/70 transition hover:text-[var(--color-gold)]">
+                <Phone className="h-4 w-4 text-[var(--color-gold)]" />
+                (407) 432-8872
+              </a>
+              <a href="mailto:info@reysmartsolution.com" className="flex items-center gap-3 text-white/70 transition hover:text-[var(--color-gold)]">
+                <Mail className="h-4 w-4 text-[var(--color-gold)]" />
+                info@reysmartsolution.com
+              </a>
+              <div className="flex items-start gap-3 text-white/70">
+                <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />
+                <span>7800 S US Hwy 17/92, Ste 194, Fern Park, FL 32730</span>
+              </div>
+            </div>
           </motion.div>
 
-          <div className="grid sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <Card className="border-0 bg-gray-800 text-center">
-              <CardContent className="p-6">
-                <div className="w-12 h-12 rounded-xl bg-teal-600/20 flex items-center justify-center mx-auto mb-4">
-                  <Phone className="w-6 h-6 text-teal-400" />
-                </div>
-                <h3 className="font-semibold text-white mb-2">{t.landing.callUs}</h3>
-                <p className="text-gray-400">(407) 432-8872</p>
-              </CardContent>
-            </Card>
-            <Card className="border-0 bg-gray-800 text-center">
-              <CardContent className="p-6">
-                <div className="w-12 h-12 rounded-xl bg-teal-600/20 flex items-center justify-center mx-auto mb-4">
-                  <Mail className="w-6 h-6 text-teal-400" />
-                </div>
-                <h3 className="font-semibold text-white mb-2">{t.landing.emailUs}</h3>
-                <p className="text-gray-400">info@reysmartsolution.com</p>
-              </CardContent>
-            </Card>
-            <Card className="border-0 bg-gray-800 text-center">
-              <CardContent className="p-6">
-                <div className="w-12 h-12 rounded-xl bg-teal-600/20 flex items-center justify-center mx-auto mb-4">
-                  <MapPin className="w-6 h-6 text-teal-400" />
-                </div>
-                <h3 className="font-semibold text-white mb-2">{t.landing.visitUs}</h3>
-                <p className="text-gray-400 text-sm">7800 S US Hwy 17/92, Ste 194<br />Fern Park, FL 32730</p>
-              </CardContent>
-            </Card>
-          </div>
+          {/* Right — form */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <LandingForm />
+          </motion.div>
         </div>
       </section>
 

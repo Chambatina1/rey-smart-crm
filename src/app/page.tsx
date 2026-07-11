@@ -5,6 +5,7 @@ import { useNavigationStore } from '@/stores/navigation-store';
 import { LandingPage } from '@/components/landing/LandingPage';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { DashboardPage } from '@/components/dashboard/DashboardPage';
+import { LeadsPage } from '@/components/leads/LeadsPage';
 import { ClientsPage } from '@/components/clients/ClientsPage';
 import { ClientDetailPage } from '@/components/clients/ClientDetailPage';
 import { DisputesPage } from '@/components/disputes/DisputesPage';
@@ -28,9 +29,9 @@ export default function Home() {
 
   if (!mounted) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 to-emerald-50">
+      <div className="bg-background flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="border-primary mx-auto mb-4 h-16 w-16 animate-spin rounded-full border-4 border-t-transparent" />
         </div>
       </div>
     );
@@ -45,6 +46,7 @@ export default function Home() {
   const renderView = () => {
     switch (currentView) {
       case 'dashboard': return <DashboardPage />;
+      case 'leads': return <LeadsPage />;
       case 'clients': return <ClientsPage />;
       case 'client-detail': return <ClientDetailPage />;
       case 'disputes': case 'dispute-detail': return <DisputesPage />;

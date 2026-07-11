@@ -38,6 +38,7 @@ import {
   ChevronRight,
   X,
   Home,
+  Inbox,
 } from 'lucide-react';
 
 interface SidebarItem {
@@ -49,6 +50,7 @@ interface SidebarItem {
 
 const adminNavItems: SidebarItem[] = [
   { label: 'Dashboard', icon: LayoutDashboard, view: 'dashboard' },
+  { label: 'Leads', icon: Inbox, view: 'leads', badge: 0 },
   { label: 'Clients', icon: Users, view: 'clients', badge: 0 },
   { label: 'Disputes', icon: ShieldAlert, view: 'disputes', badge: 3 },
   { label: 'Courses', icon: GraduationCap, view: 'courses' },
@@ -101,6 +103,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
     login: t.auth.login,
     register: t.auth.register,
     dashboard: t.nav.dashboard,
+    leads: language === 'es' ? 'Prospectos' : 'Leads',
     clients: t.nav.clients,
     'client-detail': t.nav.clients,
     disputes: t.nav.disputes,

@@ -34,13 +34,6 @@ export async function GET(
         documents: {
           orderBy: { uploadedAt: 'desc' },
         },
-        enrollments: {
-          include: {
-            course: {
-              select: { id: true, titleEn: true, titleEs: true, thumbnail: true },
-            },
-          },
-        },
         invoices: {
           include: {
             payments: true,

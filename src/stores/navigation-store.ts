@@ -5,6 +5,7 @@ export type AppView =
   | 'login'
   | 'register'
   | 'dashboard'
+  | 'leads'
   | 'clients'
   | 'client-detail'
   | 'disputes'

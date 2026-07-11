@@ -10,3 +10,4 @@ skills/
 mini-services/
 examples/
 .zscripts/
+*.tsbuildinfo
