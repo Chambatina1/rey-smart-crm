@@ -266,27 +266,27 @@ export function LandingPage() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100'
+            ? 'bg-background/80 shadow-lg shadow-black/5 backdrop-blur-xl ring-1 ring-black/5'
             : 'bg-transparent'
         }`}
       >
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('landing')}>
-              <div className="w-9 h-9 rounded-lg bg-teal-600 flex items-center justify-center">
-                <Shield className="w-5 h-5 text-white" />
-              </div>
-              <span className="font-bold text-lg text-gray-900">Rey Smart Solution</span>
+            <div className="flex cursor-pointer items-center gap-2.5" onClick={() => navigate('landing')}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/reys-logo.png" alt="REYS Smart Solutions" className="h-9 w-auto" />
             </div>
 
             {/* Desktop nav */}
-            <div className="hidden md:flex items-center gap-6">
+            <div className="hidden items-center gap-7 md:flex">
               {navLinks.map(link => (
                 <button
                   key={link.href}
                   onClick={() => scrollTo(link.href)}
-                  className="text-sm font-medium text-gray-600 hover:text-teal-600 transition-colors"
+                  className={`text-sm font-medium transition-colors ${
+                    scrolled ? 'text-muted-foreground hover:text-foreground' : 'text-white/80 hover:text-white'
+                  }`}
                 >
                   {link.label}
                 </button>
@@ -297,23 +297,26 @@ export function LandingPage() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-teal-600 rounded-lg hover:bg-gray-100 transition-colors"
+                className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+                  scrolled
+                    ? 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                    : 'text-white/80 hover:bg-white/10 hover:text-white'
+                }`}
               >
-                <Globe className="w-4 h-4" />
+                <Globe className="h-4 w-4" />
                 {language === 'en' ? 'ES' : 'EN'}
               </button>
               <Button
-                onClick={() => navigate('dashboard')}
-                variant="outline"
-                className="hidden sm:inline-flex border-teal-600 text-teal-600 hover:bg-teal-50"
+                onClick={() => scrollTo('contact')}
+                className={`hidden bg-[var(--color-gold)] font-semibold text-[var(--gold-foreground)] shadow-md shadow-[var(--color-gold)]/30 transition hover:brightness-110 sm:inline-flex ${scrolled ? '' : 'ring-2 ring-white/20'}`}
               >
-                {language === 'es' ? 'Ver Panel' : 'Open Dashboard'}
+                {language === 'es' ? 'Evaluación Gratis' : 'Free Evaluation'}
               </Button>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden p-2 text-gray-600"
+                className={`p-2 md:hidden ${scrolled ? 'text-muted-foreground' : 'text-white'}`}
               >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </button>
             </div>
           </div>
@@ -323,122 +326,214 @@ export function LandingPage() {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="md:hidden pb-4 border-t border-gray-100"
+              className="border-t border-border pb-4 md:hidden"
             >
               {navLinks.map(link => (
                 <button
                   key={link.href}
                   onClick={() => scrollTo(link.href)}
-                  className="block w-full text-left py-2 text-sm font-medium text-gray-600 hover:text-teal-600"
+                  className="block w-full py-2 text-left text-sm font-medium text-muted-foreground hover:text-foreground"
                 >
                   {link.label}
                 </button>
               ))}
-              <div className="flex gap-2 mt-3">
-                <Button
-                  onClick={() => { navigate('dashboard'); setMobileMenuOpen(false); }}
-                  variant="outline"
-                  className="flex-1 border-teal-600 text-teal-600"
-                >
-                  {language === 'es' ? 'Ver Panel' : 'Open Dashboard'}
-                </Button>
-                <Button
-                  onClick={() => { navigate('dashboard'); setMobileMenuOpen(false); }}
-                  className="flex-1 bg-teal-600 hover:bg-teal-700 text-white"
-                >
-                  {t.landing.getStarted}
-                </Button>
-              </div>
+              <Button
+                onClick={() => { scrollTo('contact'); setMobileMenuOpen(false); }}
+                className="mt-3 w-full bg-[var(--color-gold)] font-semibold text-[var(--gold-foreground)] shadow-md"
+              >
+                {language === 'es' ? 'Evaluación Gratis' : 'Free Evaluation'}
+              </Button>
             </motion.div>
           )}
         </nav>
       </header>
 
       {/* ── Hero Section ────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-teal-900 via-teal-800 to-emerald-800" />
-        {/* Floating shapes */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-20 -left-20 w-72 h-72 bg-teal-500/10 rounded-full blur-3xl" />
-          <div className="absolute top-1/3 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl" />
-          <div className="absolute -bottom-20 left-1/3 w-80 h-80 bg-teal-400/10 rounded-full blur-3xl" />
-          <div className="absolute top-20 right-1/4 w-4 h-4 bg-teal-400/30 rounded-full animate-pulse" />
-          <div className="absolute top-1/2 right-20 w-3 h-3 bg-emerald-400/30 rounded-full animate-pulse delay-700" />
-          <div className="absolute bottom-1/3 left-1/4 w-2 h-2 bg-teal-300/40 rounded-full animate-pulse delay-1000" />
+      <section className="relative flex min-h-screen items-center overflow-hidden bg-[var(--color-primary)]">
+        {/* Background: wealth image (gold bars on dark) — subtle, suggestive */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-30"
+          style={{ backgroundImage: "url('/hero-bg.webp')" }}
+        />
+        {/* Navy overlay for legibility + depth */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 80% 60% at 70% 20%, oklch(0.30 0.05 264 / 0.85) 0%, oklch(0.22 0.035 264 / 0.92) 45%, oklch(0.16 0.02 264 / 0.97) 100%)',
+          }}
+        />
+        {/* Subtle financial grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage:
+              'linear-gradient(oklch(1 0 0) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0) 1px, transparent 1px)',
+            backgroundSize: '48px 48px',
+          }}
+        />
+        {/* Gold glow — top right */}
+        <div className="pointer-events-none absolute -right-32 -top-32 h-[36rem] w-[36rem] rounded-full bg-[var(--color-gold)]/20 blur-[120px]" />
+        {/* Emerald glow — bottom left */}
+        <div className="pointer-events-none absolute -left-40 bottom-0 h-[32rem] w-[32rem] rounded-full bg-[var(--color-accent)]/15 blur-[120px]" />
+        {/* Center vignette accent */}
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--color-gold)]/5 blur-[100px]" />
+
+        {/* Animated particles */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute left-[15%] top-[30%] h-1 w-1 animate-pulse rounded-full bg-[var(--color-gold)]/60" />
+          <div className="absolute right-[20%] top-[45%] h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--color-accent)]/50 [animation-delay:700ms]" />
+          <div className="absolute bottom-[25%] left-[30%] h-1 w-1 animate-pulse rounded-full bg-white/40 [animation-delay:1400ms]" />
+          <div className="absolute right-[35%] bottom-[35%] h-1 w-1 animate-pulse rounded-full bg-[var(--color-gold)]/40 [animation-delay:2100ms]" />
+          <div className="absolute left-[60%] top-[20%] h-0.5 w-0.5 animate-pulse rounded-full bg-white/60 [animation-delay:1000ms]" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+        {/* Content */}
+        <div className="relative mx-auto w-full max-w-7xl px-4 py-32 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+            {/* Left — text */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
-                {t.landing.heroTitle}
+              {/* Logo large */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.92 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="mb-7"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/reys-logo.png" alt="REYS Smart Solutions" className="h-16 w-auto drop-shadow-[0_4px_24px_rgba(201,162,39,0.35)]" />
+              </motion.div>
+
+              <h1 className="text-4xl font-bold leading-[1.1] text-white sm:text-5xl lg:text-6xl">
+                {language === 'es' ? (
+                  <>
+                    Reconstruye Tu Crédito
+                    <br />
+                    Con <span className="text-[var(--color-accent)]">Estrategia Legal</span>
+                    <br />
+                    Y Expertos Reales
+                  </>
+                ) : (
+                  <>
+                    Rebuild Your Credit
+                    <br />
+                    With <span className="text-[var(--color-accent)]">Legal Strategy</span>
+                    <br />
+                    And Real Experts
+                  </>
+                )}
               </h1>
-              <p className="mt-6 text-lg text-teal-100/90 max-w-xl leading-relaxed">
+
+              {/* Elegant tagline */}
+              <p className="mt-5 text-lg font-light italic tracking-wide text-[var(--color-gold)]">
+                {language === 'es' ? '"Construyendo Vidas, No Solo Crédito."' : '"Building Lives, Not Just Credit."'}
+              </p>
+
+              <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/70">
                 {t.landing.heroSubtitle}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 mt-10">
+
+              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                 <Button
-                  onClick={() => navigate('dashboard')}
+                  onClick={() => scrollTo('contact')}
                   size="lg"
-                  className="bg-white text-teal-700 hover:bg-teal-50 px-8 py-6 text-base font-semibold rounded-xl shadow-lg"
+                  className="bg-[var(--color-gold)] px-8 py-6 text-base font-semibold text-[var(--gold-foreground)] shadow-xl shadow-[var(--color-gold)]/30 transition hover:brightness-110 active:scale-[0.98]"
                 >
-                  {t.landing.getStarted}
-                  <ChevronRight className="w-5 h-5 ml-1" />
+                  {language === 'es' ? 'Evaluación Gratis' : 'Free Evaluation'}
+                  <ChevronRight className="ml-1 h-5 w-5" />
                 </Button>
                 <Button
+                  onClick={() => scrollTo('how-it-works')}
                   size="lg"
                   variant="outline"
-                  className="border-white/40 text-white hover:bg-white/10 px-8 py-6 text-base rounded-xl"
+                  className="border-white/30 bg-white/5 px-8 py-6 text-base text-white backdrop-blur-sm transition hover:bg-white/15"
                 >
-                  <PhoneCall className="w-5 h-5 mr-2" />
-                  {t.landing.scheduleConsultation}
+                  {language === 'es' ? 'Cómo Funciona' : 'How it Works'}
                 </Button>
+              </div>
+
+              {/* Trust badges */}
+              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2.5">
+                {[
+                  { icon: Shield, label: language === 'es' ? 'Sin cobros por adelantado' : 'No Upfront Fees' },
+                  { icon: FileSearch, label: language === 'es' ? 'Ley federal' : 'Federal Law' },
+                  { icon: PhoneCall, label: language === 'es' ? 'Todo el país' : 'Nationwide' },
+                  { icon: Users, label: language === 'es' ? 'Profesionales' : 'Licensed Pros' },
+                ].map((b, i) => (
+                  <div key={i} className="flex items-center gap-1.5 text-sm text-white/75">
+                    <b.icon className="h-4 w-4 text-[var(--color-gold)]" />
+                    {b.label}
+                  </div>
+                ))}
               </div>
             </motion.div>
 
-            {/* Score card */}
+            {/* Right — glass score card */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, scale: 0.9, x: 20 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="hidden lg:block"
+              className="relative hidden lg:block"
             >
-              <div className="relative">
-                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-3xl p-8 text-white">
-                  <div className="space-y-6">
-                    <div>
-                      <p className="text-teal-200 text-sm">{language === 'es' ? 'Puntaje Antes' : 'Score Before'}</p>
-                      <p className="text-4xl font-bold">489</p>
-                      <div className="w-full bg-white/20 rounded-full h-2 mt-2">
-                        <div className="bg-red-400 h-2 rounded-full" style={{ width: '40%' }} />
-                      </div>
+              {/* floating ring accent */}
+              <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full border border-[var(--color-gold)]/30 [animation:spin_18s_linear_infinite]" />
+              <div className="absolute -bottom-6 -left-6 h-16 w-16 rounded-full border border-[var(--color-accent)]/20" />
+
+              <div className="relative rounded-3xl border border-white/15 bg-white/[0.07] p-8 text-white shadow-2xl backdrop-blur-xl">
+                {/* shimmer top line */}
+                <div className="absolute left-8 right-8 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-gold)]/60 to-transparent" />
+
+                <div className="space-y-6">
+                  <div>
+                    <p className="text-sm text-white/60">{language === 'es' ? 'Puntaje Antes' : 'Score Before'}</p>
+                    <p className="text-4xl font-bold text-red-300">489</p>
+                    <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/15">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: '40%' }}
+                        transition={{ duration: 1.2, delay: 0.8 }}
+                        className="h-2 rounded-full bg-red-400"
+                      />
                     </div>
-                    <div className="flex items-center justify-center">
-                      <div className="bg-white/20 rounded-full p-3">
-                        <Rocket className="w-8 h-8 text-white" />
-                      </div>
+                  </div>
+
+                  <div className="flex items-center justify-center">
+                    <div className="rounded-full bg-[var(--color-gold)]/15 p-3.5 ring-1 ring-[var(--color-gold)]/30">
+                      <Rocket className="h-7 w-7 text-[var(--color-gold)]" />
                     </div>
-                    <div>
-                      <p className="text-teal-200 text-sm">{language === 'es' ? 'Puntaje Despues' : 'Score After'}</p>
-                      <p className="text-4xl font-bold">742</p>
-                      <div className="w-full bg-white/20 rounded-full h-2 mt-2">
-                        <div className="bg-green-300 h-2 rounded-full" style={{ width: '85%' }} />
-                      </div>
+                  </div>
+
+                  <div>
+                    <p className="text-sm text-white/60">{language === 'es' ? 'Puntaje Después' : 'Score After'}</p>
+                    <p className="text-4xl font-bold text-[var(--color-accent)]">742</p>
+                    <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/15">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: '85%' }}
+                        transition={{ duration: 1.2, delay: 1 }}
+                        className="h-2 rounded-full bg-[var(--color-accent)]"
+                      />
                     </div>
-                    <div className="flex items-center gap-2 bg-white/10 rounded-xl p-3">
-                      <Star className="w-5 h-5 text-yellow-400" />
-                      <span className="text-sm">{language === 'es' ? '+253 puntos en 6 meses' : '+253 points in 6 months'}</span>
-                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 rounded-xl bg-white/5 px-3 py-3 ring-1 ring-white/10">
+                    <Star className="h-5 w-5 text-[var(--color-gold)]" />
+                    <span className="text-sm font-medium">
+                      {language === 'es' ? '+253 puntos en 6 meses' : '+253 points in 6 months'}
+                    </span>
                   </div>
                 </div>
               </div>
             </motion.div>
           </div>
         </div>
+
+        {/* Bottom fade into next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[var(--color-primary)] to-transparent" />
       </section>
 
       {/* ── Service Carousel ───────────────────────────── */}
@@ -821,71 +916,69 @@ export function LandingPage() {
       </section>
 
       {/* ── Footer ──────────────────────────────────────── */}
-      <footer className="bg-gray-950 text-gray-400 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <footer className="bg-[var(--color-primary)] py-12 text-white/60">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-9 h-9 rounded-lg bg-teal-600 flex items-center justify-center">
-                  <Shield className="w-5 h-5 text-white" />
-                </div>
-                <span className="font-bold text-lg text-white">Rey Smart Solution</span>
+              <div className="mb-4 flex items-center gap-2.5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/reys-logo.png" alt="REYS Smart Solutions" className="h-9 w-auto" />
               </div>
-              <p className="text-sm text-gray-500 mb-4">
+              <p className="mb-4 text-sm text-white/40">
                 {language === 'es'
-                  ? 'Transformando vidas a traves de soluciones financieras inteligentes.'
+                  ? 'Transformando vidas a través de soluciones financieras inteligentes.'
                   : 'Transforming lives through smart financial solutions.'}
               </p>
               <div className="flex gap-3">
                 {[Facebook, Instagram, Twitter, Linkedin].map((Icon, i) => (
-                  <a key={i} href="#" className="w-9 h-9 rounded-lg bg-gray-800 hover:bg-teal-600 flex items-center justify-center transition-colors">
-                    <Icon className="w-4 h-4" />
+                  <a key={i} href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 text-white/50 ring-1 ring-white/10 transition-colors hover:bg-[var(--color-gold)] hover:text-[var(--color-primary)]">
+                    <Icon className="h-4 w-4" />
                   </a>
                 ))}
               </div>
             </div>
 
             <div>
-              <h4 className="font-semibold text-white mb-4">{t.landing.aboutUs}</h4>
+              <h4 className="mb-4 font-semibold text-white">{t.landing.aboutUs}</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-teal-400 transition-colors">{t.landing.aboutUs}</a></li>
-                <li><a href="#services" className="hover:text-teal-400 transition-colors">{t.landing.services}</a></li>
-                <li><a href="#" className="hover:text-teal-400 transition-colors">{t.landing.privacyPolicy}</a></li>
+                <li><a href="#" className="transition-colors hover:text-[var(--color-gold)]">{t.landing.aboutUs}</a></li>
+                <li><a href="#services" className="transition-colors hover:text-[var(--color-gold)]">{t.landing.services}</a></li>
+                <li><a href="#" className="transition-colors hover:text-[var(--color-gold)]">{t.landing.privacyPolicy}</a></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-semibold text-white mb-4">{t.nav.courses}</h4>
+              <h4 className="mb-4 font-semibold text-white">{t.nav.courses}</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#courses" className="hover:text-teal-400 transition-colors">{t.landing.featuredCourses}</a></li>
-                <li><a href="#" className="hover:text-teal-400 transition-colors">{t.landing.contactUs}</a></li>
+                <li><a href="#courses" className="transition-colors hover:text-[var(--color-gold)]">{t.landing.featuredCourses}</a></li>
+                <li><a href="#contact" className="transition-colors hover:text-[var(--color-gold)]">{t.landing.contactUs}</a></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-semibold text-white mb-4">{t.landing.contactUs}</h4>
+              <h4 className="mb-4 font-semibold text-white">{t.landing.contactUs}</h4>
               <ul className="space-y-3 text-sm">
                 <li className="flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-teal-400 flex-shrink-0" />
+                  <Phone className="h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />
                   (407) 432-8872
                 </li>
                 <li className="flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-teal-400 flex-shrink-0" />
+                  <Mail className="h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />
                   info@reysmartsolution.com
                 </li>
                 <li className="flex items-start gap-2">
-                  <MapPin className="w-4 h-4 text-teal-400 flex-shrink-0 mt-0.5" />
+                  <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />
                   <span>7800 S US Hwy 17/92, Ste 194, Fern Park, FL 32730</span>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-gray-500">&copy; 2024 Rey Smart Solution. {t.landing.footerRights}</p>
-            <div className="flex gap-6 text-sm text-gray-500">
-              <a href="#" className="hover:text-teal-400 transition-colors">{t.landing.privacyPolicy}</a>
-              <a href="#" className="hover:text-teal-400 transition-colors">{t.landing.termsOfService}</a>
+          <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
+            <p className="text-sm text-white/40">&copy; {new Date().getFullYear()} REYS Smart Solutions. {t.landing.footerRights}</p>
+            <div className="flex gap-6 text-sm text-white/40">
+              <a href="#" className="transition-colors hover:text-[var(--color-gold)]">{t.landing.privacyPolicy}</a>
+              <a href="#" className="transition-colors hover:text-[var(--color-gold)]">{t.landing.termsOfService}</a>
             </div>
           </div>
         </div>
