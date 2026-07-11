@@ -28,6 +28,9 @@ RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
+COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
@@ -36,6 +39,16 @@ RUN chown nextjs:nodejs .next
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# Startup script: push schema to DB (env vars available at runtime), then serve
+RUN echo '#!/bin/sh' > /app/start.sh && \
+    echo 'set -e' >> /app/start.sh && \
+    echo 'echo "[startup] Pushing Prisma schema to database..."' >> /app/start.sh && \
+    echo 'npx prisma db push --skip-generate --accept-data-loss || echo "[startup] WARNING: prisma db push failed, continuing..."' >> /app/start.sh && \
+    echo 'echo "[startup] Starting Next.js server..."' >> /app/start.sh && \
+    echo 'exec node server.js' >> /app/start.sh && \
+    chmod +x /app/start.sh && \
+    chown nextjs:nodejs /app/start.sh
+
 USER nextjs
 
 EXPOSE 10000
@@ -43,4 +56,4 @@ EXPOSE 10000
 ENV PORT=10000
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["node", "server.js"]
+CMD ["/app/start.sh"]
