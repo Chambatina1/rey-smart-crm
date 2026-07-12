@@ -169,18 +169,18 @@ export function LandingPage() {
       title: t.landing.creditRepair,
       desc: t.landing.creditRepairLongDesc,
       shortDesc: t.landing.creditRepairDesc,
-      gradient: 'from-teal-600 via-teal-500 to-cyan-500',
-      iconBg: 'bg-teal-400/30',
-      btnClass: 'bg-white text-teal-700 hover:bg-teal-50',
+      gradient: 'from-[var(--color-primary)] via-[var(--color-accent)] to-[var(--color-accent)]',
+      iconBg: 'bg-[var(--color-gold)]/30',
+      btnClass: 'bg-white text-[var(--color-accent)] hover:bg-[var(--color-accent)]/10',
     },
     {
       icon: DollarSign,
       title: t.landing.consolidation,
       desc: t.landing.consolidationLongDesc,
       shortDesc: t.landing.consolidationDesc,
-      gradient: 'from-emerald-600 via-emerald-500 to-green-500',
-      iconBg: 'bg-emerald-400/30',
-      btnClass: 'bg-white text-emerald-700 hover:bg-emerald-50',
+      gradient: 'from-[var(--color-accent)] via-[var(--color-accent)] to-[var(--color-accent)]',
+      iconBg: 'bg-[var(--color-accent)]/20',
+      btnClass: 'bg-white text-[var(--color-accent)] hover:bg-[var(--color-accent)]/10',
     },
     {
       icon: GraduationCap,
@@ -214,15 +214,15 @@ export function LandingPage() {
       title: t.landing.businessCredit,
       desc: t.landing.businessCreditLongDesc,
       shortDesc: t.landing.businessCreditDesc,
-      gradient: 'from-sky-600 via-sky-500 to-cyan-500',
+      gradient: 'from-[var(--color-primary)] via-[var(--color-accent)] to-[var(--color-accent)]',
       iconBg: 'bg-sky-400/30',
       btnClass: 'bg-white text-sky-700 hover:bg-sky-50',
     },
   ];
 
   const services = [
-    { icon: Shield, title: t.landing.creditRepair, desc: t.landing.creditRepairDesc, color: 'bg-teal-100 text-teal-600' },
-    { icon: DollarSign, title: t.landing.consolidation, desc: t.landing.consolidationDesc, color: 'bg-emerald-100 text-emerald-600' },
+    { icon: Shield, title: t.landing.creditRepair, desc: t.landing.creditRepairDesc, color: 'bg-[var(--color-gold)]/15 text-[var(--color-gold)]' },
+    { icon: DollarSign, title: t.landing.consolidation, desc: t.landing.consolidationDesc, color: 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]' },
     { icon: GraduationCap, title: t.landing.education, desc: t.landing.educationDesc, color: 'bg-amber-100 text-amber-600' },
     { icon: Users, title: t.landing.counseling, desc: t.landing.counselingDesc, color: 'bg-rose-100 text-rose-600' },
   ];
@@ -239,7 +239,7 @@ export function LandingPage() {
       desc: language === 'es'
         ? 'Aprende los fundamentos del credito, desde como funciona hasta como construir un historial solido.'
         : 'Learn the fundamentals of credit, from how it works to building a solid history.',
-      gradient: 'from-teal-500 to-teal-700',
+      gradient: 'from-[var(--color-accent)] to-[var(--color-primary)]',
       icon: BookOpen,
     },
     {
@@ -247,7 +247,7 @@ export function LandingPage() {
       desc: language === 'es'
         ? 'Descubre las mejores estrategias para consolidar deudas y reducir pagos mensuales.'
         : 'Discover the best strategies to consolidate debt and reduce monthly payments.',
-      gradient: 'from-emerald-500 to-emerald-700',
+      gradient: 'from-[var(--color-gold)] to-[var(--color-accent)]',
       icon: DollarSign,
     },
     {
@@ -255,7 +255,7 @@ export function LandingPage() {
       desc: language === 'es'
         ? 'Todo lo que necesitas saber para comprar tu primera casa con el mejor credito posible.'
         : 'Everything you need to know to buy your first home with the best credit possible.',
-      gradient: 'from-teal-600 to-emerald-600',
+      gradient: 'from-[var(--color-primary)] to-[var(--color-accent)]',
       icon: GraduationCap,
     },
   ];
@@ -623,7 +623,7 @@ export function LandingPage() {
                   }}
                   className={`h-2.5 rounded-full transition-all duration-300 ${
                     i === currentSlide
-                      ? 'w-8 bg-teal-600'
+                      ? 'w-8 bg-[var(--color-accent)]'
                       : 'w-2.5 bg-gray-300 hover:bg-gray-400'
                   }`}
                   aria-label={`Go to slide ${i + 1}`}
@@ -661,7 +661,7 @@ export function LandingPage() {
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${service.color}`}>
                       <service.icon className="w-6 h-6" />
                     </div>
-                    <h3 className="font-semibold text-lg text-gray-900 mb-2 group-hover:text-teal-600 transition-colors">
+                    <h3 className="font-semibold text-lg text-gray-900 mb-2 group-hover:text-[var(--color-accent)] transition-colors">
                       {service.title}
                     </h3>
                     <p className="text-sm text-gray-600 leading-relaxed">{service.desc}</p>
@@ -687,7 +687,7 @@ export function LandingPage() {
 
           <div className="grid md:grid-cols-3 gap-8 relative">
             {/* Connecting line */}
-            <div className="hidden md:block absolute top-10 left-1/6 right-1/6 h-0.5 bg-teal-200" />
+            <div className="hidden md:block absolute top-10 left-1/6 right-1/6 h-0.5 bg-[var(--color-gold)]/30" />
             {steps.map((step, i) => (
               <motion.div
                 key={i}
@@ -697,11 +697,11 @@ export function LandingPage() {
                 transition={{ delay: i * 0.15 }}
                 className="text-center relative"
               >
-                <div className="relative inline-flex items-center justify-center w-20 h-20 rounded-full bg-teal-600 text-white mb-6 shadow-lg shadow-teal-600/25 z-10">
+                <div className="relative inline-flex items-center justify-center w-20 h-20 rounded-full bg-[var(--color-accent)] text-white mb-6 shadow-lg shadow-[var(--color-accent)]/25 z-10">
                   <span className="text-2xl font-bold">{step.num}</span>
                 </div>
-                <div className="w-14 h-14 rounded-xl bg-teal-50 flex items-center justify-center mx-auto mb-4">
-                  <step.icon className="w-7 h-7 text-teal-600" />
+                <div className="w-14 h-14 rounded-xl bg-[var(--color-gold)]/10 flex items-center justify-center mx-auto mb-4">
+                  <step.icon className="w-7 h-7 text-[var(--color-accent)]" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">{step.title}</h3>
                 <p className="text-gray-600 max-w-xs mx-auto">{step.desc}</p>
@@ -712,7 +712,7 @@ export function LandingPage() {
       </section>
 
       {/* ── Stats Section ───────────────────────────────── */}
-      <section className="py-16 bg-gradient-to-r from-teal-600 to-emerald-600">
+      <section className="py-16 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
@@ -725,7 +725,7 @@ export function LandingPage() {
                 <p className="text-3xl sm:text-4xl font-bold">
                   <AnimatedCounter end={stat.end} suffix={stat.suffix} />
                 </p>
-                <p className="mt-2 text-teal-100 text-sm">{stat.label}</p>
+                <p className="mt-2 text-[var(--color-gold)]/90 text-sm">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -745,7 +745,7 @@ export function LandingPage() {
             </motion.div>
             <Button
               variant="outline"
-              className="border-teal-600 text-teal-600 hover:bg-teal-50"
+              className="border-[var(--color-accent)] text-[var(--color-accent)] hover:bg-[var(--color-accent)]/10"
               onClick={() => navigate('courses')}
             >
               {t.landing.viewAll}
@@ -767,7 +767,7 @@ export function LandingPage() {
                     <div className={`w-full h-36 rounded-xl bg-gradient-to-br ${course.gradient} flex items-center justify-center mb-4`}>
                       <course.icon className="w-12 h-12 text-white/80" />
                     </div>
-                    <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors">
+                    <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-[var(--color-accent)] transition-colors">
                       {course.title}
                     </h3>
                     <p className="text-sm text-gray-600 leading-relaxed mb-4">{course.desc}</p>
@@ -776,7 +776,7 @@ export function LandingPage() {
                         <Clock className="w-4 h-4" />
                         <span>3h 30m</span>
                       </div>
-                      <Button size="sm" className="bg-teal-600 hover:bg-teal-700 text-white text-xs">
+                      <Button size="sm" className="bg-[var(--color-accent)] hover:bg-[var(--color-accent)]/90 text-white text-xs">
                         {language === 'es' ? 'Inscribirse' : 'Enroll Now'}
                       </Button>
                     </div>
@@ -809,7 +809,7 @@ export function LandingPage() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                <Card className={`h-full border-0 shadow-md ${i === currentTestimonial ? 'ring-2 ring-teal-600' : ''}`}>
+                <Card className={`h-full border-0 shadow-md ${i === currentTestimonial ? 'ring-2 ring-[var(--color-gold)]' : ''}`}>
                   <CardContent className="p-6">
                     <div className="flex gap-1 mb-4">
                       {Array.from({ length: item.rating }).map((_, j) => (
@@ -820,7 +820,7 @@ export function LandingPage() {
                       &ldquo;{item.text}&rdquo;
                     </p>
                     <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center text-white text-sm font-bold">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--color-gold)] to-[var(--color-accent)] flex items-center justify-center text-white text-sm font-bold">
                         {item.name.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div>
@@ -840,7 +840,7 @@ export function LandingPage() {
                 key={i}
                 onClick={() => setCurrentTestimonial(i)}
                 className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                  i === currentTestimonial ? 'bg-teal-600' : 'bg-gray-300'
+                  i === currentTestimonial ? 'bg-[var(--color-accent)]' : 'bg-gray-300'
                 }`}
               />
             ))}
