@@ -621,6 +621,64 @@ export function LandingPage() {
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[var(--color-primary)] to-transparent" />
       </section>
 
+      {/* ── About / Who We Are (with video) ────────────── */}
+      <section id="about" className="overflow-hidden bg-white py-20">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+          {/* Left — text */}
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-block rounded-full bg-[var(--color-gold)]/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-gold)]">
+              {t.landing.aboutEyebrow}
+            </span>
+            <h2 className="mt-5 text-3xl font-bold text-gray-900 sm:text-4xl lg:text-5xl">
+              {t.landing.aboutTitle}
+            </h2>
+            <p className="mt-6 text-lg leading-relaxed text-gray-600">
+              {t.landing.aboutText1}
+            </p>
+            <p className="mt-4 text-lg leading-relaxed text-gray-600">
+              {t.landing.aboutText2}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Button
+                onClick={() => scrollTo('contact')}
+                className="bg-[var(--color-accent)] px-6 py-5 text-base font-semibold text-white shadow-lg shadow-[var(--color-accent)]/25 transition hover:brightness-110"
+              >
+                {language === 'es' ? 'Solicitar evaluación gratis' : 'Get Free Evaluation'}
+                <ChevronRight className="ml-1 h-5 w-5" />
+              </Button>
+            </div>
+          </motion.div>
+
+          {/* Right — YouTube video */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="relative"
+          >
+            <div className="relative overflow-hidden rounded-2xl shadow-2xl ring-1 ring-black/10">
+              {/* Decorative gold glow behind video */}
+              <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-br from-[var(--color-gold)]/10 to-[var(--color-accent)]/10 blur-xl" />
+              <div className="relative aspect-video">
+                <iframe
+                  src="https://www.youtube.com/embed/5RMMZPs0u1o?rel=0&modestbranding=1"
+                  title="REYS Smart Solutions — Quiénes Somos"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="absolute inset-0 h-full w-full"
+                />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ── Service Carousel ───────────────────────────── */}
       <section className="py-16 sm:py-20 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
