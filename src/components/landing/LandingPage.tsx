@@ -31,6 +31,12 @@ import {
   Home,
   Briefcase,
   ArrowRight,
+  TrendingUp,
+  Award,
+  MessageCircle,
+  ChevronDown,
+  Plus,
+  Minus,
 } from 'lucide-react';
 import {
   Carousel,
@@ -63,14 +69,44 @@ function useCountUp(end: number, duration = 2000, startCounting = false) {
   return count;
 }
 
-function AnimatedCounter({ end, suffix }: { end: number; suffix?: string }) {
+function AnimatedCounter({ end, suffix, prefix }: { end: number; suffix?: string; prefix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
   const count = useCountUp(end, 2000, inView);
   return (
     <span ref={ref}>
-      {count.toLocaleString()}{suffix}
+      {prefix}{count.toLocaleString()}{suffix}
     </span>
+  );
+}
+
+/* ── FAQ accordion item ────────────────────────────────────────── */
+function FaqItem({ question, answer }: { question: string; answer: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white transition-shadow hover:shadow-md">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+      >
+        <span className="font-medium text-gray-900">{question}</span>
+        <span className="flex-shrink-0">
+          {open ? (
+            <Minus className="h-5 w-5 text-[var(--color-gold)]" />
+          ) : (
+            <Plus className="h-5 w-5 text-[var(--color-accent)]" />
+          )}
+        </span>
+      </button>
+      <motion.div
+        initial={false}
+        animate={{ height: open ? 'auto' : 0, opacity: open ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        className="overflow-hidden"
+      >
+        <p className="px-5 pb-4 text-sm leading-relaxed text-gray-600">{answer}</p>
+      </motion.div>
+    </div>
   );
 }
 
@@ -93,27 +129,27 @@ export function LandingPage() {
 
   const testimonials = [
     {
-      name: language === 'es' ? 'Maria Garcia' : 'Maria Garcia',
-      role: language === 'es' ? 'Cliente desde 2023' : 'Client since 2023',
+      name: 'María R.',
+      role: language === 'es' ? 'Orlando, FL' : 'Orlando, FL',
       text: language === 'es'
-        ? 'Rey Smart Solution transformo mi vida financiera. Mi puntaje subio 120 puntos en solo 6 meses.'
-        : 'Rey Smart Solution transformed my financial life. My score went up 120 points in just 6 months.',
+        ? 'Me explicaron todo con claridad y nunca prometieron lo que no podían hacer. Hoy califiqué para mi primera casa.'
+        : 'They explained everything clearly and never promised what they could not deliver. Today I qualified for my first home.',
       rating: 5,
     },
     {
-      name: language === 'es' ? 'Carlos Rodriguez' : 'Carlos Rodriguez',
-      role: language === 'es' ? 'Cliente desde 2022' : 'Client since 2022',
+      name: 'Jorge C.',
+      role: language === 'es' ? 'Florida' : 'Florida',
       text: language === 'es'
-        ? 'El equipo es profesional y dedicado. Me guiaron paso a paso en todo el proceso.'
-        : 'The team is professional and dedicated. They guided me step by step through the entire process.',
+        ? 'Profesionales de principio a fin. Me acompañaron en cada disputa y mi puntaje subió más de 150 puntos.'
+        : 'Professional from start to finish. They walked me through every dispute and my score went up over 150 points.',
       rating: 5,
     },
     {
-      name: language === 'es' ? 'Ana Martinez' : 'Ana Martinez',
-      role: language === 'es' ? 'Cliente desde 2024' : 'Client since 2024',
+      name: 'Luis V.',
+      role: language === 'es' ? 'Miami, FL' : 'Miami, FL',
       text: language === 'es'
-        ? 'Gracias a sus cursos educativos, ahora entiendo como funciona el credito. Pude comprar mi primera casa.'
-        : 'Thanks to their educational courses, I now understand how credit works. I was able to buy my first home.',
+        ? 'La educación que recibí cambió mi forma de ver el crédito. Hoy tengo el historial más sano de mi vida.'
+        : 'The education I received changed how I see credit. Today I have the healthiest credit history of my life.',
       rating: 5,
     },
   ];
@@ -221,16 +257,16 @@ export function LandingPage() {
   ];
 
   const services = [
-    { icon: Shield, title: t.landing.creditRepair, desc: t.landing.creditRepairDesc, color: 'bg-[var(--color-gold)]/15 text-[var(--color-gold)]' },
-    { icon: DollarSign, title: t.landing.consolidation, desc: t.landing.consolidationDesc, color: 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]' },
-    { icon: GraduationCap, title: t.landing.education, desc: t.landing.educationDesc, color: 'bg-amber-100 text-amber-600' },
-    { icon: Users, title: t.landing.counseling, desc: t.landing.counselingDesc, color: 'bg-rose-100 text-rose-600' },
+    { icon: Shield, title: t.landing.protection, desc: t.landing.protectionDesc, color: 'bg-[var(--color-gold)]/15 text-[var(--color-gold)]' },
+    { icon: TrendingUp, title: t.landing.building, desc: t.landing.buildingDesc, color: 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]' },
+    { icon: GraduationCap, title: t.landing.education2, desc: t.landing.education2Desc, color: 'bg-[var(--color-gold)]/15 text-[var(--color-gold)]' },
   ];
 
   const steps = [
     { icon: Phone, title: t.landing.step1, desc: t.landing.step1Desc, num: '01' },
     { icon: FileSearch, title: t.landing.step2, desc: t.landing.step2Desc, num: '02' },
     { icon: Rocket, title: t.landing.step3, desc: t.landing.step3Desc, num: '03' },
+    { icon: Award, title: t.landing.step4, desc: t.landing.step4Desc, num: '04' },
   ];
 
   const courses = [
@@ -650,7 +686,7 @@ export function LandingPage() {
             <p className="mt-4 text-lg text-gray-600">{t.landing.servicesSubtitle}</p>
           </motion.div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service, i) => (
               <motion.div
                 key={i}
@@ -732,10 +768,10 @@ export function LandingPage() {
         <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {[
-              { end: 2500, suffix: '+', label: t.landing.clientsHelped },
-              { end: 15000, suffix: '+', label: t.landing.disputesResolved },
-              { end: 85, suffix: '+', label: t.landing.avgImprovement },
-              { end: 500, suffix: '+', label: t.landing.coursesCompleted },
+              { end: 3, suffix: '', label: t.landing.statFronts, prefix: '' },
+              { end: 100, suffix: '%', label: t.landing.statCompliance, prefix: '' },
+              { end: 6, suffix: '+', label: t.landing.statYears, prefix: '' },
+              { end: 0, suffix: '', label: t.landing.statUpfront, prefix: '$' },
             ].map((stat, i) => (
               <motion.div
                 key={i}
@@ -746,7 +782,7 @@ export function LandingPage() {
                 className="text-center"
               >
                 <p className="bg-gradient-to-b from-white to-white/70 bg-clip-text text-4xl font-bold text-transparent drop-shadow-sm sm:text-5xl">
-                  <AnimatedCounter end={stat.end} suffix={stat.suffix} />
+                  <AnimatedCounter end={stat.end} suffix={stat.suffix} prefix={stat.prefix} />
                 </p>
                 <p className="mt-2 text-sm font-medium uppercase tracking-wide text-[var(--color-gold)]">{stat.label}</p>
               </motion.div>
@@ -911,13 +947,13 @@ export function LandingPage() {
 
             {/* contact info */}
             <div className="mt-8 space-y-3 text-sm">
-              <a href="tel:+14074328872" className="flex items-center gap-3 text-white/70 transition hover:text-[var(--color-gold)]">
+              <a href="tel:+14077163478" className="flex items-center gap-3 text-white/70 transition hover:text-[var(--color-gold)]">
                 <Phone className="h-4 w-4 text-[var(--color-gold)]" />
-                (407) 432-8872
+                (407) 716-3478
               </a>
-              <a href="mailto:info@reysmartsolution.com" className="flex items-center gap-3 text-white/70 transition hover:text-[var(--color-gold)]">
+              <a href="mailto:admin@reyssmartsolution.com" className="flex items-center gap-3 text-white/70 transition hover:text-[var(--color-gold)]">
                 <Mail className="h-4 w-4 text-[var(--color-gold)]" />
-                info@reysmartsolution.com
+                admin@reyssmartsolution.com
               </a>
               <div className="flex items-start gap-3 text-white/70">
                 <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />
@@ -937,6 +973,111 @@ export function LandingPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* ── Team Section ────────────────────────────────── */}
+      <section id="team" className="bg-gray-50 py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-14 text-center"
+          >
+            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{t.landing.teamTitle}</h2>
+            <p className="mt-4 text-lg text-gray-600">{t.landing.teamSubtitle}</p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
+            {[
+              { name: t.landing.team1Name, role: t.landing.team1Role, initials: 'ER' },
+              { name: t.landing.team2Name, role: t.landing.team2Role, initials: 'D' },
+              { name: t.landing.team3Name, role: t.landing.team3Role, initials: 'V' },
+              { name: t.landing.team4Name, role: t.landing.team4Role, initials: 'C' },
+              { name: t.landing.team5Name, role: t.landing.team5Role, initials: 'C' },
+              { name: t.landing.team6Name, role: t.landing.team6Role, initials: 'Y' },
+            ].map((member, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ delay: i * 0.08 }}
+              >
+                <Card className="glow-ring tilt-card border-0 text-center shadow-md hover:shadow-xl">
+                  <CardContent className="p-6">
+                    <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] text-xl font-bold text-white shadow-lg">
+                      {member.initials}
+                    </div>
+                    <h3 className="font-semibold text-gray-900">{member.name}</h3>
+                    <p className="mt-1 text-xs text-[var(--color-accent)]">{member.role}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ Section (accordion) ─────────────────────── */}
+      <section id="faq" className="bg-white py-20">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12 text-center"
+          >
+            <span className="inline-block rounded-full bg-[var(--color-gold)]/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-gold)]">
+              {t.landing.faqEyebrow}
+            </span>
+            <h2 className="mt-5 text-3xl font-bold text-gray-900 sm:text-4xl">{t.landing.faqTitle}</h2>
+            <p className="mt-4 text-lg text-gray-600">{t.landing.faqSubtitle}</p>
+          </motion.div>
+
+          <div className="space-y-3">
+            {[
+              { q: t.landing.faq1Q, a: t.landing.faq1A },
+              { q: t.landing.faq2Q, a: t.landing.faq2A },
+              { q: t.landing.faq3Q, a: t.landing.faq3A },
+              { q: t.landing.faq4Q, a: t.landing.faq4A },
+              { q: t.landing.faq5Q, a: t.landing.faq5A },
+              { q: t.landing.faq6Q, a: t.landing.faq6A },
+            ].map((item, i) => (
+              <FaqItem key={i} question={item.q} answer={item.a} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Disclaimer ──────────────────────────────────── */}
+      <section className="bg-gray-50 py-12">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+          >
+            <h3 className="mb-3 flex items-center gap-2 text-lg font-bold text-gray-900">
+              <Shield className="h-5 w-5 text-[var(--color-gold)]" />
+              {t.landing.disclaimerTitle}
+            </h3>
+            <p className="text-sm leading-relaxed text-gray-600">{t.landing.disclaimerText}</p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── Floating WhatsApp button ───────────────────── */}
+      <a
+        href="https://wa.me/14077163478"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl shadow-[#25D366]/40 transition-transform hover:scale-110 active:scale-95"
+        aria-label="WhatsApp"
+      >
+        <MessageCircle className="h-7 w-7" />
+        <span className="absolute inset-0 animate-ping rounded-full bg-[#25D366]/40" />
+      </a>
 
       {/* ── Footer ──────────────────────────────────────── */}
       <footer className="bg-[var(--color-primary)] py-12 text-white/60">
@@ -983,11 +1124,11 @@ export function LandingPage() {
               <ul className="space-y-3 text-sm">
                 <li className="flex items-center gap-2">
                   <Phone className="h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />
-                  (407) 432-8872
+                  (407) 716-3478
                 </li>
                 <li className="flex items-center gap-2">
                   <Mail className="h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />
-                  info@reysmartsolution.com
+                  admin@reyssmartsolution.com
                 </li>
                 <li className="flex items-start gap-2">
                   <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />
