@@ -390,12 +390,12 @@ export function LandingPage() {
 
       {/* ── Hero Section ────────────────────────────────── */}
       <section className="relative flex min-h-screen items-center overflow-hidden bg-[var(--color-primary)]">
-        {/* Background: deep navy with blue ambient glow — white/blue palette */}
+        {/* Background: lighter navy with brighter blue ambient glow */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 70% 60% at 65% 25%, oklch(0.20 0.06 245 / 0.95) 0%, oklch(0.14 0.035 258 / 0.98) 40%, oklch(0.10 0.02 264) 100%)',
+              'radial-gradient(ellipse 75% 65% at 60% 30%, oklch(0.38 0.10 245 / 0.95) 0%, oklch(0.28 0.06 255 / 0.97) 45%, oklch(0.20 0.04 264) 100%)',
           }}
         />
         {/* Subtle financial grid pattern */}
@@ -418,12 +418,12 @@ export function LandingPage() {
             backgroundSize: '48px 48px',
           }}
         />
-        {/* Blue glow — top right (universe light source) */}
-        <div className="pointer-events-none absolute -right-32 -top-32 h-[36rem] w-[36rem] rounded-full bg-[oklch(0.38_0.12_245)]/25 blur-[120px]" />
-        {/* Deep blue glow — bottom left */}
-        <div className="pointer-events-none absolute -left-40 bottom-0 h-[32rem] w-[32rem] rounded-full bg-[oklch(0.45_0.09_240)]/15 blur-[120px]" />
-        {/* Center vignette accent (deep blue) */}
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[oklch(0.40_0.11_248)]/10 blur-[100px]" />
+        {/* Bright blue glow — top right (universe light source) */}
+        <div className="pointer-events-none absolute -right-32 -top-32 h-[36rem] w-[36rem] rounded-full bg-[oklch(0.60_0.15_240)]/35 blur-[120px]" />
+        {/* Light blue glow — bottom left */}
+        <div className="pointer-events-none absolute -left-40 bottom-0 h-[32rem] w-[32rem] rounded-full bg-[oklch(0.65_0.12_230)]/25 blur-[120px]" />
+        {/* Center light accent */}
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[oklch(0.70_0.10_240)]/15 blur-[100px]" />
 
         {/* Animated particles (blue/white stars — financial universe) */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">

@@ -1,134 +1,174 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 650" fill="none">
   <defs>
-    <!-- Glow filter for the financial sphere -->
-    <filter id="sphereGlow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="12" result="blur"/>
+    <!-- Universe galaxy core glow -->
+    <radialGradient id="galaxyCore" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#E8F4FF" stop-opacity="1"/>
+      <stop offset="15%" stop-color="#7DB8F0" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#3E7BC6" stop-opacity="0.85"/>
+      <stop offset="70%" stop-color="#1E4878" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#0A1F3D" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Nebula purple-blue mix -->
+    <radialGradient id="nebula" cx="45%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#B4D9FF" stop-opacity="0.0"/>
+      <stop offset="40%" stop-color="#5B8DD9" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#1A3A6E" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Hand gradient (light, elegant marble) -->
+    <linearGradient id="handLight" x1="0%" y1="0%" x2="20%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="50%" stop-color="#EAF2FB"/>
+      <stop offset="100%" stop-color="#B8CBE3"/>
+    </linearGradient>
+    <linearGradient id="handShadow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D5E2F2"/>
+      <stop offset="100%" stop-color="#9AB3CF"/>
+    </linearGradient>
+    <!-- Gold accent -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0D060"/>
+      <stop offset="100%" stop-color="#C9A227"/>
+    </linearGradient>
+    <!-- Outer glow filter -->
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-    <!-- Soft ambient glow -->
-    <radialGradient id="ambient" cx="50%" cy="45%" r="50%">
-      <stop offset="0%" stop-color="#4A90D9" stop-opacity="0.35"/>
-      <stop offset="60%" stop-color="#1B3A6B" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#0A1628" stop-opacity="0"/>
-    </radialGradient>
-    <!-- Sphere gradient (financial globe) -->
-    <radialGradient id="globeGrad" cx="38%" cy="32%" r="70%">
-      <stop offset="0%" stop-color="#E8F1FC"/>
-      <stop offset="35%" stop-color="#6BA3E0"/>
-      <stop offset="70%" stop-color="#2B5C8F"/>
-      <stop offset="100%" stop-color="#0F2A4F"/>
-    </radialGradient>
-    <!-- Hand gradient (skin / marble) -->
-    <linearGradient id="handGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#F5F7FA"/>
-      <stop offset="100%" stop-color="#C9D3DF"/>
-    </linearGradient>
-    <!-- Gold accent gradient -->
-    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#E8C547"/>
-      <stop offset="100%" stop-color="#C9A227"/>
-    </linearGradient>
-    <!-- Orbit ring -->
-    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#C9A227" stop-opacity="0.0"/>
-      <stop offset="50%" stop-color="#C9A227" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#C9A227" stop-opacity="0.0"/>
-    </linearGradient>
+    <filter id="strongGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
   </defs>
 
-  <!-- Ambient glow behind everything -->
-  <circle cx="300" cy="260" r="240" fill="url(#ambient)"/>
+  <!-- Ambient outer glow (the universe radiating) -->
+  <circle cx="300" cy="250" r="220" fill="url(#nebula)"/>
 
-  <!-- Outer decorative orbit rings -->
-  <ellipse cx="300" cy="260" rx="200" ry="70" stroke="url(#ringGrad)" stroke-width="1.5" fill="none" transform="rotate(-18 300 260)" opacity="0.7"/>
-  <ellipse cx="300" cy="260" rx="230" ry="85" stroke="#4A90D9" stroke-width="0.75" fill="none" transform="rotate(12 300 260)" opacity="0.35"/>
+  <!-- Outer orbit rings (gold) -->
+  <ellipse cx="300" cy="250" rx="210" ry="72" stroke="url(#goldGrad)" stroke-width="1.5" fill="none" transform="rotate(-15 300 250)" opacity="0.6"/>
+  <ellipse cx="300" cy="250" rx="240" ry="90" stroke="#7DB8F0" stroke-width="0.75" fill="none" transform="rotate(10 300 250)" opacity="0.35"/>
 
-  <!-- Financial data nodes orbiting -->
-  <g opacity="0.85">
-    <circle cx="495" cy="235" r="4" fill="url(#goldGrad)" filter="url(#sphereGlow)"/>
-    <circle cx="110" cy="200" r="3" fill="#6BA3E0"/>
-    <circle cx="470" cy="320" r="3.5" fill="#C9A227"/>
-    <circle cx="140" cy="310" r="2.5" fill="#6BA3E0" opacity="0.7"/>
-    <circle cx="380" cy="460" r="3" fill="#C9A227" opacity="0.6"/>
+  <!-- ════════ THE UNIVERSE (inside the hand) ════════ -->
+  <g filter="url(#strongGlow)">
+    <!-- Main galaxy sphere -->
+    <circle cx="300" cy="235" r="130" fill="url(#galaxyCore)"/>
+
+    <!-- Bright core highlight -->
+    <circle cx="285" cy="215" r="55" fill="#FFFFFF" opacity="0.45" filter="url(#softGlow)"/>
+    <circle cx="280" cy="210" r="25" fill="#FFFFFF" opacity="0.8"/>
+
+    <!-- Spiral galaxy arms (subtle curves) -->
+    <path d="M 300 235 Q 230 180 200 240 Q 185 290 235 310 Q 280 320 300 290"
+          fill="none" stroke="#9BC7ED" stroke-width="2" opacity="0.5"/>
+    <path d="M 300 235 Q 370 290 400 230 Q 415 180 365 160 Q 320 150 300 180"
+          fill="none" stroke="#9BC7ED" stroke-width="2" opacity="0.5"/>
+
+    <!-- Stars scattered inside the universe -->
+    <g fill="#FFFFFF">
+      <circle cx="240" cy="185" r="1.8" opacity="0.9"/>
+      <circle cx="355" cy="200" r="1.5" opacity="0.85"/>
+      <circle cx="220" cy="260" r="1.2" opacity="0.7"/>
+      <circle cx="375" cy="270" r="2" opacity="0.95"/>
+      <circle cx="280" cy="295" r="1.3" opacity="0.7"/>
+      <circle cx="330" cy="170" r="1.6" opacity="0.85"/>
+      <circle cx="200" cy="225" r="1" opacity="0.6"/>
+      <circle cx="395" cy="235" r="1.4" opacity="0.75"/>
+      <circle cx="260" cy="160" r="1" opacity="0.55"/>
+      <circle cx="345" cy="300" r="1.2" opacity="0.65"/>
+    </g>
+
+    <!-- Brighter 4-point stars (sparkle) -->
+    <g fill="#FFFFFF" filter="url(#softGlow)">
+      <path d="M 250 220 L 252 214 L 254 220 L 260 222 L 254 224 L 252 230 L 250 224 L 244 222 Z" opacity="0.9"/>
+      <path d="M 365 250 L 367 245 L 369 250 L 374 252 L 369 254 L 367 259 L 365 254 L 360 252 Z" opacity="0.85"/>
+    </g>
+
+    <!-- Financial chart line wrapping through the universe (gold) -->
+    <path d="M 195 230 Q 225 205 245 235 Q 265 265 290 220 Q 310 190 335 225 Q 358 255 385 225 Q 400 210 405 200"
+          stroke="url(#goldGrad)" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.9"/>
+    <!-- Arrow tip -->
+    <path d="M 401 196 L 411 190 L 408 202 Z" fill="#F0D060"/>
+
+    <!-- Mini trend bars -->
+    <g fill="url(#goldGrad)" opacity="0.8">
+      <rect x="255" y="290" width="5" height="14" rx="1"/>
+      <rect x="263" y="283" width="5" height="21" rx="1"/>
+      <rect x="271" y="275" width="5" height="29" rx="1"/>
+      <rect x="279" y="266" width="5" height="38" rx="1"/>
+    </g>
+
+    <!-- Currency symbols floating in the cosmos -->
+    <g fill="#F0D060" opacity="0.75" font-family="Georgia, serif" font-weight="bold">
+      <text x="222" y="252" font-size="13">$</text>
+      <text x="362" y="285" font-size="11">€</text>
+      <text x="315" y="195" font-size="10">£</text>
+    </g>
   </g>
 
-  <!-- Connecting data lines (constellation) -->
-  <g stroke="#6BA3E0" stroke-width="0.75" opacity="0.4">
-    <line x1="495" y1="235" x2="470" y2="320"/>
-    <line x1="110" y1="200" x2="140" y2="310"/>
-    <line x1="380" y1="460" x2="470" y2="320"/>
-  </g>
-
-  <!-- HAND (simplified elegant silhouette, palm up) -->
+  <!-- ════════ THE HAND (cupping the universe from below) ════════ -->
   <g>
-    <!-- Wrist/forearm -->
-    <path d="M 200 560 Q 205 480 235 450 L 250 455 Q 225 500 222 565 Z" fill="url(#handGrad)" opacity="0.9"/>
-    <!-- Palm (cupped, holding sphere) -->
-    <path d="M 225 452 Q 220 400 245 372 Q 270 348 300 350 Q 332 348 358 372 Q 384 396 386 440 Q 388 470 372 488 Q 358 502 338 504 Q 310 506 282 500 Q 250 492 232 480 Q 222 470 225 452 Z" fill="url(#handGrad)"/>
+    <!-- Forearm/wrist -->
+    <path d="M 205 630 Q 200 540 230 495 L 255 500 Q 232 555 228 635 Z" fill="url(#handShadow)" opacity="0.9"/>
+
+    <!-- Palm (cupped, cradling the sphere) -->
+    <path d="M 232 498 Q 222 430 255 395 Q 285 368 320 370 Q 358 368 388 395 Q 415 422 415 475 Q 415 510 395 528 Q 375 542 348 544 Q 315 546 282 538 Q 248 528 235 516 Q 225 508 232 498 Z"
+          fill="url(#handLight)"/>
+
     <!-- Thumb -->
-    <path d="M 358 380 Q 392 362 408 388 Q 418 410 402 428 Q 388 438 372 430 Q 362 420 358 392 Z" fill="url(#handGrad)"/>
-    <!-- Fingers (folded, supporting) — subtle crease lines -->
-    <g stroke="#A8B4C2" stroke-width="1" opacity="0.45" fill="none">
-      <path d="M 258 388 Q 280 380 298 384"/>
-      <path d="M 286 370 Q 305 362 322 366"/>
-      <path d="M 312 366 Q 328 360 342 366"/>
+    <path d="M 388 408 Q 428 385 448 418 Q 460 445 440 465 Q 420 475 400 462 Q 388 448 388 420 Z"
+          fill="url(#handLight)"/>
+
+    <!-- Fingers (folded upward, embracing sphere) -->
+    <path d="M 258 400 Q 250 350 270 335 Q 285 325 295 340 Q 300 360 292 385 Z"
+          fill="url(#handLight)" opacity="0.95"/>
+    <path d="M 290 385 Q 288 330 310 318 Q 325 312 332 330 Q 335 355 325 380 Z"
+          fill="url(#handLight)" opacity="0.95"/>
+    <path d="M 322 382 Q 325 328 348 320 Q 362 318 366 338 Q 365 360 355 380 Z"
+          fill="url(#handLight)" opacity="0.95"/>
+    <path d="M 352 388 Q 360 345 378 342 Q 390 343 390 360 Q 386 378 374 390 Z"
+          fill="url(#handLight)" opacity="0.9"/>
+
+    <!-- Finger crease details -->
+    <g stroke="#9AB3CF" stroke-width="1" opacity="0.4" fill="none">
+      <path d="M 262 420 Q 285 412 305 415"/>
+      <path d="M 295 405 Q 315 398 332 402"/>
+      <path d="M 325 402 Q 342 397 358 402"/>
     </g>
-    <!-- Inner palm highlight (where sphere rests) -->
-    <ellipse cx="306" cy="404" rx="48" ry="26" fill="#FFFFFF" opacity="0.25"/>
+
+    <!-- Inner palm glow (where universe touches hand) -->
+    <ellipse cx="323" cy="430" rx="62" ry="32" fill="#FFFFFF" opacity="0.2"/>
+    <!-- Light reflection on palm -->
+    <ellipse cx="295" cy="475" rx="35" ry="15" fill="#FFFFFF" opacity="0.15"/>
+
+    <!-- Gold cuff bracelet (premium accent) -->
+    <ellipse cx="232" cy="500" rx="28" ry="8" fill="none" stroke="url(#goldGrad)" stroke-width="3" opacity="0.7"/>
+    <ellipse cx="420" cy="440" rx="24" ry="7" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" opacity="0.5"/>
   </g>
 
-  <!-- FINANCIAL SPHERE (the "world" being held) -->
-  <g filter="url(#sphereGlow)">
-    <!-- Main globe -->
-    <circle cx="300" cy="250" r="105" fill="url(#globeGrad)"/>
-    <!-- Specular highlight -->
-    <ellipse cx="268" cy="215" rx="38" ry="48" fill="#FFFFFF" opacity="0.35"/>
-
-    <!-- Continent / network overlay (abstract financial world map) -->
-    <g fill="#FFFFFF" opacity="0.18">
-      <path d="M 250 200 Q 270 195 285 205 Q 295 215 290 230 Q 280 238 265 234 Q 250 226 248 212 Z"/>
-      <path d="M 305 225 Q 325 220 340 232 Q 348 244 342 256 Q 330 264 314 260 Q 302 250 303 236 Z"/>
-      <path d="M 270 268 Q 290 262 308 272 Q 320 284 312 296 Q 298 304 282 300 Q 268 290 266 278 Z"/>
-      <path d="M 330 285 Q 348 280 358 292 Q 362 304 352 312 Q 340 316 330 308 Q 324 298 326 290 Z"/>
-    </g>
-
-    <!-- Financial chart line wrapping the globe -->
-    <path d="M 210 235 Q 240 210 260 240 Q 280 270 300 225 Q 320 200 345 235 Q 362 262 388 232"
-          stroke="url(#goldGrad)" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.95"/>
-    <!-- Chart arrow tip -->
-    <path d="M 384 230 L 394 224 L 392 236 Z" fill="#E8C547"/>
-
-    <!-- Upward trend bars (mini stock chart on globe) -->
-    <g fill="url(#goldGrad)" opacity="0.85">
-      <rect x="248" y="300" width="6" height="16" rx="1"/>
-      <rect x="258" y="292" width="6" height="24" rx="1"/>
-      <rect x="268" y="282" width="6" height="34" rx="1"/>
-      <rect x="278" y="272" width="6" height="44" rx="1"/>
-    </g>
-
-    <!-- Currency symbols floating -->
-    <g fill="#E8C547" opacity="0.7" font-family="Georgia, serif" font-weight="bold">
-      <text x="232" y="262" font-size="14">$</text>
-      <text x="352" y="280" font-size="12">€</text>
-    </g>
+  <!-- Rising particles (prosperity emanating from universe) -->
+  <g fill="#FFFFFF" opacity="0.7">
+    <circle cx="300" cy="85" r="2"/>
+    <circle cx="340" cy="60" r="1.5"/>
+    <circle cx="265" cy="70" r="1.8"/>
+    <circle cx="375" cy="110" r="1.3" opacity="0.5"/>
+    <circle cx="230" cy="115" r="1.3" opacity="0.5"/>
   </g>
-
-  <!-- Rising particles (growth / prosperity) -->
   <g fill="url(#goldGrad)" opacity="0.6">
-    <circle cx="300" cy="120" r="2.5"/>
-    <circle cx="335" cy="95" r="1.5"/>
-    <circle cx="270" cy="105" r="2"/>
-    <circle cx="365" cy="140" r="1.5" opacity="0.4"/>
-    <circle cx="240" cy="150" r="1.5" opacity="0.4"/>
+    <circle cx="320" cy="95" r="1.5"/>
+    <circle cx="355" cy="80" r="1"/>
+    <circle cx="285" cy="55" r="1.2"/>
   </g>
-  <g stroke="#E8C547" stroke-width="0.75" opacity="0.3">
-    <line x1="300" y1="120" x2="300" y2="145"/>
-    <line x1="335" y1="95" x2="330" y2="118"/>
+  <g stroke="#F0D060" stroke-width="0.6" opacity="0.35">
+    <line x1="300" y1="85" x2="300" y2="108"/>
+    <line x1="340" y1="60" x2="335" y2="82"/>
+    <line x1="265" y1="70" x2="270" y2="92"/>
   </g>
 
-  <!-- Ground reflection of the sphere -->
-  <ellipse cx="306" cy="510" rx="90" ry="12" fill="#2B5C8F" opacity="0.12"/>
+  <!-- Ground shadow of the hand -->
+  <ellipse cx="320" cy="580" rx="110" ry="14" fill="#1E4878" opacity="0.1"/>
 </svg>
