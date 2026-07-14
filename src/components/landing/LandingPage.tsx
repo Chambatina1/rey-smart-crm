@@ -308,7 +308,7 @@ export function LandingPage() {
               </button>
               <Button
                 onClick={() => scrollTo('contact')}
-                className={`hidden bg-[var(--color-gold)] font-semibold text-[var(--gold-foreground)] shadow-md shadow-[var(--color-gold)]/30 transition hover:brightness-110 sm:inline-flex ${scrolled ? '' : 'ring-2 ring-white/20'}`}
+                className={`shimmer-gold hidden bg-[var(--color-gold)] font-semibold text-[var(--gold-foreground)] shadow-md shadow-[var(--color-gold)]/30 transition hover:brightness-110 sm:inline-flex ${scrolled ? '' : 'ring-2 ring-white/20'}`}
               >
                 {language === 'es' ? 'Evaluación Gratis' : 'Free Evaluation'}
               </Button>
@@ -448,7 +448,7 @@ export function LandingPage() {
                 <Button
                   onClick={() => scrollTo('contact')}
                   size="lg"
-                  className="bg-[var(--color-gold)] px-8 py-6 text-base font-semibold text-[var(--gold-foreground)] shadow-xl shadow-[var(--color-gold)]/30 transition hover:brightness-110 active:scale-[0.98]"
+                  className="shimmer-gold bg-[var(--color-gold)] px-8 py-6 text-base font-semibold text-[var(--gold-foreground)] shadow-xl shadow-[var(--color-gold)]/30 transition hover:brightness-110 active:scale-[0.98]"
                 >
                   {language === 'es' ? 'Evaluación Gratis' : 'Free Evaluation'}
                   <ChevronRight className="ml-1 h-5 w-5" />
@@ -650,24 +650,24 @@ export function LandingPage() {
             <p className="mt-4 text-lg text-gray-600">{t.landing.servicesSubtitle}</p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {services.map((service, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
               >
-                <Card className="h-full border-0 shadow-md hover:shadow-xl transition-shadow duration-300 group cursor-pointer">
+                <Card className="glow-ring tilt-card group h-full cursor-pointer border-0 shadow-md hover:shadow-2xl">
                   <CardContent className="p-6">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${service.color}`}>
-                      <service.icon className="w-6 h-6" />
+                    <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${service.color} transition-transform group-hover:scale-110 group-hover:rotate-3`}>
+                      <service.icon className="h-6 w-6" />
                     </div>
-                    <h3 className="font-semibold text-lg text-gray-900 mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+                    <h3 className="mb-2 text-lg font-semibold text-gray-900 transition-colors group-hover:text-[var(--color-accent)]">
                       {service.title}
                     </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">{service.desc}</p>
+                    <p className="text-sm leading-relaxed text-gray-600">{service.desc}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -688,48 +688,68 @@ export function LandingPage() {
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">{t.landing.howItWorks}</h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8 relative">
-            {/* Connecting line */}
-            <div className="hidden md:block absolute top-10 left-1/6 right-1/6 h-0.5 bg-[var(--color-gold)]/30" />
+          <div className="relative grid gap-8 md:grid-cols-3">
+            {/* Animated gradient connecting line */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.3 }}
+              className="absolute left-[16%] right-[16%] top-10 hidden h-1 origin-left rounded-full bg-gradient-to-r from-[var(--color-accent)] via-[var(--color-gold)] to-[var(--color-accent)] md:block"
+            />
             {steps.map((step, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15 }}
-                className="text-center relative"
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ delay: i * 0.18, duration: 0.6 }}
+                className="relative text-center"
               >
-                <div className="relative inline-flex items-center justify-center w-20 h-20 rounded-full bg-[var(--color-accent)] text-white mb-6 shadow-lg shadow-[var(--color-accent)]/25 z-10">
-                  <span className="text-2xl font-bold">{step.num}</span>
+                {/* Glowing number circle */}
+                <div className="relative z-10 mx-auto mb-6 inline-flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-primary)] text-white shadow-xl shadow-[var(--color-accent)]/30 ring-4 ring-white">
+                  {/* pulsing aura */}
+                  <span className="absolute inset-0 animate-glow-pulse rounded-full bg-[var(--color-accent)]/40 blur-md" />
+                  <span className="relative text-2xl font-bold">{step.num}</span>
                 </div>
-                <div className="w-14 h-14 rounded-xl bg-[var(--color-gold)]/10 flex items-center justify-center mx-auto mb-4">
-                  <step.icon className="w-7 h-7 text-[var(--color-accent)]" />
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[var(--color-gold)]/10 ring-1 ring-[var(--color-gold)]/20 transition-transform group-hover:scale-110">
+                  <step.icon className="h-7 w-7 text-[var(--color-accent)]" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{step.title}</h3>
-                <p className="text-gray-600 max-w-xs mx-auto">{step.desc}</p>
+                <h3 className="mb-3 text-xl font-semibold text-gray-900">{step.title}</h3>
+                <p className="mx-auto max-w-xs text-gray-600">{step.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Stats Section ───────────────────────────────── */}
-      <section className="py-16 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      {/* ── Stats Section (animated gradient band) ─────── */}
+      <section className="relative overflow-hidden bg-gradient-to-r from-[var(--color-primary)] via-[oklch(0.30_0.06_258)] to-[var(--color-accent)] animate-gradient">
+        {/* Floating glow orbs */}
+        <div className="pointer-events-none absolute -left-20 top-0 h-64 w-64 rounded-full bg-[var(--color-gold)]/10 blur-3xl animate-glow-pulse" />
+        <div className="pointer-events-none absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-[oklch(0.65_0.14_248)]/15 blur-3xl animate-glow-pulse [animation-delay:2s]" />
+
+        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {[
               { end: 2500, suffix: '+', label: t.landing.clientsHelped },
               { end: 15000, suffix: '+', label: t.landing.disputesResolved },
               { end: 85, suffix: '+', label: t.landing.avgImprovement },
               { end: 500, suffix: '+', label: t.landing.coursesCompleted },
             ].map((stat, i) => (
-              <div key={i} className="text-center text-white">
-                <p className="text-3xl sm:text-4xl font-bold">
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.5, delay: i * 0.12 }}
+                className="text-center"
+              >
+                <p className="bg-gradient-to-b from-white to-white/70 bg-clip-text text-4xl font-bold text-transparent drop-shadow-sm sm:text-5xl">
                   <AnimatedCounter end={stat.end} suffix={stat.suffix} />
                 </p>
-                <p className="mt-2 text-[var(--color-gold)]/90 text-sm">{stat.label}</p>
-              </div>
+                <p className="mt-2 text-sm font-medium uppercase tracking-wide text-[var(--color-gold)]">{stat.label}</p>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -803,31 +823,31 @@ export function LandingPage() {
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">{t.landing.testimonials}</h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid gap-6 md:grid-cols-3">
             {testimonials.map((item, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ delay: i * 0.12, duration: 0.5 }}
               >
-                <Card className={`h-full border-0 shadow-md ${i === currentTestimonial ? 'ring-2 ring-[var(--color-gold)]' : ''}`}>
+                <Card className={`glow-ring tilt-card h-full border-0 shadow-md transition-shadow hover:shadow-2xl ${i === currentTestimonial ? 'ring-2 ring-[var(--color-gold)]' : ''}`}>
                   <CardContent className="p-6">
-                    <div className="flex gap-1 mb-4">
+                    <div className="mb-4 flex gap-1">
                       {Array.from({ length: item.rating }).map((_, j) => (
-                        <Star key={j} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                        <Star key={j} className="h-4 w-4 fill-[var(--color-gold)] text-[var(--color-gold)]" />
                       ))}
                     </div>
-                    <p className="text-gray-700 italic leading-relaxed mb-4">
+                    <p className="mb-4 italic leading-relaxed text-gray-700">
                       &ldquo;{item.text}&rdquo;
                     </p>
-                    <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--color-gold)] to-[var(--color-accent)] flex items-center justify-center text-white text-sm font-bold">
+                    <div className="flex items-center gap-3 border-t border-gray-100 pt-4">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[var(--color-gold)] to-[var(--color-accent)] text-sm font-bold text-white shadow-md">
                         {item.name.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div>
-                        <p className="font-semibold text-sm text-gray-900">{item.name}</p>
+                        <p className="text-sm font-semibold text-gray-900">{item.name}</p>
                         <p className="text-xs text-gray-500">{item.role}</p>
                       </div>
                     </div>
