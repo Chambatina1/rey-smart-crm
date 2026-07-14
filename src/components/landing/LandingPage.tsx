@@ -169,8 +169,16 @@ export function LandingPage() {
 
   const scrollTo = (href: string) => {
     setMobileMenuOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    // Support both '#contact' and 'contact' formats
+    const selector = href.startsWith('#') ? href : `#${href}`;
+    const el = document.querySelector(selector);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      // Fallback: try by id directly
+      const byId = document.getElementById(href.replace('#', ''));
+      if (byId) byId.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   // Carousel auto-play logic
@@ -403,12 +411,12 @@ export function LandingPage() {
           <source src="/hero-bg-video.mp4" type="video/mp4" />
         </video>
 
-        {/* Navy overlay — lighter intensity so video shows through */}
+        {/* Navy overlay — lighter so video/city shows through clearly */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 80% 70% at 50% 35%, oklch(0.12 0.04 258 / 0.55) 0%, oklch(0.09 0.03 264 / 0.75) 50%, oklch(0.08 0.02 264 / 0.90) 100%)',
+              'linear-gradient(to bottom, oklch(0.08 0.03 264 / 0.35) 0%, oklch(0.08 0.03 264 / 0.55) 60%, oklch(0.06 0.02 264 / 0.75) 100%)',
           }}
         />
         {/* Subtle financial grid pattern */}
@@ -468,12 +476,21 @@ export function LandingPage() {
                 <img src="/reys-logo.png" alt="REYS Smart Solutions" className="h-16 w-auto brightness-0 invert drop-shadow-[0_4px_24px_rgba(201,162,39,0.35)]" />
               </motion.div>
 
-              <h1 className="text-4xl font-bold leading-[1.1] text-white sm:text-5xl lg:text-6xl">
+              <h1
+                className="text-5xl font-extrabold leading-[1.05] text-white sm:text-6xl lg:text-7xl"
+                style={{ textShadow: '0 2px 12px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6), 0 4px 6px rgba(0,0,0,0.8)' }}
+              >
                 {language === 'es' ? (
                   <>
                     Reconstruye Tu Crédito
                     <br />
-                    Con <span className="text-[var(--color-accent)]">Estrategia Legal</span>
+                    Con{' '}
+                    <span
+                      className="text-[var(--color-accent)]"
+                      style={{ textShadow: '0 2px 12px rgba(0,0,0,0.9), 0 0 30px rgba(27,127,75,0.5)' }}
+                    >
+                      Estrategia Legal
+                    </span>
                     <br />
                     Y Expertos Reales
                   </>
@@ -481,7 +498,13 @@ export function LandingPage() {
                   <>
                     Rebuild Your Credit
                     <br />
-                    With <span className="text-[var(--color-accent)]">Legal Strategy</span>
+                    With{' '}
+                    <span
+                      className="text-[var(--color-accent)]"
+                      style={{ textShadow: '0 2px 12px rgba(0,0,0,0.9), 0 0 30px rgba(27,127,75,0.5)' }}
+                    >
+                      Legal Strategy
+                    </span>
                     <br />
                     And Real Experts
                   </>
@@ -489,11 +512,17 @@ export function LandingPage() {
               </h1>
 
               {/* Elegant tagline */}
-              <p className="mt-5 text-lg font-light italic tracking-wide text-[var(--color-gold)]">
+              <p
+                className="mt-5 text-xl font-light italic tracking-wide text-[var(--color-gold)]"
+                style={{ textShadow: '0 2px 8px rgba(0,0,0,0.9)' }}
+              >
                 {language === 'es' ? '"Construyendo Vidas, No Solo Crédito."' : '"Building Lives, Not Just Credit."'}
               </p>
 
-              <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/70">
+              <p
+                className="mt-5 max-w-xl text-xl leading-relaxed text-white"
+                style={{ textShadow: '0 1px 8px rgba(0,0,0,0.9)' }}
+              >
                 {t.landing.heroSubtitle}
               </p>
 
@@ -524,8 +553,8 @@ export function LandingPage() {
                   { icon: PhoneCall, label: language === 'es' ? 'Todo el país' : 'Nationwide' },
                   { icon: Users, label: language === 'es' ? 'Profesionales' : 'Licensed Pros' },
                 ].map((b, i) => (
-                  <div key={i} className="flex items-center gap-1.5 text-sm text-white/75">
-                    <b.icon className="h-4 w-4 text-[var(--color-gold)]" />
+                  <div key={i} className="flex items-center gap-1.5 text-base font-medium text-white" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.9)' }}>
+                    <b.icon className="h-5 w-5 text-[var(--color-gold)]" />
                     {b.label}
                   </div>
                 ))}
