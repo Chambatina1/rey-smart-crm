@@ -311,7 +311,11 @@ export function LandingPage() {
             {/* Logo */}
             <div className="flex cursor-pointer items-center gap-2.5" onClick={() => navigate('landing')}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/reys-logo.png" alt="REYS Smart Solutions" className="h-9 w-auto" />
+              <img
+                src="/reys-logo.png"
+                alt="REYS Smart Solutions"
+                className={`h-9 w-auto transition-all ${scrolled ? 'drop-shadow-sm' : 'brightness-0 invert drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]'}`}
+              />
             </div>
 
             {/* Desktop nav */}
@@ -391,7 +395,7 @@ export function LandingPage() {
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 70% 60% at 65% 25%, oklch(0.32 0.08 245 / 0.95) 0%, oklch(0.22 0.045 258 / 0.98) 40%, oklch(0.16 0.025 264) 100%)',
+              'radial-gradient(ellipse 70% 60% at 65% 25%, oklch(0.20 0.06 245 / 0.95) 0%, oklch(0.14 0.035 258 / 0.98) 40%, oklch(0.10 0.02 264) 100%)',
           }}
         />
         {/* Subtle financial grid pattern */}
@@ -415,11 +419,11 @@ export function LandingPage() {
           }}
         />
         {/* Blue glow — top right (universe light source) */}
-        <div className="pointer-events-none absolute -right-32 -top-32 h-[36rem] w-[36rem] rounded-full bg-[oklch(0.55_0.14_245)]/25 blur-[120px]" />
-        {/* White-blue glow — bottom left */}
-        <div className="pointer-events-none absolute -left-40 bottom-0 h-[32rem] w-[32rem] rounded-full bg-[oklch(0.70_0.10_230)]/15 blur-[120px]" />
-        {/* Center vignette accent (blue) */}
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[oklch(0.60_0.12_248)]/10 blur-[100px]" />
+        <div className="pointer-events-none absolute -right-32 -top-32 h-[36rem] w-[36rem] rounded-full bg-[oklch(0.38_0.12_245)]/25 blur-[120px]" />
+        {/* Deep blue glow — bottom left */}
+        <div className="pointer-events-none absolute -left-40 bottom-0 h-[32rem] w-[32rem] rounded-full bg-[oklch(0.45_0.09_240)]/15 blur-[120px]" />
+        {/* Center vignette accent (deep blue) */}
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[oklch(0.40_0.11_248)]/10 blur-[100px]" />
 
         {/* Animated particles (blue/white stars — financial universe) */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -448,7 +452,7 @@ export function LandingPage() {
                 className="mb-7"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/reys-logo.png" alt="REYS Smart Solutions" className="h-16 w-auto drop-shadow-[0_4px_24px_rgba(201,162,39,0.35)]" />
+                <img src="/reys-logo.png" alt="REYS Smart Solutions" className="h-16 w-auto brightness-0 invert drop-shadow-[0_4px_24px_rgba(201,162,39,0.35)]" />
               </motion.div>
 
               <h1 className="text-4xl font-bold leading-[1.1] text-white sm:text-5xl lg:text-6xl">
@@ -760,7 +764,7 @@ export function LandingPage() {
       </section>
 
       {/* ── Stats Section (animated gradient band) ─────── */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-[var(--color-primary)] via-[oklch(0.30_0.06_258)] to-[var(--color-accent)] animate-gradient">
+      <section className="relative overflow-hidden bg-gradient-to-r from-[var(--color-primary)] via-[oklch(0.18_0.05_258)] to-[var(--color-accent)] animate-gradient">
         {/* Floating glow orbs */}
         <div className="pointer-events-none absolute -left-20 top-0 h-64 w-64 rounded-full bg-[var(--color-gold)]/10 blur-3xl animate-glow-pulse" />
         <div className="pointer-events-none absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-[oklch(0.65_0.14_248)]/15 blur-3xl animate-glow-pulse [animation-delay:2s]" />
@@ -1086,7 +1090,7 @@ export function LandingPage() {
             <div>
               <div className="mb-4 flex items-center gap-2.5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/reys-logo.png" alt="REYS Smart Solutions" className="h-9 w-auto" />
+                <img src="/reys-logo.png" alt="REYS Smart Solutions" className="h-9 w-auto brightness-0 invert" />
               </div>
               <p className="mb-4 text-sm text-white/40">
                 {language === 'es'

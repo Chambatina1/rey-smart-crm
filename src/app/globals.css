@@ -52,7 +52,7 @@
   --card-foreground: oklch(0.21 0.02 260);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.21 0.02 260);
-  --primary: oklch(0.22 0.035 264);            /* navy very dark #0A1628 */
+  --primary: oklch(0.17 0.03 264);            /* deep navy #081224 */
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.96 0.005 264);          /* faint navy tint */
   --secondary-foreground: oklch(0.30 0.03 264);
