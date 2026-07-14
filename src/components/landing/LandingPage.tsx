@@ -350,17 +350,23 @@ export function LandingPage() {
 
       {/* ── Hero Section ────────────────────────────────── */}
       <section className="relative flex min-h-screen items-center overflow-hidden bg-[var(--color-primary)]">
-        {/* Background: wealth image (gold bars on dark) — subtle, suggestive */}
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-30"
-          style={{ backgroundImage: "url('/hero-bg.webp')" }}
-        />
-        {/* Navy overlay for legibility + depth */}
+        {/* Background: deep navy with blue ambient glow — white/blue palette */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 80% 60% at 70% 20%, oklch(0.30 0.05 264 / 0.85) 0%, oklch(0.22 0.035 264 / 0.92) 45%, oklch(0.16 0.02 264 / 0.97) 100%)',
+              'radial-gradient(ellipse 70% 60% at 65% 25%, oklch(0.32 0.08 245 / 0.95) 0%, oklch(0.22 0.045 258 / 0.98) 40%, oklch(0.16 0.025 264) 100%)',
+          }}
+        />
+        {/* Subtle financial grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              'linear-gradient(oklch(1 0 0) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0) 1px, transparent 1px)',
+            backgroundSize: '52px 52px',
+            maskImage: 'radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 80%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 80%)',
           }}
         />
         {/* Subtle financial grid pattern */}
@@ -372,20 +378,21 @@ export function LandingPage() {
             backgroundSize: '48px 48px',
           }}
         />
-        {/* Gold glow — top right */}
-        <div className="pointer-events-none absolute -right-32 -top-32 h-[36rem] w-[36rem] rounded-full bg-[var(--color-gold)]/20 blur-[120px]" />
-        {/* Emerald glow — bottom left */}
-        <div className="pointer-events-none absolute -left-40 bottom-0 h-[32rem] w-[32rem] rounded-full bg-[var(--color-accent)]/15 blur-[120px]" />
-        {/* Center vignette accent */}
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--color-gold)]/5 blur-[100px]" />
+        {/* Blue glow — top right (universe light source) */}
+        <div className="pointer-events-none absolute -right-32 -top-32 h-[36rem] w-[36rem] rounded-full bg-[oklch(0.55_0.14_245)]/25 blur-[120px]" />
+        {/* White-blue glow — bottom left */}
+        <div className="pointer-events-none absolute -left-40 bottom-0 h-[32rem] w-[32rem] rounded-full bg-[oklch(0.70_0.10_230)]/15 blur-[120px]" />
+        {/* Center vignette accent (blue) */}
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[oklch(0.60_0.12_248)]/10 blur-[100px]" />
 
-        {/* Animated particles */}
+        {/* Animated particles (blue/white stars — financial universe) */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute left-[15%] top-[30%] h-1 w-1 animate-pulse rounded-full bg-[var(--color-gold)]/60" />
-          <div className="absolute right-[20%] top-[45%] h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--color-accent)]/50 [animation-delay:700ms]" />
-          <div className="absolute bottom-[25%] left-[30%] h-1 w-1 animate-pulse rounded-full bg-white/40 [animation-delay:1400ms]" />
-          <div className="absolute right-[35%] bottom-[35%] h-1 w-1 animate-pulse rounded-full bg-[var(--color-gold)]/40 [animation-delay:2100ms]" />
-          <div className="absolute left-[60%] top-[20%] h-0.5 w-0.5 animate-pulse rounded-full bg-white/60 [animation-delay:1000ms]" />
+          <div className="absolute left-[15%] top-[30%] h-1 w-1 animate-pulse rounded-full bg-white/70" />
+          <div className="absolute right-[20%] top-[45%] h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.75_0.12_240)]/70 [animation-delay:700ms]" />
+          <div className="absolute bottom-[25%] left-[30%] h-1 w-1 animate-pulse rounded-full bg-white/50 [animation-delay:1400ms]" />
+          <div className="absolute right-[35%] bottom-[35%] h-1 w-1 animate-pulse rounded-full bg-[oklch(0.65_0.14_248)]/60 [animation-delay:2100ms]" />
+          <div className="absolute left-[60%] top-[20%] h-0.5 w-0.5 animate-pulse rounded-full bg-white/80 [animation-delay:1000ms]" />
+          <div className="absolute right-[10%] top-[15%] h-1 w-1 animate-pulse rounded-full bg-[oklch(0.70_0.10_235)]/50 [animation-delay:1800ms]" />
         </div>
 
         {/* Content */}
@@ -472,61 +479,57 @@ export function LandingPage() {
               </div>
             </motion.div>
 
-            {/* Right — glass score card */}
+            {/* Right — financial universe (hand holding the financial world) */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, x: 20 }}
+              initial={{ opacity: 0, scale: 0.92, x: 20 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              transition={{ duration: 1, delay: 0.25 }}
               className="relative hidden lg:block"
             >
-              {/* floating ring accent */}
-              <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full border border-[var(--color-gold)]/30 [animation:spin_18s_linear_infinite]" />
-              <div className="absolute -bottom-6 -left-6 h-16 w-16 rounded-full border border-[var(--color-accent)]/20" />
+              {/* The symbolic image: hand holding the financial universe */}
+              <div className="relative">
+                {/* rotating orbit ring accent */}
+                <div className="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--color-gold)]/20 [animation:spin_28s_linear_infinite]" />
+                <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--color-accent)]/15 [animation:spin_20s_linear_infinite_reverse]" />
 
-              <div className="relative rounded-3xl border border-white/15 bg-white/[0.07] p-8 text-white shadow-2xl backdrop-blur-xl">
-                {/* shimmer top line */}
-                <div className="absolute left-8 right-8 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-gold)]/60 to-transparent" />
+                {/* Main hero image */}
+                <motion.img
+                  src="/hero-finance.svg"
+                  alt={language === 'es' ? 'Tu mundo financiero en buenas manos' : 'Your financial world in good hands'}
+                  className="relative z-10 mx-auto w-full max-w-md drop-shadow-[0_8px_40px_rgba(74,144,217,0.35)]"
+                  initial={{ y: 0 }}
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                />
 
-                <div className="space-y-6">
+                {/* Floating stat card — score improvement */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.9 }}
+                  className="absolute -bottom-2 -left-4 z-20 flex items-center gap-3 rounded-2xl border border-white/15 bg-white/[0.1] px-4 py-3 backdrop-blur-xl"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-gold)]/20 ring-1 ring-[var(--color-gold)]/40">
+                    <Rocket className="h-5 w-5 text-[var(--color-gold)]" />
+                  </div>
                   <div>
-                    <p className="text-sm text-white/60">{language === 'es' ? 'Puntaje Antes' : 'Score Before'}</p>
-                    <p className="text-4xl font-bold text-red-300">489</p>
-                    <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/15">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: '40%' }}
-                        transition={{ duration: 1.2, delay: 0.8 }}
-                        className="h-2 rounded-full bg-red-400"
-                      />
-                    </div>
+                    <p className="text-lg font-bold leading-none text-[var(--color-accent)]">+253</p>
+                    <p className="text-[11px] text-white/60">
+                      {language === 'es' ? 'puntos en 6 meses' : 'points in 6 months'}
+                    </p>
                   </div>
+                </motion.div>
 
-                  <div className="flex items-center justify-center">
-                    <div className="rounded-full bg-[var(--color-gold)]/15 p-3.5 ring-1 ring-[var(--color-gold)]/30">
-                      <Rocket className="h-7 w-7 text-[var(--color-gold)]" />
-                    </div>
-                  </div>
-
-                  <div>
-                    <p className="text-sm text-white/60">{language === 'es' ? 'Puntaje Después' : 'Score After'}</p>
-                    <p className="text-4xl font-bold text-[var(--color-accent)]">742</p>
-                    <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/15">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: '85%' }}
-                        transition={{ duration: 1.2, delay: 1 }}
-                        className="h-2 rounded-full bg-[var(--color-accent)]"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2 rounded-xl bg-white/5 px-3 py-3 ring-1 ring-white/10">
-                    <Star className="h-5 w-5 text-[var(--color-gold)]" />
-                    <span className="text-sm font-medium">
-                      {language === 'es' ? '+253 puntos en 6 meses' : '+253 points in 6 months'}
-                    </span>
-                  </div>
-                </div>
+                {/* Floating "compliance" badge */}
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 1.1 }}
+                  className="absolute -right-2 top-8 z-20 flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.1] px-3 py-2 backdrop-blur-xl"
+                >
+                  <Shield className="h-4 w-4 text-[var(--color-gold)]" />
+                  <span className="text-xs font-medium text-white/80">FCRA / FDCPA</span>
+                </motion.div>
               </div>
             </motion.div>
           </div>
