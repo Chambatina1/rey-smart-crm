@@ -390,12 +390,25 @@ export function LandingPage() {
 
       {/* ── Hero Section ────────────────────────────────── */}
       <section className="relative flex min-h-screen items-center overflow-hidden bg-[var(--color-primary)]">
-        {/* Background: lighter navy with brighter blue ambient glow */}
+        {/* Background: luxury city video (autoplay, muted, loop) */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 h-full w-full object-cover"
+          poster="/hero-bg.webp"
+        >
+          <source src="/hero-bg-video.mp4" type="video/mp4" />
+        </video>
+
+        {/* Navy overlay — lighter intensity so video shows through */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 75% 65% at 60% 30%, oklch(0.38 0.10 245 / 0.95) 0%, oklch(0.28 0.06 255 / 0.97) 45%, oklch(0.20 0.04 264) 100%)',
+              'radial-gradient(ellipse 80% 70% at 50% 35%, oklch(0.12 0.04 258 / 0.55) 0%, oklch(0.09 0.03 264 / 0.75) 50%, oklch(0.08 0.02 264 / 0.90) 100%)',
           }}
         />
         {/* Subtle financial grid pattern */}
