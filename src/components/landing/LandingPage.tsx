@@ -37,6 +37,9 @@ import {
   ChevronDown,
   Plus,
   Minus,
+  Youtube,
+  Play,
+  Sparkles,
 } from 'lucide-react';
 import {
   Carousel,
@@ -622,49 +625,39 @@ export function LandingPage() {
       </section>
 
       {/* ── About / Who We Are (with video) ────────────── */}
-      <section id="about" className="overflow-hidden bg-white py-20">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-          {/* Left — text */}
+      <section id="about" className="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white py-20">
+        {/* Decorative background elements */}
+        <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-[var(--color-accent)]/8 blur-3xl" />
+        <div className="pointer-events-none absolute -right-40 bottom-20 h-80 w-80 rounded-full bg-[var(--color-gold)]/8 blur-3xl" />
+
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          {/* Heading */}
           <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12 text-center"
           >
-            <span className="inline-block rounded-full bg-[var(--color-gold)]/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-gold)]">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--color-gold)]/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-gold)]">
+              <Sparkles className="h-3.5 w-3.5" />
               {t.landing.aboutEyebrow}
             </span>
-            <h2 className="mt-5 text-3xl font-bold text-gray-900 sm:text-4xl lg:text-5xl">
+            <h2 className="mt-5 text-4xl font-bold text-gray-900 sm:text-5xl">
               {t.landing.aboutTitle}
             </h2>
-            <p className="mt-6 text-lg leading-relaxed text-gray-600">
-              {t.landing.aboutText1}
-            </p>
-            <p className="mt-4 text-lg leading-relaxed text-gray-600">
-              {t.landing.aboutText2}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Button
-                onClick={() => scrollTo('contact')}
-                className="bg-[var(--color-accent)] px-6 py-5 text-base font-semibold text-white shadow-lg shadow-[var(--color-accent)]/25 transition hover:brightness-110"
-              >
-                {language === 'es' ? 'Solicitar evaluación gratis' : 'Get Free Evaluation'}
-                <ChevronRight className="ml-1 h-5 w-5" />
-              </Button>
-            </div>
           </motion.div>
 
-          {/* Right — YouTube video */}
+          {/* Featured video — large and prominent */}
           <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, scale: 0.96 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="relative"
+            transition={{ duration: 0.6 }}
+            className="relative mx-auto mb-10 max-w-4xl"
           >
-            <div className="relative overflow-hidden rounded-2xl shadow-2xl ring-1 ring-black/10">
-              {/* Decorative gold glow behind video */}
-              <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-br from-[var(--color-gold)]/10 to-[var(--color-accent)]/10 blur-xl" />
+            {/* Glow behind video */}
+            <div className="absolute -inset-3 -z-10 rounded-3xl bg-gradient-to-br from-[var(--color-gold)]/20 via-[var(--color-accent)]/15 to-[var(--color-primary)]/20 blur-2xl" />
+            <div className="relative overflow-hidden rounded-2xl border border-black/10 shadow-2xl">
               <div className="relative aspect-video">
                 <iframe
                   src="https://www.youtube.com/embed/5RMMZPs0u1o?rel=0&modestbranding=1"
@@ -675,6 +668,67 @@ export function LandingPage() {
                 />
               </div>
             </div>
+          </motion.div>
+
+          {/* Text + CTA + channel button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mx-auto max-w-3xl text-center"
+          >
+            <p className="text-lg leading-relaxed text-gray-600">
+              {t.landing.aboutText1}
+            </p>
+            <p className="mt-4 text-lg leading-relaxed text-gray-600">
+              {t.landing.aboutText2}
+            </p>
+
+            {/* Buttons */}
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Button
+                onClick={() => scrollTo('contact')}
+                className="bg-[var(--color-accent)] px-7 py-5 text-base font-semibold text-white shadow-lg shadow-[var(--color-accent)]/25 transition hover:brightness-110"
+              >
+                {language === 'es' ? 'Solicitar evaluación gratis' : 'Get Free Evaluation'}
+                <ChevronRight className="ml-1 h-5 w-5" />
+              </Button>
+              <a
+                href="https://youtube.com/@reyssmartsolutionadmin"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-xl bg-[#FF0000] px-7 py-5 text-base font-semibold text-white shadow-lg shadow-red-600/25 transition hover:brightness-110 active:scale-[0.98]"
+              >
+                <Youtube className="h-5 w-5" />
+                {language === 'es' ? 'Ver Canal de YouTube' : 'Watch on YouTube'}
+                <Play className="ml-0.5 h-4 w-4 fill-white" />
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Mini stats row */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mx-auto mt-14 grid max-w-3xl grid-cols-2 gap-6 sm:grid-cols-4"
+          >
+            {[
+              { icon: Users, value: '6+', label: language === 'es' ? 'Expertos' : 'Experts' },
+              { icon: Shield, value: '100%', label: language === 'es' ? 'Legal' : 'Legal' },
+              { icon: Award, value: '6+', label: language === 'es' ? 'Años' : 'Years' },
+              { icon: Sparkles, value: '3', label: language === 'es' ? 'Frentes' : 'Fronts' },
+            ].map((s, i) => (
+              <div key={i} className="text-center">
+                <div className="mx-auto mb-2 flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-gold)]/15">
+                  <s.icon className="h-5 w-5 text-[var(--color-gold)]" />
+                </div>
+                <p className="text-2xl font-bold text-gray-900">{s.value}</p>
+                <p className="text-xs uppercase tracking-wide text-gray-500">{s.label}</p>
+              </div>
+            ))}
           </motion.div>
         </div>
       </section>
