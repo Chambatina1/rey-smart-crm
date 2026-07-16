@@ -414,12 +414,12 @@ export function LandingPage() {
           <source src="/hero-bg-video.mp4" type="video/mp4" />
         </video>
 
-        {/* Navy overlay — lighter so video/city shows through clearly */}
+        {/* Navy overlay — darker on left (text side) for contrast, lighter right (video shows) */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to bottom, oklch(0.08 0.03 264 / 0.35) 0%, oklch(0.08 0.03 264 / 0.55) 60%, oklch(0.06 0.02 264 / 0.75) 100%)',
+              'linear-gradient(105deg, oklch(0.06 0.025 264 / 0.85) 0%, oklch(0.07 0.03 264 / 0.65) 45%, oklch(0.08 0.03 264 / 0.40) 100%)',
           }}
         />
         {/* Subtle financial grid pattern */}
