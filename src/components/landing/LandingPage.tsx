@@ -123,6 +123,7 @@ export function LandingPage() {
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [expandedService, setExpandedService] = useState<number | null>(null);
+  const [modalService, setModalService] = useState<typeof carouselServices[0] | null>(null);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -858,13 +859,14 @@ export function LandingPage() {
                           </p>
                           <div className="flex flex-wrap gap-3">
                             <Button
-                              onClick={() => navigate('dashboard')}
+                              onClick={() => setModalService(service)}
                               className={`${service.btnClass} px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base font-semibold shadow-lg`}
                             >
-                              {t.landing.getStarted}
+                              {language === 'es' ? 'Ver Detalles' : 'View Details'}
                               <ArrowRight className="w-4 h-4 ml-1.5" />
                             </Button>
                             <Button
+                              onClick={() => scrollTo('contact')}
                               variant="outline"
                               className="border-white/50 text-white hover:bg-white/15 backdrop-blur-sm px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base"
                             >
@@ -1167,6 +1169,47 @@ export function LandingPage() {
               />
             ))}
           </div>
+
+          {/* Google Reviews CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mx-auto mt-12 max-w-2xl rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-8 text-center shadow-lg"
+          >
+            {/* Google logo + rating */}
+            <div className="mb-4 flex items-center justify-center gap-3">
+              <svg className="h-8 w-8" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+              </svg>
+              <span className="text-2xl font-bold text-gray-900">Google Reviews</span>
+            </div>
+
+            {/* Stars */}
+            <div className="mb-3 flex justify-center gap-1">
+              {Array.from({ length: 5 }).map((_, j) => (
+                <Star key={j} className="h-7 w-7 fill-[#FBBC05] text-[#FBBC05]" />
+              ))}
+            </div>
+            <p className="mb-6 text-lg text-gray-600">
+              {language === 'es'
+                ? '¿Tu experiencia con nosotros fue excelente? Compártela en Google y ayuda a más familias.'
+                : 'Did you have a great experience with us? Share it on Google and help more families.'}
+            </p>
+            <a
+              href="https://share.google/G5bT7mEvb1LxUIUr6"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl bg-[#4285F4] px-8 py-4 text-base font-bold text-white shadow-lg shadow-blue-500/30 transition hover:brightness-110 active:scale-[0.98]"
+            >
+              <Star className="h-5 w-5 fill-white" />
+              {language === 'es' ? 'Escribir Reseña en Google' : 'Write a Google Review'}
+              <ArrowRight className="h-5 w-5" />
+            </a>
+          </motion.div>
         </div>
       </section>
 
@@ -1351,6 +1394,54 @@ export function LandingPage() {
         </div>
       </section>
 
+      {/* ── Service Detail Modal ───────────────────────── */}
+      <Dialog open={!!modalService} onOpenChange={(open) => !open && setModalService(null)}>
+        <DialogContent className="max-w-lg">
+          {modalService && (
+            <>
+              <DialogHeader>
+                <div className={`mb-3 flex h-14 w-14 items-center justify-center rounded-2xl ${modalService.iconBg}`}>
+                  <modalService.icon className="h-7 w-7 text-white" />
+                </div>
+                <DialogTitle className="text-2xl">{modalService.title}</DialogTitle>
+                <DialogDescription className="text-base leading-relaxed">
+                  {modalService.desc}
+                </DialogDescription>
+              </DialogHeader>
+              <div className="mt-2 space-y-3">
+                <h4 className="font-semibold text-gray-900">
+                  {language === 'es' ? '¿Qué incluye?' : 'What\'s included?'}
+                </h4>
+                <ul className="space-y-2">
+                  {(modalService.benefits || [
+                    language === 'es' ? 'Estrategia personalizada según tu caso' : 'Personalized strategy for your case',
+                    language === 'es' ? 'Acompañamiento de expertos certificados' : 'Guidance from certified experts',
+                    language === 'es' ? 'Base legal en cada paso (FCRA/FDCPA)' : 'Legal foundation at every step (FCRA/FDCPA)',
+                    language === 'es' ? 'Resultados medibles y reportes de progreso' : 'Measurable results and progress reports',
+                  ]).map((benefit: string, j: number) => (
+                    <li key={j} className="flex items-start gap-2 text-sm text-gray-700">
+                      <ChevronRight className="mt-0.5 h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="mt-5 flex gap-3">
+                <Button
+                  onClick={() => { setModalService(null); scrollTo('contact'); }}
+                  className="flex-1 bg-[var(--color-accent)] text-white hover:brightness-110"
+                >
+                  {language === 'es' ? 'Solicitar Evaluación' : 'Get Evaluation'}
+                </Button>
+                <Button variant="outline" onClick={() => setModalService(null)}>
+                  {language === 'es' ? 'Cerrar' : 'Close'}
+                </Button>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+
       {/* ── Floating WhatsApp button ───────────────────── */}
       <a
         href="https://wa.me/14077163478"
@@ -1377,12 +1468,19 @@ export function LandingPage() {
                   ? 'Transformando vidas a través de soluciones financieras inteligentes.'
                   : 'Transforming lives through smart financial solutions.'}
               </p>
-              <div className="flex gap-3">
-                {[Facebook, Instagram, Twitter, Linkedin].map((Icon, i) => (
-                  <a key={i} href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 text-white/50 ring-1 ring-white/10 transition-colors hover:bg-[var(--color-gold)] hover:text-[var(--color-primary)]">
-                    <Icon className="h-4 w-4" />
-                  </a>
-                ))}
+              <div className="flex flex-wrap gap-3">
+                <a href="https://www.facebook.com/reyssmartsolution" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white/70 ring-1 ring-white/10 transition-colors hover:bg-[#1877F2] hover:text-white">
+                  <Facebook className="h-5 w-5" />
+                </a>
+                <a href="https://www.instagram.com/reyssmartsolution" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white/70 ring-1 ring-white/10 transition-colors hover:bg-gradient-to-br hover:from-[#E4405F] hover:to-[#F77737] hover:text-white">
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <a href="https://youtube.com/@reyssmartsolutionadmin" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white/70 ring-1 ring-white/10 transition-colors hover:bg-[#FF0000] hover:text-white">
+                  <Youtube className="h-5 w-5" />
+                </a>
+                <a href="https://share.google/G5bT7mEvb1LxUIUr6" target="_blank" rel="noopener noreferrer" aria-label="Google Reviews" className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white/70 ring-1 ring-white/10 transition-colors hover:bg-[#4285F4] hover:text-white">
+                  <Star className="h-5 w-5" />
+                </a>
               </div>
             </div>
 
