@@ -1469,10 +1469,10 @@ export function LandingPage() {
                   : 'Transforming lives through smart financial solutions.'}
               </p>
               <div className="flex flex-wrap gap-3">
-                <a href="https://www.facebook.com/reyssmartsolution" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white/70 ring-1 ring-white/10 transition-colors hover:bg-[#1877F2] hover:text-white">
+                <a href="https://www.facebook.com/61591155728320/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white/70 ring-1 ring-white/10 transition-colors hover:bg-[#1877F2] hover:text-white">
                   <Facebook className="h-5 w-5" />
                 </a>
-                <a href="https://www.instagram.com/reyssmartsolution" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white/70 ring-1 ring-white/10 transition-colors hover:bg-gradient-to-br hover:from-[#E4405F] hover:to-[#F77737] hover:text-white">
+                <a href="https://www.instagram.com/reyssmartsolutions/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white/70 ring-1 ring-white/10 transition-colors hover:bg-gradient-to-br hover:from-[#E4405F] hover:to-[#F77737] hover:text-white">
                   <Instagram className="h-5 w-5" />
                 </a>
                 <a href="https://youtube.com/@reyssmartsolutionadmin" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white/70 ring-1 ring-white/10 transition-colors hover:bg-[#FF0000] hover:text-white">
