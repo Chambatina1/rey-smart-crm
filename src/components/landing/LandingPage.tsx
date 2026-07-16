@@ -1133,42 +1133,63 @@ export function LandingPage() {
       </section>
 
       {/* ── Team Section ────────────────────────────────── */}
-      <section id="team" className="bg-gray-50 py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section id="team" className="relative overflow-hidden bg-gray-50 py-20">
+        <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-[var(--color-accent)]/6 blur-3xl" />
+        <div className="pointer-events-none absolute -right-40 bottom-20 h-80 w-80 rounded-full bg-[var(--color-gold)]/6 blur-3xl" />
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="mb-14 text-center"
           >
-            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">{t.landing.teamTitle}</h2>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--color-gold)]/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-gold)]">
+              <Users className="h-3.5 w-3.5" />
+              {language === 'es' ? 'NUESTRO EQUIPO' : 'OUR TEAM'}
+            </span>
+            <h2 className="mt-5 text-3xl font-bold text-gray-900 sm:text-4xl">{t.landing.teamTitle}</h2>
             <p className="mt-4 text-lg text-gray-600">{t.landing.teamSubtitle}</p>
           </motion.div>
 
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { name: t.landing.team1Name, role: t.landing.team1Role, initials: 'ER' },
-              { name: t.landing.team2Name, role: t.landing.team2Role, initials: 'D' },
-              { name: t.landing.team3Name, role: t.landing.team3Role, initials: 'V' },
-              { name: t.landing.team4Name, role: t.landing.team4Role, initials: 'C' },
-              { name: t.landing.team5Name, role: t.landing.team5Role, initials: 'C' },
-              { name: t.landing.team6Name, role: t.landing.team6Role, initials: 'Y' },
+              { name: t.landing.team1Name, role: t.landing.team1Role, photo: '/team/member-1.jpg', featured: true },
+              { name: t.landing.team2Name, role: t.landing.team2Role, photo: '/team/member-2.jpg', featured: false },
+              { name: t.landing.team3Name, role: t.landing.team3Role, photo: '/team/member-3.jpg', featured: false },
+              { name: t.landing.team4Name, role: t.landing.team4Role, photo: '/team/member-4.jpg', featured: false },
+              { name: t.landing.team5Name, role: t.landing.team5Role, photo: '/team/member-5.jpg', featured: false },
+              { name: t.landing.team6Name, role: t.landing.team6Role, photo: '/team/member-6.jpg', featured: false },
             ].map((member, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
-                transition={{ delay: i * 0.08 }}
+                transition={{ delay: (i % 3) * 0.1 }}
               >
-                <Card className="glow-ring tilt-card border-0 text-center shadow-md hover:shadow-xl">
-                  <CardContent className="p-6">
-                    <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] text-xl font-bold text-white shadow-lg">
-                      {member.initials}
+                <Card className={`glow-ring tilt-card group overflow-hidden border-0 shadow-md hover:shadow-2xl ${member.featured ? 'ring-2 ring-[var(--color-gold)]/40' : ''}`}>
+                  {/* Photo */}
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={member.photo}
+                      alt={member.name}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                    {/* Name + role on photo */}
+                    <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                      {member.featured && (
+                        <span className="mb-1.5 inline-block rounded-full bg-[var(--color-gold)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[var(--color-primary)]">
+                          {language === 'es' ? 'Fundador' : 'Founder'}
+                        </span>
+                      )}
+                      <h3 className="text-xl font-bold drop-shadow-md">{member.name}</h3>
+                      <p className="text-sm text-[var(--color-gold)] drop-shadow-md">{member.role}</p>
                     </div>
-                    <h3 className="font-semibold text-gray-900">{member.name}</h3>
-                    <p className="mt-1 text-xs text-[var(--color-accent)]">{member.role}</p>
-                  </CardContent>
+                  </div>
                 </Card>
               </motion.div>
             ))}
