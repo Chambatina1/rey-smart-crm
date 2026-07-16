@@ -21,6 +21,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import {
   Search, Inbox, Download, Phone, Mail, MapPin, Loader2, RefreshCw, Trash2, MessageSquare,
+  Table as TableIcon, Columns3,
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -63,6 +64,15 @@ const priorityStyles: Record<string, string> = {
   low: 'bg-gray-100 text-gray-500',
 };
 
+/* ── column dot colors for kanban ─────────────────── */
+const statusDotColors: Record<string, string> = {
+  new: 'bg-blue-500',
+  contacted: 'bg-amber-500',
+  qualified: 'bg-[var(--color-gold)]',
+  enrolled: 'bg-green-500',
+  lost: 'bg-gray-400',
+};
+
 const goalLabels: Record<string, { en: string; es: string }> = {
   credit_repair: { en: 'Credit Repair', es: 'Reparación de Crédito' },
   consolidation: { en: 'Consolidation', es: 'Consolidación' },
@@ -82,6 +92,9 @@ export function LeadsPage() {
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [updating, setUpdating] = useState(false);
+  const [viewMode, setViewMode] = useState<'table' | 'kanban'>('table');
+  const [draggedLead, setDraggedLead] = useState<Lead | null>(null);
+  const [dragOverCol, setDragOverCol] = useState<string | null>(null);
 
   /* ── fetch leads ──────────────────────────────────────────────── */
   const fetchLeads = useCallback(async () => {
@@ -212,7 +225,28 @@ export function LeadsPage() {
             {label('Manage inquiries from your landing page', 'Gestiona las solicitudes de tu landing page')}
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          {/* View toggle */}
+          <div className="flex rounded-lg border border-border bg-muted/30 p-0.5">
+            <button
+              onClick={() => setViewMode('table')}
+              className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition ${
+                viewMode === 'table' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              <TableIcon className="h-3.5 w-3.5" />
+              {label('Table', 'Tabla')}
+            </button>
+            <button
+              onClick={() => setViewMode('kanban')}
+              className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition ${
+                viewMode === 'kanban' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              <Columns3 className="h-3.5 w-3.5" />
+              {label('Pipeline', 'Pipeline')}
+            </button>
+          </div>
           <Button variant="outline" size="sm" onClick={fetchLeads} disabled={loading}>
             <RefreshCw className={`mr-2 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
             {label('Refresh', 'Actualizar')}
@@ -269,7 +303,8 @@ export function LeadsPage() {
         </Select>
       </div>
 
-      {/* Table */}
+      {/* ── Table view ──────────────────────────────────── */}
+      {viewMode === 'table' && (
       <Card>
         <CardContent className="p-0">
           {loading ? (
@@ -345,6 +380,88 @@ export function LeadsPage() {
           )}
         </CardContent>
       </Card>
+      )}
+
+      {/* ── Kanban / Pipeline view ─────────────────────── */}
+      {viewMode === 'kanban' && !loading && (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-5">
+          {STATUS_OPTIONS.map((col) => {
+            const colLeads = leads.filter((l) => l.status === col);
+            return (
+              <div
+                key={col}
+                onDragOver={(e) => { e.preventDefault(); setDragOverCol(col); }}
+                onDragLeave={() => setDragOverCol(null)}
+                onDrop={() => {
+                  if (draggedLead && draggedLead.status !== col) {
+                    updateLead(draggedLead.id, { status: col });
+                  }
+                  setDraggedLead(null);
+                  setDragOverCol(null);
+                }}
+                className={`flex flex-col rounded-xl border bg-muted/20 transition-colors ${
+                  dragOverCol === col ? 'border-[var(--color-gold)] bg-[var(--color-gold)]/5' : 'border-border'
+                }`}
+              >
+                {/* Column header */}
+                <div className="flex items-center justify-between border-b border-border px-3 py-2.5">
+                  <div className="flex items-center gap-2">
+                    <span className={`h-2.5 w-2.5 rounded-full ${statusDotColors[col]}`} />
+                    <span className="text-xs font-bold uppercase tracking-wide text-foreground">
+                      {label(col.charAt(0).toUpperCase() + col.slice(1),
+                            { new: 'Nuevo', contacted: 'Contactado', qualified: 'Calificado', enrolled: 'Inscrito', lost: 'Perdido' }[col] || col)}
+                    </span>
+                  </div>
+                  <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                    {colLeads.length}
+                  </span>
+                </div>
+
+                {/* Cards in column */}
+                <div className="flex-1 space-y-2 overflow-y-auto p-2" style={{ maxHeight: '60vh' }}>
+                  {colLeads.length === 0 ? (
+                    <p className="py-4 text-center text-xs text-muted-foreground/50">
+                      {label('Drop leads here', 'Arrastra prospectos aquí')}
+                    </p>
+                  ) : (
+                    colLeads.map((lead) => (
+                      <div
+                        key={lead.id}
+                        draggable
+                        onDragStart={() => setDraggedLead(lead)}
+                        onClick={() => openDetail(lead)}
+                        className="cursor-grab rounded-lg border border-border bg-background p-3 shadow-sm transition hover:shadow-md active:cursor-grabbing"
+                      >
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <p className="text-sm font-semibold text-foreground">
+                              {lead.firstName} {lead.lastName}
+                            </p>
+                            <p className="mt-0.5 text-xs text-muted-foreground">{lead.email}</p>
+                          </div>
+                          {lead.priority === 'high' && (
+                            <span className="rounded bg-red-100 px-1.5 py-0.5 text-[10px] font-bold text-red-700">
+                              {label('HIGH', 'ALTA')}
+                            </span>
+                          )}
+                        </div>
+                        {lead.goal && (
+                          <p className="mt-1.5 text-xs text-[var(--color-accent)]">
+                            {goalLabels[lead.goal]?.[language] || lead.goal}
+                          </p>
+                        )}
+                        <p className="mt-1 text-[10px] text-muted-foreground/60">
+                          {new Date(lead.createdAt).toLocaleDateString(language === 'es' ? 'es-ES' : 'en-US', { month: 'short', day: 'numeric' })}
+                        </p>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
 
       {/* Detail / Edit Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
