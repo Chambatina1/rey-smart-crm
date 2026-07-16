@@ -514,16 +514,36 @@ export function LandingPage() {
                 )}
               </h1>
 
+              {/* Investor quote — large, impactful */}
+              <motion.blockquote
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.8 }}
+                className="mt-6 max-w-2xl border-l-4 border-[var(--color-gold)] pl-5"
+              >
+                <p
+                  className="text-2xl font-bold italic leading-tight text-white sm:text-3xl"
+                  style={{ textShadow: '0 2px 12px rgba(0,0,0,0.95), 0 0 30px rgba(0,0,0,0.7)' }}
+                >
+                  {language === 'es'
+                    ? '"El dinero es un buen sirviente, pero un amo muy peligroso."'
+                    : '"Risk comes from not knowing what you are doing."'}
+                </p>
+                <footer className="mt-2 text-sm font-semibold text-[var(--color-gold)]" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.9)' }}>
+                  — {language === 'es' ? 'Francis Bacon / Warren Buffett' : 'Warren Buffett'}
+                </footer>
+              </motion.blockquote>
+
               {/* Elegant tagline */}
               <p
-                className="mt-5 text-xl font-light italic tracking-wide text-[var(--color-gold)]"
+                className="mt-5 text-lg font-light italic tracking-wide text-[var(--color-gold)]"
                 style={{ textShadow: '0 2px 8px rgba(0,0,0,0.9)' }}
               >
                 {language === 'es' ? '"Construyendo Vidas, No Solo Crédito."' : '"Building Lives, Not Just Credit."'}
               </p>
 
               <p
-                className="mt-5 max-w-xl text-xl leading-relaxed text-white"
+                className="mt-4 max-w-xl text-lg leading-relaxed text-white"
                 style={{ textShadow: '0 1px 8px rgba(0,0,0,0.9)' }}
               >
                 {t.landing.heroSubtitle}
@@ -564,28 +584,56 @@ export function LandingPage() {
               </div>
             </motion.div>
 
-            {/* Right — financial universe (hand holding the financial world) */}
+            {/* Right — luminous orb composition (golden/blue light atmosphere) */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.92, x: 20 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              transition={{ duration: 1, delay: 0.25 }}
-              className="relative hidden lg:block"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="relative hidden items-center justify-center lg:flex"
             >
-              {/* The symbolic image: hand holding the financial universe */}
-              <div className="relative">
-                {/* rotating orbit ring accent */}
-                <div className="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--color-gold)]/20 [animation:spin_28s_linear_infinite]" />
-                <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--color-accent)]/15 [animation:spin_20s_linear_infinite_reverse]" />
-
-                {/* Main hero image */}
-                <motion.img
-                  src="/hero-finance.svg"
-                  alt={language === 'es' ? 'Tu mundo financiero en buenas manos' : 'Your financial world in good hands'}
-                  className="relative z-10 mx-auto w-full max-w-md drop-shadow-[0_8px_40px_rgba(74,144,217,0.35)]"
-                  initial={{ y: 0 }}
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+              <div className="relative h-[440px] w-[440px]">
+                {/* Central glowing orb — golden light core */}
+                <motion.div
+                  animate={{ scale: [1, 1.08, 1], opacity: [0.7, 1, 0.7] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                  className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                  style={{
+                    background: 'radial-gradient(circle, oklch(0.85 0.15 80) 0%, oklch(0.65 0.18 65) 30%, oklch(0.40 0.12 250 / 0.6) 70%, transparent 100%)',
+                    filter: 'blur(20px)',
+                  }}
                 />
+
+                {/* Inner bright core */}
+                <motion.div
+                  animate={{ opacity: [0.5, 0.9, 0.5] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                  className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/80 blur-2xl"
+                />
+
+                {/* Orbiting rings */}
+                <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--color-gold)]/15 [animation:spin_30s_linear_infinite]" />
+                <div className="absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[oklch(0.60_0.14_245)]/20 [animation:spin_22s_linear_infinite_reverse]" />
+                <div className="absolute left-1/2 top-1/2 h-[240px] w-[240px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 [animation:spin_16s_linear_infinite]" />
+
+                {/* Floating light particles */}
+                {[
+                  { top: '15%', left: '20%', delay: 0, color: 'bg-[var(--color-gold)]' },
+                  { top: '25%', left: '75%', delay: 0.5, color: 'bg-white' },
+                  { top: '65%', left: '15%', delay: 1, color: 'bg-[oklch(0.70_0.12_240)]' },
+                  { top: '75%', left: '80%', delay: 1.5, color: 'bg-[var(--color-gold)]' },
+                  { top: '40%', left: '90%', delay: 0.8, color: 'bg-white' },
+                  { top: '85%', left: '45%', delay: 2, color: 'bg-[var(--color-gold)]' },
+                  { top: '10%', left: '50%', delay: 1.2, color: 'bg-white' },
+                  { top: '50%', left: '5%', delay: 0.3, color: 'bg-[oklch(0.70_0.12_240)]' },
+                ].map((p, i) => (
+                  <motion.div
+                    key={i}
+                    animate={{ y: [0, -20, 0], opacity: [0.3, 1, 0.3] }}
+                    transition={{ duration: 4 + (i % 3), repeat: Infinity, ease: 'easeInOut', delay: p.delay }}
+                    className={`absolute h-2 w-2 rounded-full ${p.color} blur-[1px]`}
+                    style={{ top: p.top, left: p.left }}
+                  />
+                ))}
 
                 {/* Floating stat card — score improvement */}
                 <motion.div
