@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useSyncExternalStore } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigationStore } from '@/stores/navigation-store';
 import { LandingPage } from '@/components/landing/LandingPage';
 import { AppLayout } from '@/components/layout/AppLayout';
@@ -17,24 +17,17 @@ import { BillingPage } from '@/components/billing/BillingPage';
 import { SettingsPage } from '@/components/settings/SettingsPage';
 import { ClientPortalPage } from '@/components/portal/ClientPortalPage';
 
-const emptySubscribe = () => () => {};
-
-function useIsMounted() {
-  return useSyncExternalStore(emptySubscribe, () => true, () => false);
-}
-
 export default function Home() {
   const currentView = useNavigationStore((s) => s.currentView);
-  const mounted = useIsMounted();
+  const [mounted, setMounted] = useState(false);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Show landing immediately on first render (avoids spinner stall)
   if (!mounted) {
-    return (
-      <div className="bg-background flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <div className="border-primary mx-auto mb-4 h-16 w-16 animate-spin rounded-full border-4 border-t-transparent" />
-        </div>
-      </div>
-    );
+    return <LandingPage />;
   }
 
   // Landing page (no auth needed)

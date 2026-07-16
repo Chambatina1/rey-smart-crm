@@ -5,6 +5,13 @@ import { motion, useInView } from 'framer-motion';
 import { useT } from '@/hooks/useT';
 import { useNavigationStore } from '@/stores/navigation-store';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   Shield,
