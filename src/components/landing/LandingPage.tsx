@@ -165,8 +165,8 @@ export function LandingPage() {
   }, [testimonials.length]);
 
   const navLinks = [
-    { label: t.nav.services, href: '#services' },
-    { label: t.nav.courses, href: '#how-it-works' },
+    { label: t.landing.services, href: '#services' },
+    { label: t.landing.howItWorks, href: '#how-it-works' },
     { label: t.nav.courses, href: '#courses' },
   ];
 
@@ -361,7 +361,7 @@ export function LandingPage() {
                 onClick={() => scrollTo('contact')}
                 className={`shimmer-gold hidden bg-[var(--color-gold)] font-semibold text-[var(--gold-foreground)] shadow-md shadow-[var(--color-gold)]/30 transition hover:brightness-110 sm:inline-flex ${scrolled ? '' : 'ring-2 ring-white/20'}`}
               >
-                {language === 'es' ? 'Evaluación Gratis' : 'Free Evaluation'}
+                {language === 'es' ? 'Contáctanos' : 'Contact Us'}
               </Button>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -392,7 +392,7 @@ export function LandingPage() {
                 onClick={() => { scrollTo('contact'); setMobileMenuOpen(false); }}
                 className="mt-3 w-full bg-[var(--color-gold)] font-semibold text-[var(--gold-foreground)] shadow-md"
               >
-                {language === 'es' ? 'Evaluación Gratis' : 'Free Evaluation'}
+                {language === 'es' ? 'Contáctanos' : 'Contact Us'}
               </Button>
             </motion.div>
           )}
