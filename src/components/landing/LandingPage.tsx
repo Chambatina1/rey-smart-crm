@@ -122,6 +122,7 @@ export function LandingPage() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [expandedService, setExpandedService] = useState<number | null>(null);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -268,9 +269,33 @@ export function LandingPage() {
   ];
 
   const services = [
-    { icon: Shield, title: t.landing.protection, desc: t.landing.protectionDesc, color: 'bg-[var(--color-gold)]/15 text-[var(--color-gold)]' },
-    { icon: TrendingUp, title: t.landing.building, desc: t.landing.buildingDesc, color: 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]' },
-    { icon: GraduationCap, title: t.landing.education2, desc: t.landing.education2Desc, color: 'bg-[var(--color-gold)]/15 text-[var(--color-gold)]' },
+    {
+      icon: Shield,
+      title: t.landing.protection,
+      desc: t.landing.protectionDesc,
+      color: 'bg-[var(--color-gold)]/15 text-[var(--color-gold)]',
+      benefits: language === 'es'
+        ? ['Disputas con burós de crédito (Equifax, Experian, TransUnion)', 'Validación de deuda conforme a FDCPA', 'Quejas ante CFPB, FTC y reguladores estatales', 'Eliminación de items negativos inexactos o no verificables']
+        : ['Disputes with credit bureaus (Equifax, Experian, TransUnion)', 'Debt validation under FDCPA', 'Complaints to CFPB, FTC, and state regulators', 'Removal of inaccurate or unverifiable negative items'],
+    },
+    {
+      icon: TrendingUp,
+      title: t.landing.building,
+      desc: t.landing.buildingDesc,
+      color: 'bg-[var(--color-accent)]/10 text-[var(--color-accent)]',
+      benefits: language === 'es'
+        ? ['Tarjetas aseguradas (secured cards) para construir historial', 'Préstamos constructores (credit builder loans)', 'Optimización de la mezcla de crédito', 'Estrategia para aumentar el puntaje paso a paso']
+        : ['Secured credit cards to build history', 'Credit builder loans', 'Credit mix optimization', 'Step-by-step strategy to raise your score'],
+    },
+    {
+      icon: GraduationCap,
+      title: t.landing.education2,
+      desc: t.landing.education2Desc,
+      color: 'bg-[var(--color-gold)]/15 text-[var(--color-gold)]',
+      benefits: language === 'es'
+        ? ['Mentoría personalizada 1-a-1', 'Talleres sobre cómo mantener un crédito sano', 'Recursos educativos en español e inglés', 'Acompañamiento continuo durante todo el proceso']
+        : ['Personalized 1-on-1 mentoring', 'Workshops on maintaining healthy credit', 'Educational resources in Spanish and English', 'Ongoing support throughout the entire process'],
+    },
   ];
 
   const steps = [
@@ -893,27 +918,59 @@ export function LandingPage() {
           </motion.div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-              >
-                <Card className="glow-ring tilt-card group h-full cursor-pointer border-0 shadow-md hover:shadow-2xl">
-                  <CardContent className="p-6">
-                    <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${service.color} transition-transform group-hover:scale-110 group-hover:rotate-3`}>
-                      <service.icon className="h-6 w-6" />
-                    </div>
-                    <h3 className="mb-2 text-lg font-semibold text-gray-900 transition-colors group-hover:text-[var(--color-accent)]">
-                      {service.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed text-gray-600">{service.desc}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+            {services.map((service, i) => {
+              const isOpen = expandedService === i;
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                >
+                  <Card
+                    onClick={() => setExpandedService(isOpen ? null : i)}
+                    className={`glow-ring group h-full cursor-pointer border-0 shadow-md transition-all duration-300 hover:shadow-2xl ${isOpen ? 'ring-2 ring-[var(--color-gold)]/50' : 'tilt-card'}`}
+                  >
+                    <CardContent className="p-6">
+                      <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${service.color} transition-transform group-hover:scale-110 group-hover:rotate-3`}>
+                        <service.icon className="h-6 w-6" />
+                      </div>
+                      <div className="mb-2 flex items-center justify-between">
+                        <h3 className="text-lg font-semibold text-gray-900 transition-colors group-hover:text-[var(--color-accent)]">
+                          {service.title}
+                        </h3>
+                        <motion.div animate={{ rotate: isOpen ? 45 : 0 }} transition={{ duration: 0.2 }}>
+                          {isOpen ? (
+                            <Minus className="h-5 w-5 text-[var(--color-gold)]" />
+                          ) : (
+                            <Plus className="h-5 w-5 text-[var(--color-accent)]" />
+                          )}
+                        </motion.div>
+                      </div>
+                      <p className="text-sm leading-relaxed text-gray-600">{service.desc}</p>
+
+                      {/* Expandable benefits */}
+                      <motion.div
+                        initial={false}
+                        animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
+                        transition={{ duration: 0.35, ease: 'easeInOut' }}
+                        className="overflow-hidden"
+                      >
+                        <ul className="mt-4 space-y-2 border-t border-gray-100 pt-4">
+                          {service.benefits.map((benefit, j) => (
+                            <li key={j} className="flex items-start gap-2 text-sm text-gray-700">
+                              <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--color-gold)]" />
+                              {benefit}
+                            </li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
