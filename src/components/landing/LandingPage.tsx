@@ -234,9 +234,9 @@ export function LandingPage() {
       title: t.landing.education,
       desc: t.landing.educationLongDesc,
       shortDesc: t.landing.educationDesc,
-      gradient: 'from-amber-500 via-amber-600 to-orange-500',
-      iconBg: 'bg-amber-400/30',
-      btnClass: 'bg-white text-amber-800 hover:bg-amber-50',
+      gradient: 'from-[var(--color-gold)] via-[var(--color-gold)] to-[var(--color-accent)]',
+      iconBg: 'bg-[var(--color-gold)]/30',
+      btnClass: 'bg-white text-[var(--color-primary)] hover:bg-[var(--color-gold)]/10',
     },
     {
       icon: Users,
@@ -739,18 +739,18 @@ export function LandingPage() {
                 onClick={() => scrollTo('contact')}
                 className="bg-[var(--color-accent)] px-7 py-5 text-base font-semibold text-white shadow-lg shadow-[var(--color-accent)]/25 transition hover:brightness-110"
               >
-                {language === 'es' ? 'Solicitar evaluación gratis' : 'Get Free Evaluation'}
+                {language === 'es' ? 'Solicitar Evaluación' : 'Get Evaluation'}
                 <ChevronRight className="ml-1 h-5 w-5" />
               </Button>
               <a
                 href="https://youtube.com/@reyssmartsolutionadmin"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="YouTube"
                 className="flex items-center gap-2 rounded-xl bg-[#FF0000] px-7 py-5 text-base font-semibold text-white shadow-lg shadow-red-600/25 transition hover:brightness-110 active:scale-[0.98]"
               >
                 <Youtube className="h-5 w-5" />
-                {language === 'es' ? 'Ver Canal de YouTube' : 'Watch on YouTube'}
-                <Play className="ml-0.5 h-4 w-4 fill-white" />
+                <Play className="h-4 w-4 fill-white" />
               </a>
             </div>
           </motion.div>

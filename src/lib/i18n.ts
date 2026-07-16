@@ -134,7 +134,7 @@ export const translations = {
       disclaimerTitle: 'Important Disclosure',
       disclaimerText: 'REYS Smart Solutions does not guarantee specific results. Results vary depending on each case. All negative information is disputed in accordance with applicable federal laws (FCRA / FDCPA). You have the right to dispute any item on your credit report yourself, free of charge. This website is for informational purposes and is not legal or financial advice.',
       // Lead capture form
-      formEyebrow: 'FREE CREDIT EVALUATION',
+      formEyebrow: 'CREDIT EVALUATION',
       formTitle: 'Start your evaluation today',
       formSubtitle: 'Fill out this form and an advisor will contact you within 24 hours. No obligation.',
       formFirstName: 'First Name',
@@ -599,7 +599,7 @@ export const translations = {
       disclaimerTitle: 'Aviso Importante',
       disclaimerText: 'REYS Smart Solutions no garantiza resultados específicos. Los resultados varían según cada caso. Toda información negativa se disputa conforme a las leyes federales aplicables (FCRA / FDCPA). Tienes el derecho de disputar cualquier item de tu reporte de crédito tú mismo, sin costo. Este sitio web es informativo y no constituye asesoría legal ni financiera.',
       // Lead capture form
-      formEyebrow: 'EVALUACIÓN DE CRÉDITO GRATIS',
+      formEyebrow: 'EVALUACIÓN DE CRÉDITO',
       formTitle: 'Inicia tu evaluación hoy',
       formSubtitle: 'Completa este formulario y un asesor te contactará en menos de 24 horas. Sin compromiso.',
       formFirstName: 'Nombre',
