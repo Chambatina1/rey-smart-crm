@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useNavigationStore } from '@/stores/navigation-store';
 import { useAuthStore } from '@/stores/auth-store';
 import { LandingPage } from '@/components/landing/LandingPage';
+import { LoginPage } from '@/components/landing/LoginPage';
+import { RegisterPage } from '@/components/landing/RegisterPage';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { DashboardPage } from '@/components/dashboard/DashboardPage';
 import { LeadsPage } from '@/components/leads/LeadsPage';
@@ -52,9 +54,11 @@ export default function Home() {
   }
 
   // Login and Register views are public
-  if (currentView === 'login' || currentView === 'register') {
-    // These are handled inside LandingPage component context
-    return <LandingPage />;
+  if (currentView === 'login') {
+    return <LoginPage />;
+  }
+  if (currentView === 'register') {
+    return <RegisterPage />;
   }
 
   // 🔒 PROTECTION: all admin/dashboard views require authentication

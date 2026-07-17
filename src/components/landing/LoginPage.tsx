@@ -54,6 +54,8 @@ export function LoginPage() {
         title: language === 'es' ? 'Bienvenido de vuelta' : 'Welcome back',
         description: language === 'es' ? 'Inicio de sesion exitoso' : 'Successfully signed in',
       });
+      // Navigate to dashboard after successful login
+      navigate('dashboard');
     } else {
       const serverError = result.error || '';
       setError(serverError);
