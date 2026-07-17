@@ -1282,47 +1282,64 @@ export function LandingPage() {
             <p className="mt-4 text-lg text-gray-600">{t.landing.teamSubtitle}</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {[
-              { name: t.landing.team1Name, role: t.landing.team1Role, photo: '/team/member-1.jpg', featured: true },
-              { name: t.landing.team2Name, role: t.landing.team2Role, photo: '/team/member-2.jpg', featured: false },
-              { name: t.landing.team3Name, role: t.landing.team3Role, photo: '/team/member-3.jpg', featured: false },
-              { name: t.landing.team4Name, role: t.landing.team4Role, photo: '/team/member-4.jpg', featured: false },
-              { name: t.landing.team5Name, role: t.landing.team5Role, photo: '/team/member-5.jpg', featured: false },
-              { name: t.landing.team6Name, role: t.landing.team6Role, photo: '/team/member-6.jpg', featured: false },
-            ].map((member, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ delay: (i % 3) * 0.1 }}
-              >
-                <Card className={`glow-ring tilt-card group overflow-hidden border-0 shadow-md hover:shadow-2xl ${member.featured ? 'ring-2 ring-[var(--color-gold)]/40' : ''}`}>
-                  {/* Photo */}
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={member.photo}
-                      alt={member.name}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                    {/* Name + role on photo */}
-                    <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                      {member.featured && (
-                        <span className="mb-1.5 inline-block rounded-full bg-[var(--color-gold)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[var(--color-primary)]">
-                          {language === 'es' ? 'Fundador' : 'Founder'}
-                        </span>
+              { name: t.landing.team1Name, role: t.landing.team1Role, photo: '/team/reys-michel.jpg', featured: true, badge: language === 'es' ? 'Presidente' : 'President' },
+              { name: t.landing.team2Name, role: t.landing.team2Role, photo: '/team/yolanda-peron.jpg', featured: true, badge: language === 'es' ? 'Vicepresidenta' : 'Vice President' },
+              { name: t.landing.team3Name, role: t.landing.team3Role, photo: null },
+              { name: t.landing.team4Name, role: t.landing.team4Role, photo: '/team/vladimir-caceres.jpg', featured: false, badge: null },
+              { name: t.landing.team5Name, role: t.landing.team5Role, photo: null },
+              { name: t.landing.team6Name, role: t.landing.team6Role, photo: null },
+              { name: t.landing.team7Name, role: t.landing.team7Role, photo: null },
+              { name: t.landing.team8Name, role: t.landing.team8Role, photo: null },
+              { name: t.landing.team9Name, role: t.landing.team9Role, photo: null },
+              { name: t.landing.team10Name, role: t.landing.team10Role, photo: null },
+              { name: t.landing.team11Name, role: t.landing.team11Role, photo: null },
+              { name: t.landing.team12Name, role: t.landing.team12Role, photo: null },
+              { name: t.landing.team13Name, role: t.landing.team13Role, photo: null },
+            ].map((member, i) => {
+              const initials = member.name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2);
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{ delay: (i % 4) * 0.08 }}
+                >
+                  <Card className={`glow-ring tilt-card group overflow-hidden border-0 shadow-md hover:shadow-2xl ${member.featured ? 'ring-2 ring-[var(--color-gold)]/40' : ''}`}>
+                    {/* Photo or Avatar */}
+                    <div className="relative aspect-square overflow-hidden">
+                      {member.photo ? (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img
+                          src={member.photo}
+                          alt={member.name}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                      ) : (
+                        /* Avatar with initials */
+                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[var(--color-primary)] via-[oklch(0.25_0.04_258)] to-[var(--color-accent)]">
+                          <span className="text-5xl font-bold text-white/90 drop-shadow-lg">{initials}</span>
+                        </div>
                       )}
-                      <h3 className="text-xl font-bold drop-shadow-md">{member.name}</h3>
-                      <p className="text-sm text-[var(--color-gold)] drop-shadow-md">{member.role}</p>
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+                      {/* Name + role */}
+                      <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                        {member.badge && (
+                          <span className="mb-1.5 inline-block rounded-full bg-[var(--color-gold)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[var(--color-primary)]">
+                            {member.badge}
+                          </span>
+                        )}
+                        <h3 className="text-base font-bold leading-tight drop-shadow-md">{member.name}</h3>
+                        <p className="mt-0.5 text-xs text-[var(--color-gold)] drop-shadow-md">{member.role}</p>
+                      </div>
                     </div>
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
+                  </Card>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
