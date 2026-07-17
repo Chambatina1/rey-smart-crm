@@ -19,6 +19,7 @@ export type AppView =
   | 'billing'
   | 'finance'
   | 'quickbooks'
+  | 'payment-methods'
   | 'settings'
   | 'team'
   | 'client-portal'

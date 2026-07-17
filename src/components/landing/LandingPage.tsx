@@ -61,6 +61,7 @@ import {
 import { LandingForm } from '@/components/landing/LandingForm';
 import { PricingSection } from '@/components/landing/PricingSection';
 import { FinanceCalculator } from '@/components/landing/FinanceCalculator';
+import { BridgeHowItWorks } from '@/components/landing/BridgeHowItWorks';
 
 /* ── animated counter ──────────────────────────────────────────── */
 function useCountUp(end: number, duration = 2000, startCounting = false) {
@@ -990,52 +991,8 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* ── How It Works ────────────────────────────────── */}
-      <section id="how-it-works" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-14"
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">{t.landing.howItWorks}</h2>
-          </motion.div>
-
-          <div className="relative grid gap-8 md:grid-cols-3">
-            {/* Animated gradient connecting line */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, delay: 0.3 }}
-              className="absolute left-[16%] right-[16%] top-10 hidden h-1 origin-left rounded-full bg-gradient-to-r from-[var(--color-accent)] via-[var(--color-gold)] to-[var(--color-accent)] md:block"
-            />
-            {steps.map((step, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ delay: i * 0.18, duration: 0.6 }}
-                className="relative text-center"
-              >
-                {/* Glowing number circle */}
-                <div className="relative z-10 mx-auto mb-6 inline-flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-primary)] text-white shadow-xl shadow-[var(--color-accent)]/30 ring-4 ring-white">
-                  {/* pulsing aura */}
-                  <span className="absolute inset-0 animate-glow-pulse rounded-full bg-[var(--color-accent)]/40 blur-md" />
-                  <span className="relative text-2xl font-bold">{step.num}</span>
-                </div>
-                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[var(--color-gold)]/10 ring-1 ring-[var(--color-gold)]/20 transition-transform group-hover:scale-110">
-                  <step.icon className="h-7 w-7 text-[var(--color-accent)]" />
-                </div>
-                <h3 className="mb-3 text-xl font-semibold text-gray-900">{step.title}</h3>
-                <p className="mx-auto max-w-xs text-gray-600">{step.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ── How It Works (Interactive Bridge) ──────────── */}
+      <BridgeHowItWorks />
 
       {/* ── Pricing Section ────────────────────────────── */}
       <PricingSection />

@@ -16,6 +16,7 @@ import { MessagesPage } from '@/components/messages/MessagesPage';
 import { BillingPage } from '@/components/billing/BillingPage';
 import { FinancePage } from '@/components/finance/FinancePage';
 import { QuickBooksSettings } from '@/components/settings/QuickBooksSettings';
+import { PaymentMethodsPage } from '@/components/settings/PaymentMethodsPage';
 import { SettingsPage } from '@/components/settings/SettingsPage';
 import { ClientPortalPage } from '@/components/portal/ClientPortalPage';
 
@@ -52,6 +53,7 @@ export default function Home() {
       case 'billing': return <BillingPage />;
       case 'finance': return <FinancePage />;
       case 'quickbooks': return <QuickBooksSettings />;
+      case 'payment-methods': return <PaymentMethodsPage />;
       case 'settings': case 'team': return <SettingsPage />;
       case 'client-portal':
       case 'client-portal-credit':

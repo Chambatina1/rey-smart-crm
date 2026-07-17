@@ -62,6 +62,7 @@ const adminNavItems: SidebarItem[] = [
   { label: 'Documents', icon: FileText, view: 'documents' },
   { label: 'Billing', icon: DollarSign, view: 'billing' },
   { label: 'Finance', icon: Wallet, view: 'finance' },
+  { label: 'Payment Methods', icon: CreditCard, view: 'payment-methods' },
   { label: 'QuickBooks', icon: Plug, view: 'quickbooks' },
   { label: 'Settings', icon: Settings, view: 'settings' },
 ];
@@ -120,6 +121,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
     documents: t.nav.documents,
     billing: t.nav.billing,
     finance: language === 'es' ? 'Finanzas' : 'Finance',
+    'payment-methods': language === 'es' ? 'Formas de Pago' : 'Payment Methods',
     quickbooks: 'QuickBooks',
     settings: t.nav.settings,
     team: t.nav.settings,

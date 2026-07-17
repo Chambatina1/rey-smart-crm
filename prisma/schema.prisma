@@ -576,3 +576,32 @@ model FinanceEntry {
   @@index([date])
   @@index([clientId])
 }
+
+// ===================== PAYMENT METHODS (admin-configured) =====================
+// Admin can enable/configure multiple payment providers from dashboard.
+
+model PaymentMethod {
+  id            String   @id @default(cuid())
+  code          String   @unique // "stripe", "paypal", "square", "zelle", "bank_transfer", "cash", "check"
+  displayName   String                    // "Credit/Debit Card (Stripe)"
+  type          String   @default("card") // card, bank, cash, digital
+  description   String?
+  // Provider credentials (admin enters from dashboard, masked in GET)
+  publicKey     String?                   // e.g. Stripe publishable key
+  secretKey     String?                   // e.g. Stripe secret key
+  webhookSecret String?                   // for verifying webhooks
+  accountId     String?                   // e.g. PayPal client ID, bank account
+  // Status & config
+  isActive      Boolean  @default(false)
+  isDefault     Boolean  @default(false)
+  feePercent    Float?                    // processing fee % (e.g. 2.9)
+  feeFlat       Float?                    // flat fee per transaction (e.g. 0.30)
+  icon          String?                   // icon name or emoji
+  sortOrder     Int      @default(0)
+  instructions  String?                   // JSON for manual methods (Zelle, bank)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([isActive])
+  @@index([code])
+}
