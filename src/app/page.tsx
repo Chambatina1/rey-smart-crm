@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigationStore } from '@/stores/navigation-store';
+import { useAuthStore } from '@/stores/auth-store';
 import { LandingPage } from '@/components/landing/LandingPage';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { DashboardPage } from '@/components/dashboard/DashboardPage';
@@ -23,11 +24,22 @@ import { ClientPortalPage } from '@/components/portal/ClientPortalPage';
 
 export default function Home() {
   const currentView = useNavigationStore((s) => s.currentView);
+  const navigate = useNavigationStore((s) => s.navigate);
+  const { isAuthenticated, checkAuth, user, token } = useAuthStore();
   const [mounted, setMounted] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
 
+  // First mount: show landing immediately to avoid white screen
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Check if user is already logged in (token in localStorage)
+  useEffect(() => {
+    if (mounted && !authChecked) {
+      checkAuth().finally(() => setAuthChecked(true));
+    }
+  }, [mounted, authChecked, checkAuth]);
 
   // Show landing immediately on first render (avoids spinner stall)
   if (!mounted) {
@@ -39,7 +51,30 @@ export default function Home() {
     return <LandingPage />;
   }
 
-  // All authenticated views (FREE ACCESS - no auth check)
+  // Login and Register views are public
+  if (currentView === 'login' || currentView === 'register') {
+    // These are handled inside LandingPage component context
+    return <LandingPage />;
+  }
+
+  // 🔒 PROTECTION: all admin/dashboard views require authentication
+  // If not logged in, redirect to landing (which shows login)
+  if (authChecked && !isAuthenticated && token === null) {
+    // Redirect to landing page
+    navigate('landing');
+    return <LandingPage />;
+  }
+
+  // While checking auth, show a minimal loading state
+  if (!authChecked) {
+    return (
+      <div className="bg-background flex min-h-screen items-center justify-center">
+        <div className="border-primary mx-auto h-12 w-16 animate-spin rounded-full border-4 border-t-transparent" />
+      </div>
+    );
+  }
+
+  // All authenticated views
   const renderView = () => {
     switch (currentView) {
       case 'dashboard': return <DashboardPage />;

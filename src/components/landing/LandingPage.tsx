@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useT } from '@/hooks/useT';
 import { useNavigationStore } from '@/stores/navigation-store';
+import { useAuthStore } from '@/stores/auth-store';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -130,6 +131,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 export function LandingPage() {
   const { t, language, setLanguage } = useT();
   const navigate = useNavigationStore(s => s.navigate);
+  const { isAuthenticated } = useAuthStore();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -428,7 +430,7 @@ export function LandingPage() {
                 {language === 'en' ? 'ES' : 'EN'}
               </button>
               <button
-                onClick={() => navigate('dashboard')}
+                onClick={() => navigate(isAuthenticated ? 'dashboard' : 'login')}
                 className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-semibold transition-all ${
                   scrolled
                     ? 'border-border text-foreground hover:bg-muted'
