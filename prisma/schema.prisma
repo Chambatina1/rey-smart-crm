@@ -439,3 +439,37 @@ model Lead {
   @@index([assignedTo])
   @@index([createdAt])
 }
+
+// ===================== SERVICE REQUESTS (courses, debt strategies, guides) =====================
+
+model ServiceRequest {
+  id            String    @id @default(cuid())
+  firstName     String
+  lastName      String
+  email         String
+  phone         String
+  // Type of request
+  type          String    // course | debt_strategy | guide | consultation
+  // For courses: which course
+  courseTitle   String?   // e.g. "Credit Fundamentals 101"
+  // For debt strategy: debt details
+  debtAmount    String?   // estimated total debt
+  creditorCount String?   // number of creditors
+  // For guide: which guide
+  guideTopic    String?   // e.g. "First-time homebuyer"
+  // Common
+  goal          String?   // free text goal
+  message       String?
+  language      String    @default("en")
+  status        String    @default("new") // new, reviewed, contacted, enrolled, closed
+  priority      String    @default("medium")
+  assignedTo    String?
+  notes         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([status])
+  @@index([type])
+  @@index([email])
+  @@index([createdAt])
+}

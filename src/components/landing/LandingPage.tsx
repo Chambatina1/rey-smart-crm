@@ -47,6 +47,7 @@ import {
   Youtube,
   Play,
   Sparkles,
+  CheckCircle2,
 } from 'lucide-react';
 import {
   Carousel,
@@ -513,74 +514,61 @@ export function LandingPage() {
               </motion.div>
 
               <h1
-                className="text-5xl font-extrabold leading-[1.05] text-white sm:text-6xl lg:text-7xl"
-                style={{ textShadow: '0 2px 12px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6), 0 4px 6px rgba(0,0,0,0.8)' }}
+                className="text-4xl font-extrabold leading-[1.1] text-white sm:text-5xl lg:text-6xl"
+                style={{ textShadow: '0 2px 12px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6)' }}
               >
                 {language === 'es' ? (
                   <>
-                    Reconstruye Tu Crédito
+                    Tu crédito es la llave
                     <br />
-                    Con{' '}
+                    a tu{' '}
                     <span
                       className="text-[var(--color-accent)]"
                       style={{ textShadow: '0 2px 12px rgba(0,0,0,0.9), 0 0 30px rgba(27,127,75,0.5)' }}
                     >
-                      Estrategia Legal
+                      futuro financiero
                     </span>
-                    <br />
-                    Y Expertos Reales
+                    .
                   </>
                 ) : (
                   <>
-                    Rebuild Your Credit
+                    Your credit is the key
                     <br />
-                    With{' '}
+                    to your{' '}
                     <span
                       className="text-[var(--color-accent)]"
                       style={{ textShadow: '0 2px 12px rgba(0,0,0,0.9), 0 0 30px rgba(27,127,75,0.5)' }}
                     >
-                      Legal Strategy
+                      financial future
                     </span>
-                    <br />
-                    And Real Experts
+                    .
                   </>
                 )}
               </h1>
 
-              {/* Investor quote — large, impactful */}
-              <motion.blockquote
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-                className="mt-6 max-w-2xl border-l-4 border-[var(--color-gold)] pl-5"
-              >
-                <p
-                  className="text-2xl font-bold italic leading-tight text-white sm:text-3xl"
-                  style={{ textShadow: '0 2px 12px rgba(0,0,0,0.95), 0 0 30px rgba(0,0,0,0.7)' }}
-                >
-                  {language === 'es'
-                    ? '"El dinero es un buen sirviente, pero un amo muy peligroso."'
-                    : '"Risk comes from not knowing what you are doing."'}
-                </p>
-                <footer className="mt-2 text-sm font-semibold text-[var(--color-gold)]" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.9)' }}>
-                  — {language === 'es' ? 'Francis Bacon / Warren Buffett' : 'Warren Buffett'}
-                </footer>
-              </motion.blockquote>
-
-              {/* Elegant tagline */}
+              {/* Subtitle — clear, benefit-oriented */}
               <p
-                className="mt-5 text-lg font-light italic tracking-wide text-[var(--color-gold)]"
-                style={{ textShadow: '0 2px 8px rgba(0,0,0,0.9)' }}
-              >
-                {language === 'es' ? '"Construyendo Vidas, No Solo Crédito."' : '"Building Lives, Not Just Credit."'}
-              </p>
-
-              <p
-                className="mt-4 max-w-xl text-lg leading-relaxed text-white"
+                className="mt-5 max-w-xl text-xl leading-relaxed text-white"
                 style={{ textShadow: '0 1px 8px rgba(0,0,0,0.9)' }}
               >
                 {t.landing.heroSubtitle}
               </p>
+
+              {/* Trust badges — large, prominent (conversion-critical) */}
+              <div className="mt-7 flex flex-wrap gap-3">
+                <span className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
+                  <CheckCircle2 className="h-4 w-4 text-[var(--color-accent)]" />
+                  {language === 'es' ? 'Evaluación 100% gratuita' : '100% Free Evaluation'}
+                </span>
+                <span className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
+                  <CheckCircle2 className="h-4 w-4 text-[var(--color-accent)]" />
+                  {language === 'es' ? 'No cobramos por adelantado' : 'No upfront fees'}
+                </span>
+                <span className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
+                  <CheckCircle2 className="h-4 w-4 text-[var(--color-accent)]" />
+                  {language === 'es' ? 'Métodos comprobados' : 'Proven methods'}
+                </span>
+              </div>
 
               <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                 <Button
@@ -668,34 +656,6 @@ export function LandingPage() {
                   />
                 ))}
 
-                {/* Floating stat card — score improvement */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.9 }}
-                  className="absolute -bottom-2 -left-4 z-20 flex items-center gap-3 rounded-2xl border border-white/15 bg-white/[0.1] px-4 py-3 backdrop-blur-xl"
-                >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-gold)]/20 ring-1 ring-[var(--color-gold)]/40">
-                    <Rocket className="h-5 w-5 text-[var(--color-gold)]" />
-                  </div>
-                  <div>
-                    <p className="text-lg font-bold leading-none text-[var(--color-accent)]">+253</p>
-                    <p className="text-[11px] text-white/60">
-                      {language === 'es' ? 'puntos en 6 meses' : 'points in 6 months'}
-                    </p>
-                  </div>
-                </motion.div>
-
-                {/* Floating "compliance" badge */}
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 1.1 }}
-                  className="absolute -right-2 top-8 z-20 flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.1] px-3 py-2 backdrop-blur-xl"
-                >
-                  <Shield className="h-4 w-4 text-[var(--color-gold)]" />
-                  <span className="text-xs font-medium text-white/80">FCRA / FDCPA</span>
-                </motion.div>
               </div>
             </motion.div>
           </div>
@@ -759,12 +719,24 @@ export function LandingPage() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="mx-auto max-w-3xl text-center"
           >
-            <p className="text-lg leading-relaxed text-gray-600">
+            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-gray-600">
               {t.landing.aboutText1}
             </p>
-            <p className="mt-4 text-lg leading-relaxed text-gray-600">
-              {t.landing.aboutText2}
-            </p>
+
+            {/* Scannable bullets */}
+            <div className="mx-auto mt-6 grid max-w-xl gap-3 text-left sm:grid-cols-2">
+              {[
+                language === 'es' ? '3 frentes simultáneos: protección, construcción y educación' : '3 simultaneous fronts: protection, building, and education',
+                language === 'es' ? 'Métodos comprobados conforme a la normativa vigente' : 'Proven methods compliant with applicable regulations',
+                language === 'es' ? 'Acompañamiento real en cada paso' : 'Real guidance at every step',
+                language === 'es' ? 'Sin cobros por adelantado. Pagas por resultados.' : 'No upfront fees. You pay for results.',
+              ].map((item, i) => (
+                <div key={i} className="flex items-start gap-2.5">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--color-accent)]" />
+                  <span className="text-sm leading-snug text-gray-700">{item}</span>
+                </div>
+              ))}
+            </div>
 
             {/* Buttons */}
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
