@@ -1195,7 +1195,7 @@ export function LandingPage() {
                 : 'Did you have a great experience with us? Share it on Google and help more families.'}
             </p>
             <a
-              href="https://share.google/G5bT7mEvb1LxUIUr6"
+              href="https://share.google/wYRuoJ1b4issdbx72"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl bg-[#4285F4] px-8 py-4 text-base font-bold text-white shadow-lg shadow-blue-500/30 transition hover:brightness-110 active:scale-[0.98]"
@@ -1557,7 +1557,7 @@ export function LandingPage() {
                 <a href="https://youtube.com/@reyssmartsolutionadmin" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white/70 ring-1 ring-white/10 transition-colors hover:bg-[#FF0000] hover:text-white">
                   <Youtube className="h-5 w-5" />
                 </a>
-                <a href="https://share.google/G5bT7mEvb1LxUIUr6" target="_blank" rel="noopener noreferrer" aria-label="Google Reviews" className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white/70 ring-1 ring-white/10 transition-colors hover:bg-[#4285F4] hover:text-white">
+                <a href="https://share.google/wYRuoJ1b4issdbx72" target="_blank" rel="noopener noreferrer" aria-label="Google Reviews" className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white/70 ring-1 ring-white/10 transition-colors hover:bg-[#4285F4] hover:text-white">
                   <Star className="h-5 w-5" />
                 </a>
               </div>
