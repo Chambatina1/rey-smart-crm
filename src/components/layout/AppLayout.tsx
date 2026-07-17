@@ -39,6 +39,8 @@ import {
   X,
   Home,
   Inbox,
+  Wallet,
+  Plug,
 } from 'lucide-react';
 
 interface SidebarItem {
@@ -59,6 +61,8 @@ const adminNavItems: SidebarItem[] = [
   { label: 'Messages', icon: MessageSquare, view: 'messages', badge: 5 },
   { label: 'Documents', icon: FileText, view: 'documents' },
   { label: 'Billing', icon: DollarSign, view: 'billing' },
+  { label: 'Finance', icon: Wallet, view: 'finance' },
+  { label: 'QuickBooks', icon: Plug, view: 'quickbooks' },
   { label: 'Settings', icon: Settings, view: 'settings' },
 ];
 
@@ -115,6 +119,8 @@ export function AppLayout({ children }: { children: ReactNode }) {
     messages: t.nav.messages,
     documents: t.nav.documents,
     billing: t.nav.billing,
+    finance: language === 'es' ? 'Finanzas' : 'Finance',
+    quickbooks: 'QuickBooks',
     settings: t.nav.settings,
     team: t.nav.settings,
     'client-portal': isClient ? (language === 'es' ? 'Mi Panel' : 'My Dashboard') : t.nav.dashboard,

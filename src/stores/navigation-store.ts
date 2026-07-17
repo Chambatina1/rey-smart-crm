@@ -17,6 +17,8 @@ export type AppView =
   | 'messages'
   | 'documents'
   | 'billing'
+  | 'finance'
+  | 'quickbooks'
   | 'settings'
   | 'team'
   | 'client-portal'

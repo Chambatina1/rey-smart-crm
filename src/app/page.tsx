@@ -14,6 +14,8 @@ import { ConferencesPage } from '@/components/conferences/ConferencesPage';
 import { AppointmentsPage } from '@/components/appointments/AppointmentsPage';
 import { MessagesPage } from '@/components/messages/MessagesPage';
 import { BillingPage } from '@/components/billing/BillingPage';
+import { FinancePage } from '@/components/finance/FinancePage';
+import { QuickBooksSettings } from '@/components/settings/QuickBooksSettings';
 import { SettingsPage } from '@/components/settings/SettingsPage';
 import { ClientPortalPage } from '@/components/portal/ClientPortalPage';
 
@@ -48,6 +50,8 @@ export default function Home() {
       case 'appointments': return <AppointmentsPage />;
       case 'messages': return <MessagesPage />;
       case 'billing': return <BillingPage />;
+      case 'finance': return <FinancePage />;
+      case 'quickbooks': return <QuickBooksSettings />;
       case 'settings': case 'team': return <SettingsPage />;
       case 'client-portal':
       case 'client-portal-credit':
