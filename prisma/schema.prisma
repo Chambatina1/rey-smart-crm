@@ -527,3 +527,52 @@ model Subscription {
   @@index([status])
   @@index([planId])
 }
+
+// ===================== QUICKBOOKS CONFIG (client enters their own credentials) =====================
+
+model QuickBooksConfig {
+  id              String   @id @default(cuid())
+  // The client enters these from their Intuit Developer app
+  clientId        String                    // Client ID from Intuit Developer
+  clientSecret    String                    // Client Secret from Intuit Developer
+  environment     String   @default("production") // sandbox or production
+  realmId         String?                   // Company / realm ID (after OAuth)
+  redirectUri     String?                   // OAuth redirect URI
+  // OAuth tokens (filled after authorization flow)
+  accessToken     String?
+  refreshToken    String?
+  tokenExpiresAt  DateTime?
+  // Connection status
+  isConnected     Boolean  @default(false)
+  connectedAt     DateTime?
+  disconnectedAt  DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// ===================== FINANCE LEDGER (ingresos, gastos, utilidad) =====================
+
+model FinanceEntry {
+  id          String    @id @default(cuid())
+  type        String                    // "income" | "expense"
+  category    String                    // e.g. "subscription", "refund", "salary", "software", "marketing"
+  description String
+  amount      Float
+  currency    String    @default("USD")
+  date        DateTime  @default(now())
+  // Linking (optional)
+  clientId    String?
+  planId      String?
+  paymentId   String?
+  // QuickBooks sync
+  qbSynced    Boolean   @default(false)
+  qbTxnId     String?                   // QuickBooks transaction ID after sync
+  notes       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([type])
+  @@index([category])
+  @@index([date])
+  @@index([clientId])
+}
