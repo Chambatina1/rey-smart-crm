@@ -429,15 +429,15 @@ export function LandingPage() {
               </button>
               <button
                 onClick={() => navigate('dashboard')}
-                className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+                className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-semibold transition-all ${
                   scrolled
-                    ? 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                    : 'text-white/70 hover:bg-white/10 hover:text-white'
+                    ? 'border-border text-foreground hover:bg-muted'
+                    : 'border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20'
                 }`}
                 title={language === 'es' ? 'Panel de Administración' : 'Admin Dashboard'}
               >
                 <LayoutDashboard className="h-4 w-4" />
-                <span className="hidden lg:inline">{language === 'es' ? 'Admin' : 'Admin'}</span>
+                <span>{language === 'es' ? 'Admin' : 'Admin'}</span>
               </button>
               <Button
                 onClick={() => scrollTo('contact')}
