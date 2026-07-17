@@ -48,6 +48,7 @@ import {
   Play,
   Sparkles,
   CheckCircle2,
+  CreditCard,
 } from 'lucide-react';
 import {
   Carousel,
@@ -134,6 +135,7 @@ export function LandingPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [expandedService, setExpandedService] = useState<number | null>(null);
   const [modalService, setModalService] = useState<typeof carouselServices[0] | null>(null);
+  const [modalCourse, setModalCourse] = useState<typeof courses[0] | null>(null);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -318,28 +320,58 @@ export function LandingPage() {
 
   const courses = [
     {
-      title: 'Credit Fundamentals 101',
+      title: language === 'es' ? 'Fundamentos del Crédito 101' : 'Credit Fundamentals 101',
       desc: language === 'es'
-        ? 'Aprende los fundamentos del credito, desde como funciona hasta como construir un historial solido.'
+        ? 'Aprende los fundamentos del crédito, desde cómo funciona hasta cómo construir un historial sólido.'
         : 'Learn the fundamentals of credit, from how it works to building a solid history.',
+      longDesc: language === 'es'
+        ? 'Curso completo para entender el sistema crediticio estadounidense. Aprenderás cómo se calcula tu puntaje, qué factores lo afectan, y cómo construir un historial sólido desde cero. Ideal para personas que están empezando o quieren entender mejor su crédito.'
+        : 'Complete course to understand the U.S. credit system. You will learn how your score is calculated, what factors affect it, and how to build a solid history from scratch. Ideal for people who are starting out or want to better understand their credit.',
       gradient: 'from-[var(--color-accent)] to-[var(--color-primary)]',
       icon: BookOpen,
+      duration: language === 'es' ? '4 horas' : '4 hours',
+      lessons: 12,
+      level: language === 'es' ? 'Principiante' : 'Beginner',
+      price: 49,
+      modules: language === 'es'
+        ? ['¿Cómo funciona el puntaje de crédito?', 'Los 5 factores que importan', 'Cómo leer tu reporte de crédito', 'Construye historial desde cero', 'Errores comunes que debes evitar', 'Herramientas para monitorear tu crédito']
+        : ['How the credit score works', 'The 5 factors that matter', 'How to read your credit report', 'Build history from scratch', 'Common mistakes to avoid', 'Tools to monitor your credit'],
     },
     {
-      title: language === 'es' ? 'Estrategias de Consolidacion de Deudas' : 'Debt Consolidation Strategies',
+      title: language === 'es' ? 'Estrategias de Consolidación de Deudas' : 'Debt Consolidation Strategies',
       desc: language === 'es'
         ? 'Descubre las mejores estrategias para consolidar deudas y reducir pagos mensuales.'
         : 'Discover the best strategies to consolidate debt and reduce monthly payments.',
+      longDesc: language === 'es'
+        ? 'Aprende estrategias comprobadas para salir de deudas más rápido. Cubrimos consolidación, refinanciamiento, negociación con acreedores, y cómo crear un plan realista de pago que funcione para tu presupuesto.'
+        : 'Learn proven strategies to get out of debt faster. We cover consolidation, refinancing, creditor negotiation, and how to create a realistic payment plan that works for your budget.',
       gradient: 'from-[var(--color-gold)] to-[var(--color-accent)]',
       icon: DollarSign,
+      duration: language === 'es' ? '3.5 horas' : '3.5 hours',
+      lessons: 10,
+      level: language === 'es' ? 'Intermedio' : 'Intermediate',
+      price: 79,
+      modules: language === 'es'
+        ? ['Tipos de deuda y cómo priorizar', 'Consolidación: pros y contras', 'Refinanciamiento de tarjetas', 'Cómo negociar con acreedores', 'Crea tu plan de pago personalizado', 'Mantén la disciplina financiera']
+        : ['Types of debt and how to prioritize', 'Consolidation: pros and cons', 'Card refinancing', 'How to negotiate with creditors', 'Create your personalized payment plan', 'Maintain financial discipline'],
     },
     {
-      title: language === 'es' ? 'Guia para Compradores Primerizos' : 'First-Time Homebuyer Guide',
+      title: language === 'es' ? 'Guía para Compradores Primerizos' : 'First-Time Homebuyer Guide',
       desc: language === 'es'
-        ? 'Todo lo que necesitas saber para comprar tu primera casa con el mejor credito posible.'
+        ? 'Todo lo que necesitas saber para comprar tu primera casa con el mejor crédito posible.'
         : 'Everything you need to know to buy your first home with the best credit possible.',
+      longDesc: language === 'es'
+        ? 'Guía completa para comprar tu primera casa en EE.UU. Desde preparar tu crédito para la hipoteca, hasta entender los costos de cierre y elegir el préstamo correcto. Incluye checklist descargable.'
+        : 'Complete guide to buying your first home in the U.S. From preparing your credit for the mortgage, to understanding closing costs and choosing the right loan. Includes downloadable checklist.',
       gradient: 'from-[var(--color-primary)] to-[var(--color-accent)]',
       icon: GraduationCap,
+      duration: language === 'es' ? '5 horas' : '5 hours',
+      lessons: 15,
+      level: language === 'es' ? 'Avanzado' : 'Advanced',
+      price: 99,
+      modules: language === 'es'
+        ? ['Prepara tu crédito para la hipoteca', 'Tipos de préstamos (FHA, Convencional, VA)', 'Cuánta casa puedes pagar', 'El proceso de pre-aprobación', 'Costos de cierre explicados', 'Del contrato al cierre: paso a paso']
+        : ['Prepare your credit for the mortgage', 'Loan types (FHA, Conventional, VA)', 'How much house can you afford', 'The pre-approval process', 'Closing costs explained', 'From contract to closing: step by step'],
     },
   ];
 
@@ -1072,23 +1104,29 @@ export function LandingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
+                onClick={() => setModalCourse(course)}
               >
-                <Card className="h-full border-0 shadow-md hover:shadow-xl transition-shadow duration-300 group cursor-pointer">
+                <Card className="glow-ring tilt-card h-full cursor-pointer border-0 shadow-md hover:shadow-2xl">
                   <CardContent className="p-6">
                     <div className={`w-full h-36 rounded-xl bg-gradient-to-br ${course.gradient} flex items-center justify-center mb-4`}>
                       <course.icon className="w-12 h-12 text-white/80" />
                     </div>
-                    <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+                    <div className="mb-2 flex items-center gap-2">
+                      <span className="rounded-full bg-[var(--color-gold)]/15 px-2 py-0.5 text-[10px] font-bold uppercase text-[var(--color-gold)]">{course.level}</span>
+                      <span className="text-xs text-gray-400">${course.price}</span>
+                    </div>
+                    <h3 className="font-semibold text-gray-900 mb-2 transition-colors">
                       {course.title}
                     </h3>
                     <p className="text-sm text-gray-600 leading-relaxed mb-4">{course.desc}</p>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 text-sm text-gray-500">
                         <Clock className="w-4 h-4" />
-                        <span>3h 30m</span>
+                        <span>{course.duration}</span>
                       </div>
-                      <Button size="sm" className="bg-[var(--color-accent)] hover:bg-[var(--color-accent)]/90 text-white text-xs">
-                        {language === 'es' ? 'Inscribirse' : 'Enroll Now'}
+                      <Button size="sm" className="bg-[var(--color-accent)] text-xs hover:bg-[var(--color-accent)]/90">
+                        {language === 'es' ? 'Ver detalles' : 'View details'}
+                        <ChevronRight className="ml-1 h-3 w-3" />
                       </Button>
                     </div>
                   </CardContent>
@@ -1416,13 +1454,80 @@ export function LandingPage() {
               <div className="mt-5 flex gap-3">
                 <Button
                   onClick={() => { setModalService(null); scrollTo('contact'); }}
-                  className="flex-1 bg-[var(--color-accent)] text-white hover:brightness-110"
+                  className="flex-1 bg-[var(--color-gold)] text-[var(--color-primary)] hover:brightness-110"
                 >
-                  {language === 'es' ? 'Solicitar Evaluación' : 'Get Evaluation'}
+                  <CreditCard className="mr-2 h-4 w-4" />
+                  {language === 'es' ? 'Contratar Servicio' : 'Hire Service'}
                 </Button>
-                <Button variant="outline" onClick={() => setModalService(null)}>
-                  {language === 'es' ? 'Cerrar' : 'Close'}
+                <Button
+                  variant="outline"
+                  onClick={() => { setModalService(null); scrollTo('contact'); }}
+                >
+                  {language === 'es' ? 'Evaluación Gratis' : 'Free Evaluation'}
                 </Button>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* ── Course Detail Modal ────────────────────────── */}
+      <Dialog open={!!modalCourse} onOpenChange={(open) => !open && setModalCourse(null)}>
+        <DialogContent className="max-w-2xl">
+          {modalCourse && (
+            <>
+              <DialogHeader>
+                <div className={`mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br ${modalCourse.gradient}`}>
+                  <modalCourse.icon className="h-10 w-10 text-white" />
+                </div>
+                <div className="mb-2 flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-[var(--color-gold)]/15 px-2.5 py-0.5 text-[10px] font-bold uppercase text-[var(--color-gold)]">{modalCourse.level}</span>
+                  <span className="flex items-center gap-1 text-xs text-gray-500"><Clock className="h-3 w-3" /> {modalCourse.duration}</span>
+                  <span className="text-xs text-gray-500">{modalCourse.lessons} {language === 'es' ? 'lecciones' : 'lessons'}</span>
+                </div>
+                <DialogTitle className="text-2xl">{modalCourse.title}</DialogTitle>
+                <DialogDescription className="text-base leading-relaxed">
+                  {modalCourse.longDesc}
+                </DialogDescription>
+              </DialogHeader>
+
+              {/* Modules */}
+              <div className="mt-2">
+                <h4 className="mb-3 font-semibold text-gray-900">
+                  {language === 'es' ? 'Lo que aprenderás' : 'What you will learn'}
+                </h4>
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {modalCourse.modules.map((mod: string, j: number) => (
+                    <div key={j} className="flex items-start gap-2 rounded-lg bg-muted/30 p-2.5">
+                      <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)] text-[10px] font-bold text-white">{j + 1}</span>
+                      <span className="text-sm text-gray-700">{mod}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Price + Payment */}
+              <div className="mt-5 flex flex-col gap-3 rounded-xl border border-gray-200 bg-muted/20 p-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-xs text-muted-foreground">{language === 'es' ? 'Precio del curso' : 'Course price'}</p>
+                  <p className="text-3xl font-bold text-[var(--color-primary)]">${modalCourse.price}<span className="text-sm font-normal text-gray-400"> USD</span></p>
+                  <p className="text-xs text-[var(--color-accent)]">{language === 'es' ? '✓ Acceso de por vida' : '✓ Lifetime access'} · {language === 'es' ? '✓ Certificado incluido' : '✓ Certificate included'}</p>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Button
+                    onClick={() => { setModalCourse(null); scrollTo('contact'); }}
+                    className="bg-[var(--color-gold)] text-[var(--color-primary)] hover:brightness-110"
+                  >
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    {language === 'es' ? 'Comprar Ahora' : 'Buy Now'}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => { setModalCourse(null); scrollTo('contact'); }}
+                  >
+                    {language === 'es' ? 'Más información' : 'More info'}
+                  </Button>
+                </div>
               </div>
             </>
           )}
