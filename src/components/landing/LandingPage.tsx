@@ -49,6 +49,7 @@ import {
   Sparkles,
   CheckCircle2,
   CreditCard,
+  LayoutDashboard,
 } from 'lucide-react';
 import {
   Carousel,
@@ -425,6 +426,18 @@ export function LandingPage() {
               >
                 <Globe className="h-4 w-4" />
                 {language === 'en' ? 'ES' : 'EN'}
+              </button>
+              <button
+                onClick={() => navigate('dashboard')}
+                className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+                  scrolled
+                    ? 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                    : 'text-white/70 hover:bg-white/10 hover:text-white'
+                }`}
+                title={language === 'es' ? 'Panel de Administración' : 'Admin Dashboard'}
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                <span className="hidden lg:inline">{language === 'es' ? 'Admin' : 'Admin'}</span>
               </button>
               <Button
                 onClick={() => scrollTo('contact')}
