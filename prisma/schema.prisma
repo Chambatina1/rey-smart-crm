@@ -64,6 +64,7 @@ model Client {
   documents       Document[]
   payments        Payment[]
   invoices        Invoice[]
+  subscriptions   Subscription[]
 
   @@index([status])
   @@index([userId])
@@ -342,19 +343,28 @@ model Invoice {
 
 model Payment {
   id              String    @id @default(cuid())
-  invoiceId       String
+  invoiceId       String?
   clientId        String
+  subscriptionId  String?
+  planId          String?
   amount          Float
-  method          String    // credit_card, bank_transfer, cash, other
+  method          String    @default("card") // card, bank_transfer, cash, other
   status          String    @default("completed") // completed, pending, failed, refunded
   transactionId   String?
+  // Payment-provider agnostic (filled when provider is chosen)
+  provider        String?   // "stripe" | "paypal" | "square" | "manual"
+  providerPayId   String?   // transaction ID from provider
+  description     String?   // e.g. "Plan Protección - Monthly"
+  currency        String    @default("USD")
   paidAt          DateTime  @default(now())
 
-  invoice         Invoice   @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  invoice         Invoice?  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
   client          Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
 
   @@index([invoiceId])
   @@index([clientId])
+  @@index([subscriptionId])
+  @@index([status])
 }
 
 // ===================== ACTIVITY LOG =====================
@@ -472,4 +482,48 @@ model ServiceRequest {
   @@index([type])
   @@index([email])
   @@index([createdAt])
+}
+
+// ===================== BILLING — PLANS & SUBSCRIPTIONS =====================
+// Payment-provider agnostic. Provider (Stripe/PayPal/Square) plugged in later.
+
+model ServicePlan {
+  id            String   @id @default(cuid())
+  name          String
+  nameEs        String?
+  code          String   @unique // "protection", "building", "education"
+  description   String
+  descriptionEs String?
+  priceSetup    Float    @default(0)     // setup fee ($0)
+  priceMonthly  Float    @default(0)     // monthly after first result
+  currency      String   @default("USD")
+  features      String   // JSON array of feature strings (EN)
+  featuresEs    String?  // JSON array of feature strings (ES)
+  isActive      Boolean  @default(true)
+  isFeatured    Boolean  @default(false) // highlight on landing
+  sortOrder     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Subscription {
+  id               String    @id @default(cuid())
+  clientId         String
+  planId           String
+  status           String    @default("active") // active, trial, past_due, canceled, paused
+  startedAt        DateTime  @default(now())
+  canceledAt       DateTime?
+  currentPeriodEnd DateTime?
+  // Payment-provider agnostic (filled when provider is chosen)
+  provider         String?   // "stripe" | "paypal" | "square" | null (manual)
+  providerSubId    String?   // ID in the provider system
+  metadata         String?   // JSON flexible
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  client           Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([clientId])
+  @@index([status])
+  @@index([planId])
 }

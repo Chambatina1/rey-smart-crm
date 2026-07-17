@@ -58,6 +58,7 @@ import {
   type CarouselApi,
 } from '@/components/ui/carousel';
 import { LandingForm } from '@/components/landing/LandingForm';
+import { PricingSection } from '@/components/landing/PricingSection';
 
 /* ── animated counter ──────────────────────────────────────────── */
 function useCountUp(end: number, duration = 2000, startCounting = false) {
@@ -1002,6 +1003,9 @@ export function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* ── Pricing Section ────────────────────────────── */}
+      <PricingSection />
 
       {/* ── Stats Section (animated gradient band) ─────── */}
       <section className="relative overflow-hidden bg-gradient-to-r from-[var(--color-primary)] via-[oklch(0.18_0.05_258)] to-[var(--color-accent)] animate-gradient">
