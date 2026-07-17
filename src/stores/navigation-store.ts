@@ -20,6 +20,7 @@ export type AppView =
   | 'finance'
   | 'quickbooks'
   | 'payment-methods'
+  | 'gohighlevel'
   | 'settings'
   | 'team'
   | 'client-portal'

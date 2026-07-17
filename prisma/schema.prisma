@@ -605,3 +605,21 @@ model PaymentMethod {
   @@index([isActive])
   @@index([code])
 }
+
+// ===================== GOHIGHLEVEL INTEGRATION =====================
+// Admin stores their own GHL credentials from dashboard.
+
+model GoHighLevelConfig {
+  id            String   @id @default(cuid())
+  apiKey        String                    // Private Access Token (pit-...)
+  locationId    String                    // GHL Location ID
+  // Optional: assign new contacts to a specific pipeline/stage
+  pipelineId    String?
+  pipelineStageId String?
+  // Connection status
+  isActive      Boolean  @default(true)
+  lastSyncAt    DateTime?
+  lastError     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

@@ -120,7 +120,20 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    // Optional: log activity if we ever want analytics on submissions
+    // Sync to GoHighLevel (non-blocking — doesn't fail the lead if GHL is down)
+    const { sendLeadToGoHighLevel } = await import('@/lib/gohighlevel')
+    sendLeadToGoHighLevel({
+      firstName: lead.firstName,
+      lastName: lead.lastName,
+      email: lead.email,
+      phone: lead.phone,
+      state: lead.state,
+      goal: lead.goal,
+      creditScore: lead.creditScore,
+      message: lead.message,
+      language: lead.language,
+    }).catch((e) => console.error('GHL sync failed (lead still saved):', e))
+
     return jsonResponse({ success: true, id: lead.id }, 201)
   } catch (error) {
     console.error('Create lead error:', error)

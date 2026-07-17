@@ -41,6 +41,7 @@ import {
   Inbox,
   Wallet,
   Plug,
+  Zap,
 } from 'lucide-react';
 
 interface SidebarItem {
@@ -64,6 +65,7 @@ const adminNavItems: SidebarItem[] = [
   { label: 'Finance', icon: Wallet, view: 'finance' },
   { label: 'Payment Methods', icon: CreditCard, view: 'payment-methods' },
   { label: 'QuickBooks', icon: Plug, view: 'quickbooks' },
+  { label: 'GoHighLevel', icon: Zap, view: 'gohighlevel' },
   { label: 'Settings', icon: Settings, view: 'settings' },
 ];
 
@@ -123,6 +125,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
     finance: language === 'es' ? 'Finanzas' : 'Finance',
     'payment-methods': language === 'es' ? 'Formas de Pago' : 'Payment Methods',
     quickbooks: 'QuickBooks',
+    gohighlevel: 'GoHighLevel',
     settings: t.nav.settings,
     team: t.nav.settings,
     'client-portal': isClient ? (language === 'es' ? 'Mi Panel' : 'My Dashboard') : t.nav.dashboard,
