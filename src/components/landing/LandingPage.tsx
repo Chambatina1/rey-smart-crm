@@ -64,6 +64,7 @@ import { LandingForm } from '@/components/landing/LandingForm';
 import { PricingSection } from '@/components/landing/PricingSection';
 import { FinanceCalculator } from '@/components/landing/FinanceCalculator';
 import { BridgeHowItWorks } from '@/components/landing/BridgeHowItWorks';
+import { RotatingVideoBackground } from '@/components/landing/RotatingVideoBackground';
 
 /* ── animated counter ──────────────────────────────────────────── */
 function useCountUp(end: number, duration = 2000, startCounting = false) {
@@ -485,27 +486,8 @@ export function LandingPage() {
 
       {/* ── Hero Section ────────────────────────────────── */}
       <section className="relative flex min-h-screen items-center overflow-hidden bg-[var(--color-primary)]">
-        {/* Background: luxury city video (autoplay, muted, loop) */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="absolute inset-0 h-full w-full object-cover"
-          poster="/hero-bg.webp"
-        >
-          <source src="/hero-bg-video.mp4" type="video/mp4" />
-        </video>
-
-        {/* Navy overlay — darker on left (text side) for contrast, lighter right (video shows) */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(105deg, oklch(0.06 0.025 264 / 0.85) 0%, oklch(0.07 0.03 264 / 0.65) 45%, oklch(0.08 0.03 264 / 0.40) 100%)',
-          }}
-        />
+        {/* Background: rotating luxury videos (pool/mansion/car/airplane/vacation) */}
+        <RotatingVideoBackground />
         {/* Subtle financial grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.07]"
