@@ -47,17 +47,11 @@ export async function sendLeadToGoHighLevel(lead: {
         firstName: lead.firstName,
         lastName: lead.lastName,
         name: fullName,
-        email: lead.email,
+        email: [lead.email],
         phone: lead.phone,
         address1: lead.state || undefined,
         source: 'REYS Smart Solutions Website',
         tags: ['website-lead', lead.language === 'es' ? 'spanish' : 'english'],
-        customField: {
-          'Lead Source': 'Website Form',
-          'Goal': lead.goal ? (goalLabels[lead.goal] || lead.goal) : undefined,
-          'Credit Score Range': lead.creditScore || undefined,
-          'Preferred Language': lead.language === 'es' ? 'Spanish' : 'English',
-        },
       }),
     })
 
