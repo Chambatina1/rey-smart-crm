@@ -11,3 +11,6 @@ mini-services/
 examples/
 .zscripts/
 *.tsbuildinfo
+# Block large video files (exceed GitHub limits)
+WhatsApp*.mp4
+*.MP4
