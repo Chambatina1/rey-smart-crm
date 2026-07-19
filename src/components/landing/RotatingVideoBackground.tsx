@@ -19,9 +19,9 @@ type Scene = {
 const SCENES: Scene[] = [
   { src: '/bg-pool.mp4', label: 'Relax', type: 'video' },
   { src: '/bg-mansion.mp4', label: 'Home', type: 'video' },
-  { src: '/bg-team1.jpg', label: 'REYS Team', type: 'image', kenBurns: 'zoom-in' },
+  { src: '/bg-team-video1.mp4', label: 'REYS Team', type: 'video' },
   { src: '/bg-car.mp4', label: 'Drive', type: 'video' },
-  { src: '/bg-team2.jpg', label: 'REYS Team', type: 'image', kenBurns: 'pan-right' },
+  { src: '/bg-team-video2.mp4', label: 'REYS Team', type: 'video' },
   { src: '/bg-airplane.mp4', label: 'Travel', type: 'video' },
   { src: '/bg-vacation.mp4', label: 'Vacation', type: 'video' },
 ];
