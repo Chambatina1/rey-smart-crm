@@ -433,7 +433,7 @@ export function PaymentMethodsPage() {
                   rows={2}
                   value={form.instructions}
                   onChange={(e) => setForm({ ...form, instructions: e.target.value })}
-                  placeholder={t('e.g. Send Zelle to 407-716-3478', 'ej. Envía Zelle a 407-716-3478')}
+                  placeholder={t('e.g. Send Zelle to 407-716-9478', 'ej. Envía Zelle a 407-716-9478')}
                 />
               </div>
             )}

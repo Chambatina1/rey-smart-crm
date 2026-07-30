@@ -13,11 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rey Smart Solution - Credit Counseling & Consolidation CRM",
-  description: "Transform your credit, transform your life. Professional credit repair, debt consolidation, and financial education services.",
-  keywords: ["credit repair", "debt consolidation", "credit counseling", "financial education", "CRM"],
+  title: "REYS Smart Solutions | Credit Education & Financial Solutions",
+  description: "Professional credit education, financial guidance, and personalized solutions. Helping families and businesses build a stronger financial future.",
+  keywords: ["credit education", "credit solutions", "financial guidance", "credit consulting", "financial solutions"],
   icons: {
-    icon: "/logo.svg",
+    icon: "/reys-logo.png",
   },
 };
 

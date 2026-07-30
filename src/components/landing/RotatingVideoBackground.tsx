@@ -135,14 +135,6 @@ export function RotatingVideoBackground() {
         ))}
       </div>
 
-      {/* Scene label */}
-      <div
-        className="absolute right-6 top-20 z-10 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white/70 backdrop-blur-sm transition-opacity duration-500"
-        style={{ opacity: isTransitioning ? 0 : 1 }}
-      >
-        {current.label}
-      </div>
-
       {/* Ken Burns keyframes (injectados) */}
       <style>{`
         @keyframes kenburns-zoom {

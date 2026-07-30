@@ -186,7 +186,7 @@ export function LandingPage() {
   const navLinks = [
     { label: t.landing.services, href: '#services' },
     { label: t.landing.howItWorks, href: '#how-it-works' },
-    { label: t.nav.courses, href: '#courses' },
+    { label: t.landing.teamTitle, href: '#team' },
   ];
 
   const scrollTo = (href: string) => {
@@ -430,18 +430,6 @@ export function LandingPage() {
                 <Globe className="h-4 w-4" />
                 {language === 'en' ? 'ES' : 'EN'}
               </button>
-              <button
-                onClick={() => navigate(isAuthenticated ? 'dashboard' : 'login')}
-                className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-semibold transition-all ${
-                  scrolled
-                    ? 'border-border text-foreground hover:bg-muted'
-                    : 'border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20'
-                }`}
-                title={language === 'es' ? 'Panel de Administración' : 'Admin Dashboard'}
-              >
-                <LayoutDashboard className="h-4 w-4" />
-                <span>{language === 'es' ? 'Admin' : 'Admin'}</span>
-              </button>
               <Button
                 onClick={() => scrollTo('contact')}
                 className={`shimmer-gold hidden bg-[var(--color-gold)] font-semibold text-[var(--gold-foreground)] shadow-md shadow-[var(--color-gold)]/30 transition hover:brightness-110 sm:inline-flex ${scrolled ? '' : 'ring-2 ring-white/20'}`}
@@ -488,26 +476,7 @@ export function LandingPage() {
       <section className="relative flex min-h-screen items-center overflow-hidden bg-[var(--color-primary)]">
         {/* Background: rotating luxury videos (pool/mansion/car/airplane/vacation) */}
         <RotatingVideoBackground />
-        {/* Subtle financial grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.07]"
-          style={{
-            backgroundImage:
-              'linear-gradient(oklch(1 0 0) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0) 1px, transparent 1px)',
-            backgroundSize: '52px 52px',
-            maskImage: 'radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 80%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 80%)',
-          }}
-        />
-        {/* Subtle financial grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage:
-              'linear-gradient(oklch(1 0 0) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0) 1px, transparent 1px)',
-            backgroundSize: '48px 48px',
-          }}
-        />
+
         {/* Bright blue glow — top right (universe light source) */}
         <div className="pointer-events-none absolute -right-32 -top-32 h-[36rem] w-[36rem] rounded-full bg-[oklch(0.60_0.15_240)]/35 blur-[120px]" />
         {/* Light blue glow — bottom left */}
@@ -606,7 +575,7 @@ export function LandingPage() {
                 <Button
                   onClick={() => scrollTo('contact')}
                   size="lg"
-                  className="shimmer-gold bg-[var(--color-gold)] px-8 py-6 text-base font-semibold text-[var(--gold-foreground)] shadow-xl shadow-[var(--color-gold)]/30 transition hover:brightness-110 active:scale-[0.98]"
+                  className="bg-[var(--color-accent)] px-8 py-6 text-base font-semibold text-white shadow-xl shadow-[var(--color-accent)]/30 transition hover:brightness-110 active:scale-[0.98]"
                 >
                   {language === 'es' ? 'Evaluación Gratis' : 'Free Evaluation'}
                   <ChevronRight className="ml-1 h-5 w-5" />
@@ -621,13 +590,13 @@ export function LandingPage() {
                 </Button>
               </div>
 
-              {/* Trust badges */}
+              {/* Trust badges — clear value propositions */}
               <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2.5">
                 {[
-                  { icon: Shield, label: language === 'es' ? 'Sin cobros por adelantado' : 'No Upfront Fees' },
-                  { icon: FileSearch, label: language === 'es' ? 'Ley federal' : 'Federal Law' },
-                  { icon: PhoneCall, label: language === 'es' ? 'Todo el país' : 'Nationwide' },
-                  { icon: Users, label: language === 'es' ? 'Profesionales' : 'Licensed Pros' },
+                  { icon: Shield, label: language === 'es' ? 'Evaluación personalizada gratis' : 'Free personalized evaluation' },
+                  { icon: FileSearch, label: language === 'es' ? 'Cumplimos la normativa aplicable' : 'Compliant with applicable regulations' },
+                  { icon: PhoneCall, label: language === 'es' ? 'Servicio en todo EE.UU.' : 'Serving all 50 states' },
+                  { icon: Users, label: language === 'es' ? 'Equipo profesional certificado' : 'Certified professional team' },
                 ].map((b, i) => (
                   <div key={i} className="flex items-center gap-1.5 text-base font-medium text-white" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.9)' }}>
                     <b.icon className="h-5 w-5 text-[var(--color-gold)]" />
@@ -991,8 +960,28 @@ export function LandingPage() {
       {/* ── How It Works (Interactive Bridge) ──────────── */}
       <BridgeHowItWorks />
 
-      {/* ── Pricing Section ────────────────────────────── */}
-      <PricingSection />
+      {/* ── Personalized Consultation CTA ──────────────── */}
+      <section className="bg-gray-50 py-20">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+              {language === 'es' ? 'Cada caso es único' : 'Every case is unique'}
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-600">
+              {language === 'es'
+                ? 'No ofrecemos planes predefinidos. Evaluamos tu situación de forma personalizada y diseñamos una estrategia a tu medida.'
+                : 'We do not offer predefined plans. We evaluate your situation individually and design a strategy tailored to your needs.'}
+            </p>
+            <Button
+              onClick={() => scrollTo('contact')}
+              className="mt-8 bg-[var(--color-accent)] px-8 py-5 text-base font-semibold text-white shadow-lg shadow-[var(--color-accent)]/25 hover:brightness-110"
+            >
+              {language === 'es' ? 'Solicitar evaluación gratuita' : 'Request your free evaluation'}
+              <ChevronRight className="ml-1 h-5 w-5" />
+            </Button>
+          </motion.div>
+        </div>
+      </section>
 
       {/* ── Finance Calculator ─────────────────────────── */}
       <FinanceCalculator />
@@ -1023,68 +1012,6 @@ export function LandingPage() {
                   <AnimatedCounter end={stat.end} suffix={stat.suffix} prefix={stat.prefix} />
                 </p>
                 <p className="mt-2 text-sm font-medium uppercase tracking-wide text-[var(--color-gold)]">{stat.label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Featured Courses ────────────────────────────── */}
-      <section id="courses" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-14">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">{t.landing.featuredCourses}</h2>
-            </motion.div>
-            <Button
-              variant="outline"
-              className="border-[var(--color-accent)] text-[var(--color-accent)] hover:bg-[var(--color-accent)]/10"
-              onClick={() => navigate('courses')}
-            >
-              {t.landing.viewAll}
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </Button>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {courses.map((course, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                onClick={() => setModalCourse(course)}
-              >
-                <Card className="glow-ring tilt-card h-full cursor-pointer border-0 shadow-md hover:shadow-2xl">
-                  <CardContent className="p-6">
-                    <div className={`w-full h-36 rounded-xl bg-gradient-to-br ${course.gradient} flex items-center justify-center mb-4`}>
-                      <course.icon className="w-12 h-12 text-white/80" />
-                    </div>
-                    <div className="mb-2 flex items-center gap-2">
-                      <span className="rounded-full bg-[var(--color-gold)]/15 px-2 py-0.5 text-[10px] font-bold uppercase text-[var(--color-gold)]">{course.level}</span>
-                      <span className="text-xs text-gray-400">${course.price}</span>
-                    </div>
-                    <h3 className="font-semibold text-gray-900 mb-2 transition-colors">
-                      {course.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed mb-4">{course.desc}</p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-sm text-gray-500">
-                        <Clock className="w-4 h-4" />
-                        <span>{course.duration}</span>
-                      </div>
-                      <Button size="sm" className="bg-[var(--color-accent)] text-xs hover:bg-[var(--color-accent)]/90">
-                        {language === 'es' ? 'Ver detalles' : 'View details'}
-                        <ChevronRight className="ml-1 h-3 w-3" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
               </motion.div>
             ))}
           </div>
@@ -1232,9 +1159,9 @@ export function LandingPage() {
 
             {/* contact info */}
             <div className="mt-8 space-y-3 text-sm">
-              <a href="tel:+14077163478" className="flex items-center gap-3 text-white/70 transition hover:text-[var(--color-gold)]">
+              <a href="tel:+14077169478" className="flex items-center gap-3 text-white/70 transition hover:text-[var(--color-gold)]">
                 <Phone className="h-4 w-4 text-[var(--color-gold)]" />
-                (407) 716-3478
+                (407) 716-9478
               </a>
               <a href="mailto:admin@reyssmartsolution.com" className="flex items-center gap-3 text-white/70 transition hover:text-[var(--color-gold)]">
                 <Mail className="h-4 w-4 text-[var(--color-gold)]" />
@@ -1507,7 +1434,7 @@ export function LandingPage() {
 
       {/* ── Floating WhatsApp button ───────────────────── */}
       <a
-        href="https://wa.me/14077163478"
+        href="https://wa.me/14077169478"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl shadow-[#25D366]/40 transition-transform hover:scale-110 active:scale-95"
@@ -1557,10 +1484,16 @@ export function LandingPage() {
             </div>
 
             <div>
-              <h4 className="mb-4 font-semibold text-white">{t.nav.courses}</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#courses" className="transition-colors hover:text-[var(--color-gold)]">{t.landing.featuredCourses}</a></li>
-                <li><a href="#contact" className="transition-colors hover:text-[var(--color-gold)]">{t.landing.contactUs}</a></li>
+              <h4 className="mb-4 font-semibold text-white">{t.landing.contactUs}</h4>
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-center gap-2">
+                  <Phone className="h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />
+                  <a href="tel:+14077169478" className="transition-colors hover:text-[var(--color-gold)]">(407) 716-9478</a>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Mail className="h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />
+                  <a href="mailto:admin@reyssmartsolution.com" className="transition-colors hover:text-[var(--color-gold)]">admin@reyssmartsolution.com</a>
+                </li>
               </ul>
             </div>
 
@@ -1569,7 +1502,7 @@ export function LandingPage() {
               <ul className="space-y-3 text-sm">
                 <li className="flex items-center gap-2">
                   <Phone className="h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />
-                  (407) 716-3478
+                  (407) 716-9478
                 </li>
                 <li className="flex items-center gap-2">
                   <Mail className="h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />

@@ -300,11 +300,11 @@ export function LandingForm() {
           {language === 'es' ? 'Sin compromiso' : 'No obligation'}
         </span>
         <a
-          href="tel:+14077163478"
+          href="tel:+14077169478"
           className="flex items-center gap-1.5 font-medium text-foreground hover:text-[var(--color-gold)]"
         >
           <PhoneCall className="h-3.5 w-3.5" />
-          (407) 716-3478
+          (407) 716-9478
         </a>
       </div>
     </form>
