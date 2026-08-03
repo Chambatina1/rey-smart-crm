@@ -67,6 +67,7 @@ import { PricingSection } from '@/components/landing/PricingSection';
 import { FinanceCalculator } from '@/components/landing/FinanceCalculator';
 import { BridgeHowItWorks } from '@/components/landing/BridgeHowItWorks';
 import { RotatingVideoBackground } from '@/components/landing/RotatingVideoBackground';
+import { TeamCarousel } from '@/components/landing/TeamCarousel';
 
 /* ── animated counter ──────────────────────────────────────────── */
 function useCountUp(end: number, duration = 2000, startCounting = false) {
@@ -785,6 +786,23 @@ export function LandingPage() {
                 <p className="text-xs uppercase tracking-wide text-gray-500">{s.label}</p>
               </div>
             ))}
+          </motion.div>
+
+          {/* Team Carousel */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-16"
+          >
+            <h3 className="mb-2 text-center text-2xl font-bold text-gray-900">
+              {language === 'es' ? 'Conoce a nuestro equipo' : 'Meet our team'}
+            </h3>
+            <p className="mb-8 text-center text-sm text-gray-500">
+              {language === 'es' ? 'Desliza para conocer a los profesionales detrás de REYS' : 'Swipe to meet the professionals behind REYS'}
+            </p>
+            <TeamCarousel />
           </motion.div>
         </div>
       </section>
