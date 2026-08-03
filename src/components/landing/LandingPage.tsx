@@ -807,6 +807,48 @@ export function LandingPage() {
         </div>
       </section>
 
+      {/* ── Team Video Background ─────────────────────── */}
+      <section className="relative h-[60vh] min-h-[400px] overflow-hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 h-full w-full object-cover"
+        >
+          <source src="/team-video-about.mp4" type="video/mp4" />
+        </video>
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)]/80 via-[var(--color-primary)]/30 to-[var(--color-primary)]/40" />
+        {/* Content */}
+        <div className="relative flex h-full items-center justify-center px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <p
+              className="text-2xl font-bold text-white drop-shadow-lg sm:text-3xl lg:text-4xl"
+              style={{ textShadow: '0 2px 12px rgba(0,0,0,0.8)' }}
+            >
+              {language === 'es'
+                ? 'Construyendo vidas, no solo crédito.'
+                : 'Building lives, not just credit.'}
+            </p>
+            <p
+              className="mx-auto mt-3 max-w-xl text-lg text-white/80"
+              style={{ textShadow: '0 1px 8px rgba(0,0,0,0.8)' }}
+            >
+              {language === 'es'
+                ? 'Un equipo comprometido con tu futuro financiero.'
+                : 'A team committed to your financial future.'}
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ── Service Carousel ───────────────────────────── */}
       <section className="py-16 sm:py-20 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
