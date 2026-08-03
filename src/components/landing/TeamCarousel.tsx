@@ -12,13 +12,13 @@ const TEAM = [
   { name: 'Vladimir Cáceres', role: 'Subdirector Comercial', roleEn: 'Commercial Sub-Director', photo: '/team/vladimir-caceres.jpg' },
   { name: 'Diego Quijada', role: 'Subdirector de Ventas', roleEn: 'Sales Sub-Director', photo: '/team/diego-quijada.jpg' },
   { name: 'Judit Mejivar', role: 'Subdirectora de Procesos', roleEn: 'Process Sub-Director', photo: '/team/judit-mejivar.jpg' },
-  { name: 'Maikel', role: 'El Arquitecto de las Finanzas', roleEn: 'The Finance Architect', photo: null },
+  { name: 'Maikel', role: 'El Arquitecto de las Finanzas', roleEn: 'The Finance Architect', photo: '/team/maikel.jpg' },
   { name: 'Carolina Domínguez', role: 'Subdirectora de Capacitaciones y RRHH', roleEn: 'Training & HR Sub-Director', photo: '/team/carolina-dominguez.jpg' },
   { name: 'Jacob Mejivar', role: 'Depto. de Agencias de Crédito', roleEn: 'Credit Agencies Dept.', photo: null },
   { name: 'Christopher Aaron', role: 'Depto. de Acreedores', roleEn: 'Creditors Dept.', photo: null },
   { name: 'Fátima Santos', role: 'Depto. de Procesos', roleEn: 'Process Dept.', photo: null },
   { name: 'Abigail Gochez', role: 'Depto. de Procesos', roleEn: 'Process Dept.', photo: '/team/abigail-gochez.jpg' },
-  { name: 'Doris Bonilla', role: 'Depto. de Redes Sociales y Eventos', roleEn: 'Social Media & Events Dept.', photo: '/team/doris-bonilla.jpg' },
+  { name: 'Doris Bonilla', role: 'Depto. de Redes Sociales y Eventos', roleEn: 'Social Media & Events Dept.', photo: null },
   { name: 'Eduardo Perón', role: 'Relaciones Comunitarias y Enlace Bilingüe', roleEn: 'Community Relations & Bilingual Liaison', photo: '/team/eduardo-peron.jpg' },
 ];
 
