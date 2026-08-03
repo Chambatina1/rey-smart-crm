@@ -3,23 +3,26 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useT } from '@/hooks/useT';
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const TEAM = [
-  { name: 'Reys Michel', role: 'Presidente y Cofundador', roleEn: 'President & Co-Founder', photo: '/team/reys-michel.jpg', featured: true },
-  { name: 'Yolanda Perón', role: 'Vicepresidenta y Cofundadora', roleEn: 'Vice President & Co-Founder', photo: '/team/yolanda-peron.jpg', featured: true },
-  { name: 'Nelson Mejivar', role: 'Subdirector General', roleEn: 'General Sub-Director', photo: '/team/nelson-mejivar.jpg' },
-  { name: 'Vladimir Cáceres', role: 'Subdirector Comercial', roleEn: 'Commercial Sub-Director', photo: '/team/vladimir-caceres.jpg' },
-  { name: 'Diego Quijada', role: 'Subdirector de Ventas', roleEn: 'Sales Sub-Director', photo: '/team/diego-quijada.jpg' },
-  { name: 'Judit Mejivar', role: 'Subdirectora de Procesos', roleEn: 'Process Sub-Director', photo: '/team/judit-mejivar.jpg' },
-  { name: 'Maikel', role: 'El Arquitecto de las Finanzas', roleEn: 'The Finance Architect', photo: '/team/maikel.jpg' },
-  { name: 'Carolina Domínguez', role: 'Subdirectora de Capacitaciones y RRHH', roleEn: 'Training & HR Sub-Director', photo: '/team/carolina-dominguez.jpg' },
-  { name: 'Jacob Mejivar', role: 'Depto. de Agencias de Crédito', roleEn: 'Credit Agencies Dept.', photo: null },
-  { name: 'Christopher Aaron', role: 'Depto. de Acreedores', roleEn: 'Creditors Dept.', photo: null },
-  { name: 'Fátima Santos', role: 'Depto. de Procesos', roleEn: 'Process Dept.', photo: null },
-  { name: 'Abigail Gochez', role: 'Depto. de Procesos', roleEn: 'Process Dept.', photo: '/team/abigail-gochez.jpg' },
-  { name: 'Doris Bonilla', role: 'Depto. de Redes Sociales y Eventos', roleEn: 'Social Media & Events Dept.', photo: null },
-  { name: 'Eduardo Perón', role: 'Relaciones Comunitarias y Enlace Bilingüe', roleEn: 'Community Relations & Bilingual Liaison', photo: '/team/eduardo-peron.jpg' },
+/**
+ * Carrusel del equipo.
+ * SOLO muestra fotos que existen en /public/team/.
+ * Los nombres salen del nombre del archivo.
+ * Si un archivo no existe, no se muestra.
+ */
+
+const TEAM: { file: string; name: string; role: string; roleEn: string; featured?: boolean }[] = [
+  { file: 'reys-michel.jpg', name: 'Reys Michel', role: 'Presidente y Cofundador', roleEn: 'President & Co-Founder', featured: true },
+  { file: 'yolanda-peron.jpg', name: 'Yolanda Perón', role: 'Vicepresidenta y Cofundadora', roleEn: 'Vice President & Co-Founder', featured: true },
+  { file: 'nelson-mejivar.jpg', name: 'Nelson Mejivar', role: 'Subdirector General', roleEn: 'General Sub-Director' },
+  { file: 'vladimir-caceres.jpg', name: 'Vladimir Cáceres', role: 'Subdirector Comercial', roleEn: 'Commercial Sub-Director' },
+  { file: 'diego-quijada.jpg', name: 'Diego Quijada', role: 'Subdirector de Ventas', roleEn: 'Sales Sub-Director' },
+  { file: 'judit-mejivar.jpg', name: 'Judit Mejivar', role: 'Subdirectora de Procesos', roleEn: 'Process Sub-Director' },
+  { file: 'maikel.jpg', name: 'Maikel', role: 'El Arquitecto de las Finanzas', roleEn: 'The Finance Architect' },
+  { file: 'carolina-dominguez.jpg', name: 'Carolina Domínguez', role: 'Subdirectora de Capacitaciones y RRHH', roleEn: 'Training & HR Sub-Director' },
+  { file: 'abigail-gochez.jpg', name: 'Abigail Gochez', role: 'Depto. de Procesos', roleEn: 'Process Dept.' },
+  { file: 'eduardo-peron.jpg', name: 'Eduardo Perón', role: 'Relaciones Comunitarias y Enlace Bilingüe', roleEn: 'Community Relations & Bilingual Liaison' },
 ];
 
 export function TeamCarousel() {
@@ -27,7 +30,6 @@ export function TeamCarousel() {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Auto-advance every 4 seconds
   useEffect(() => {
     if (isPaused) return;
     const timer = setInterval(() => {
@@ -59,10 +61,9 @@ export function TeamCarousel() {
             transition={{ duration: 0.4, ease: 'easeOut' }}
             className="relative aspect-[4/5] sm:aspect-[3/2]"
           >
-            {/* Photo */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={member.photo}
+              src={`/team/${member.file}`}
               alt={member.name}
               className="h-full w-full object-cover"
             />
