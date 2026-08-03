@@ -8,17 +8,18 @@ import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 const TEAM = [
   { name: 'Reys Michel', role: 'Presidente y Cofundador', roleEn: 'President & Co-Founder', photo: '/team/reys-michel.jpg', featured: true },
   { name: 'Yolanda Perón', role: 'Vicepresidenta y Cofundadora', roleEn: 'Vice President & Co-Founder', photo: '/team/yolanda-peron.jpg', featured: true },
-  { name: 'Nelson Mejivar', role: 'Subdirector General', roleEn: 'General Sub-Director', photo: '/team/member-1.jpg' },
+  { name: 'Nelson Mejivar', role: 'Subdirector General', roleEn: 'General Sub-Director', photo: '/team/nelson-mejivar.jpg' },
   { name: 'Vladimir Cáceres', role: 'Subdirector Comercial', roleEn: 'Commercial Sub-Director', photo: '/team/vladimir-caceres.jpg' },
-  { name: 'Diego Quijada', role: 'Subdirector de Ventas', roleEn: 'Sales Sub-Director', photo: '/team/member-2.jpg' },
-  { name: 'Judit Mejivar', role: 'Subdirectora de Procesos', roleEn: 'Process Sub-Director', photo: '/team/member-3.jpg' },
-  { name: 'Maikel', role: 'El Arquitecto de las Finanzas', roleEn: 'The Finance Architect', photo: '/team/member-4.jpg' },
-  { name: 'Carolina Domínguez', role: 'Subdirectora de Capacitaciones y RRHH', roleEn: 'Training & HR Sub-Director', photo: '/team/member-5.jpg' },
-  { name: 'Jacob Mejivar', role: 'Depto. de Agencias de Crédito', roleEn: 'Credit Agencies Dept.', photo: '/team/member-6.jpg' },
-  { name: 'Christopher Aaron', role: 'Depto. de Acreedores', roleEn: 'Creditors Dept.', photo: '/team/member-7.jpg' },
-  { name: 'Fátima Santos', role: 'Depto. de Procesos', roleEn: 'Process Dept.', photo: '/team/member-8.jpg' },
-  { name: 'Abigail Gochez', role: 'Depto. de Procesos', roleEn: 'Process Dept.', photo: '/team/member-9.jpg' },
-  { name: 'Doris Bonilla', role: 'Depto. de Redes Sociales y Eventos', roleEn: 'Social Media & Events Dept.', photo: '/team/member-10.jpg' },
+  { name: 'Diego Quijada', role: 'Subdirector de Ventas', roleEn: 'Sales Sub-Director', photo: '/team/diego-quijada.jpg' },
+  { name: 'Judit Mejivar', role: 'Subdirectora de Procesos', roleEn: 'Process Sub-Director', photo: '/team/judit-mejivar.jpg' },
+  { name: 'Maikel', role: 'El Arquitecto de las Finanzas', roleEn: 'The Finance Architect', photo: null },
+  { name: 'Carolina Domínguez', role: 'Subdirectora de Capacitaciones y RRHH', roleEn: 'Training & HR Sub-Director', photo: '/team/carolina-dominguez.jpg' },
+  { name: 'Jacob Mejivar', role: 'Depto. de Agencias de Crédito', roleEn: 'Credit Agencies Dept.', photo: null },
+  { name: 'Christopher Aaron', role: 'Depto. de Acreedores', roleEn: 'Creditors Dept.', photo: null },
+  { name: 'Fátima Santos', role: 'Depto. de Procesos', roleEn: 'Process Dept.', photo: null },
+  { name: 'Abigail Gochez', role: 'Depto. de Procesos', roleEn: 'Process Dept.', photo: '/team/abigail-gochez.jpg' },
+  { name: 'Doris Bonilla', role: 'Depto. de Redes Sociales y Eventos', roleEn: 'Social Media & Events Dept.', photo: '/team/doris-bonilla.jpg' },
+  { name: 'Eduardo Perón', role: 'Relaciones Comunitarias y Enlace Bilingüe', roleEn: 'Community Relations & Bilingual Liaison', photo: '/team/eduardo-peron.jpg' },
 ];
 
 export function TeamCarousel() {
