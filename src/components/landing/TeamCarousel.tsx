@@ -62,10 +62,10 @@ export function TeamCarousel() {
   };
 
   return (
-    <div className="relative mx-auto w-full max-w-sm sm:max-w-md">
+    <div className="relative mx-auto w-full max-w-[280px] sm:max-w-sm">
       {/* Main slide */}
       <div
-        className="relative overflow-hidden rounded-2xl shadow-xl"
+        className="relative overflow-hidden rounded-2xl shadow-xl bg-gray-100"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
@@ -80,32 +80,32 @@ export function TeamCarousel() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -30 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="relative aspect-[3/4] w-full"
+            className="relative w-full"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={PHOTOS[current]}
               alt={`Equipo REYS ${current + 1}`}
-              className="h-full w-full object-cover"
+              className="block w-full h-auto object-contain"
               draggable={false}
             />
           </motion.div>
         </AnimatePresence>
 
-        {/* Arrows (desktop) */}
+        {/* Arrows */}
         <button
           onClick={prev}
-          className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/30 p-2 text-white backdrop-blur-sm transition hover:bg-white/50 sm:p-2.5"
+          className="absolute left-1 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-1.5 text-white backdrop-blur-sm transition hover:bg-black/50 sm:left-2 sm:p-2"
           aria-label="Anterior"
         >
-          <ChevronLeft className="h-5 w-5" />
+          <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
         </button>
         <button
           onClick={next}
-          className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/30 p-2 text-white backdrop-blur-sm transition hover:bg-white/50 sm:p-2.5"
+          className="absolute right-1 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-1.5 text-white backdrop-blur-sm transition hover:bg-black/50 sm:right-2 sm:p-2"
           aria-label="Siguiente"
         >
-          <ChevronRight className="h-5 w-5" />
+          <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
         </button>
       </div>
 
