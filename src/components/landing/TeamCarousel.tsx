@@ -5,14 +5,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const PHOTOS = [
-  '/team/raw-1.jpg', '/team/raw-2.jpg', '/team/raw-3.jpg',
-  '/team/raw-4.jpg', '/team/raw-5.jpg', '/team/raw-6.jpg',
-  '/team/raw-7.jpg', '/team/raw-8.jpg', '/team/raw-9.jpg',
-  '/team/raw-10.jpg', '/team/raw-11.jpg', '/team/raw-12.jpg',
-  '/team/raw-13.jpg', '/team/raw-14.jpg', '/team/raw-15.jpg',
-  '/team/raw-16.jpg', '/team/raw-17.jpg', '/team/raw-18.jpg',
-  '/team/raw-19.jpg', '/team/raw-20.jpg', '/team/raw-21.jpg',
-  '/team/raw-22.jpg', '/team/raw-23.jpg',
+  '/team/member-1.webp', '/team/member-2.webp', '/team/member-3.webp',
+  '/team/member-4.webp', '/team/member-5.webp', '/team/member-6.webp',
+  '/team/member-7.webp', '/team/member-9.webp',
+  '/team/member-10.webp', '/team/member-11.webp', '/team/member-12.webp',
+  '/team/member-13.webp', '/team/member-14.webp', '/team/member-15.webp',
+  '/team/member-16.webp', '/team/member-17.webp', '/team/member-18.webp',
+  '/team/member-19.webp', '/team/member-20.webp', '/team/member-21.webp',
+  '/team/member-22.webp', '/team/member-23.webp',
 ];
 
 export function TeamCarousel() {

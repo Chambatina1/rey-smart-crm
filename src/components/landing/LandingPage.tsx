@@ -507,16 +507,6 @@ export function LandingPage() {
               transition={{ duration: 0.8 }}
             >
               {/* Logo large */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.92 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="mb-7"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/reys-logo.png" alt="REYS Smart Solutions" className="h-16 w-auto brightness-0 invert drop-shadow-[0_4px_24px_rgba(201,162,39,0.35)]" />
-              </motion.div>
-
               <h1
                 className="text-4xl font-extrabold leading-[1.1] text-white sm:text-5xl lg:text-6xl"
                 style={{ textShadow: '0 2px 12px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6)' }}
