@@ -55,15 +55,15 @@ export function FinanceCalculator() {
         >
           <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--color-accent)]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-accent)]">
             <Calculator className="h-3.5 w-3.5" />
-            {t('FINANCIAL CALCULATOR', 'CALCULADORA FINANCIERA')}
+            {t('CREDIT SCORE CALCULATOR', 'CALCULADORA DE PUNTAJE DE CRÉDITO')}
           </span>
           <h2 className="mt-5 text-3xl font-bold text-gray-900 sm:text-4xl">
-            {t('See how much good credit saves you', 'Mira cuánto te ahorra un buen crédito')}
+            {t('See how your credit score affects interest rates', 'Mira cómo tu puntaje de crédito afecta las tasas de interés')}
           </h2>
           <p className="mt-4 text-lg text-gray-600">
             {t(
-              'A better credit score means lower interest rates. Calculate your potential savings.',
-              'Un mejor puntaje de crédito significa tasas de interés más bajas. Calcula tu ahorro potencial.'
+              'A higher credit score typically qualifies you for lower interest rates on loans and credit. This calculator illustrates how improving your score could reduce what you pay.',
+              'Un puntaje de crédito más alto típicamente te califica para tasas de interés más bajas en préstamos y crédito. Esta calculadora ilustra cómo mejorar tu puntaje podría reducir lo que pagas.'
             )}
           </p>
         </motion.div>
@@ -184,13 +184,16 @@ export function FinanceCalculator() {
               </p>
             </div>
 
-            <p className="mt-4 flex items-start gap-1.5 text-xs text-gray-400">
-              <Info className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
-              {t(
-                'Estimates for illustration only. Actual rates vary by lender and your credit profile.',
-                'Estimaciones solo ilustrativas. Las tasas reales varían según el prestamista y tu perfil crediticio.'
-              )}
-            </p>
+            {/* Disclaimer — visible and prominent */}
+            <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-4">
+              <p className="flex items-start gap-2 text-sm font-medium text-amber-800">
+                <Info className="mt-0.5 h-4 w-4 flex-shrink-0" />
+                {t(
+                  'This is an estimated example only. Actual interest rates depend on the lender, your full credit profile, income, and other factors. REYS Smart Solutions does not guarantee specific rates or outcomes.',
+                  'Este es solo un ejemplo estimado. Las tasas de interés reales dependen del prestamista, tu perfil crediticio completo, ingresos y otros factores. REYS Smart Solutions no garantiza tasas o resultados específicos.'
+                )}
+              </p>
+            </div>
           </motion.div>
         </div>
       </div>

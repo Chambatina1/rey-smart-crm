@@ -31,7 +31,7 @@ export function SettingsPage() {
   const [inviteOpen, setInviteOpen] = useState(false);
   const [settings, setSettings] = useState({
     companyName: 'Rey Smart Solution',
-    phone: '(407) 716-9478',
+    phone: '+1 (407) 716-9478',
     email: 'info@reysmartsolution.com',
     address: '7800 S US Hwy 17/92, Ste 194, Fern Park, FL 32730',
     website: 'https://reysmartsolution.com',

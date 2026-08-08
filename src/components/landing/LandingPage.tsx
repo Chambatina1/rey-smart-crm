@@ -265,18 +265,18 @@ export function LandingPage() {
       title: t.landing.counseling,
       desc: t.landing.counselingLongDesc,
       shortDesc: t.landing.counselingDesc,
-      gradient: 'from-rose-600 via-rose-500 to-pink-500',
-      iconBg: 'bg-rose-400/30',
-      btnClass: 'bg-white text-rose-700 hover:bg-rose-50',
+      gradient: 'from-[var(--color-primary)] via-[oklch(0.25_0.04_258)] to-[var(--color-accent)]',
+      iconBg: 'bg-white/30',
+      btnClass: 'bg-white text-[var(--color-primary)] hover:bg-white/90',
     },
     {
       icon: Home,
       title: t.landing.homeBuying,
       desc: t.landing.homeBuyingLongDesc,
       shortDesc: t.landing.homeBuyingDesc,
-      gradient: 'from-purple-600 via-purple-500 to-violet-500',
-      iconBg: 'bg-purple-400/30',
-      btnClass: 'bg-white text-purple-700 hover:bg-purple-50',
+      gradient: 'from-[var(--color-accent)] via-[oklch(0.30_0.06_150)] to-[var(--color-gold)]',
+      iconBg: 'bg-white/30',
+      btnClass: 'bg-white text-[var(--color-accent)] hover:bg-white/90',
     },
     {
       icon: Briefcase,
@@ -314,8 +314,8 @@ export function LandingPage() {
       desc: t.landing.education2Desc,
       color: 'bg-[var(--color-gold)]/15 text-[var(--color-gold)]',
       benefits: language === 'es'
-        ? ['Mentoría personalizada 1-a-1', 'Talleres sobre cómo mantener un crédito sano', 'Recursos educativos en español e inglés', 'Acompañamiento continuo durante todo el proceso']
-        : ['Personalized 1-on-1 mentoring', 'Workshops on maintaining healthy credit', 'Educational resources in Spanish and English', 'Ongoing support throughout the entire process'],
+        ? ['Mentoría personalizada 1-a-1', 'Guía para entender tu reporte de crédito', 'Estrategias para mantener un buen puntaje', 'Acompañamiento continuo durante todo el proceso']
+        : ['Personalized 1-on-1 mentoring', 'Guidance to understand your credit report', 'Strategies to maintain a good score', 'Ongoing support throughout the entire process'],
     },
   ];
 
@@ -401,7 +401,7 @@ export function LandingPage() {
               <img
                 src="/reys-logo.png"
                 alt="REYS Smart Solutions"
-                className={`h-9 w-auto transition-all ${scrolled ? 'drop-shadow-sm' : 'brightness-0 invert drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]'}`}
+                className={`h-12 w-auto transition-all sm:h-14 ${scrolled ? 'drop-shadow-sm' : 'brightness-0 invert drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]'}`}
               />
             </div>
 
@@ -556,7 +556,7 @@ export function LandingPage() {
                 </span>
                 <span className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
                   <CheckCircle2 className="h-4 w-4 text-[var(--color-accent)]" />
-                  {language === 'es' ? 'No cobramos por adelantado' : 'No upfront fees'}
+                  {language === 'es' ? 'Cada caso se evalúa individualmente' : 'Each case evaluated individually'}
                 </span>
                 <span className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
                   <CheckCircle2 className="h-4 w-4 text-[var(--color-accent)]" />
@@ -723,7 +723,7 @@ export function LandingPage() {
                 language === 'es' ? '3 frentes simultáneos: protección, construcción y educación' : '3 simultaneous fronts: protection, building, and education',
                 language === 'es' ? 'Métodos comprobados conforme a la normativa vigente' : 'Proven methods compliant with applicable regulations',
                 language === 'es' ? 'Acompañamiento real en cada paso' : 'Real guidance at every step',
-                language === 'es' ? 'Sin cobros por adelantado. Pagas por resultados.' : 'No upfront fees. You pay for results.',
+                language === 'es' ? 'El precio depende de tu evaluación personalizada.' : 'Pricing depends on your personalized evaluation.',
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-2.5">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--color-accent)]" />
@@ -760,22 +760,9 @@ export function LandingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto mt-14 grid max-w-3xl grid-cols-2 gap-6 sm:grid-cols-4"
+            className="mx-auto mt-14"
           >
-            {[
-              { icon: Users, value: '6+', label: language === 'es' ? 'Expertos' : 'Experts' },
-              { icon: Shield, value: '100%', label: language === 'es' ? 'Legal' : 'Legal' },
-              { icon: Award, value: '6+', label: language === 'es' ? 'Años' : 'Years' },
-              { icon: Sparkles, value: '3', label: language === 'es' ? 'Frentes' : 'Fronts' },
-            ].map((s, i) => (
-              <div key={i} className="text-center">
-                <div className="mx-auto mb-2 flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-gold)]/15">
-                  <s.icon className="h-5 w-5 text-[var(--color-gold)]" />
-                </div>
-                <p className="text-2xl font-bold text-gray-900">{s.value}</p>
-                <p className="text-xs uppercase tracking-wide text-gray-500">{s.label}</p>
-              </div>
-            ))}
+            {/* Stats unificados en la banda gradient, no aquí */}
           </motion.div>
 
           {/* Team Carousel */}
@@ -793,48 +780,6 @@ export function LandingPage() {
               {language === 'es' ? 'Desliza para conocer a los profesionales detrás de REYS' : 'Swipe to meet the professionals behind REYS'}
             </p>
             <TeamCarousel />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── Team Video Background ─────────────────────── */}
-      <section className="relative h-[60vh] min-h-[400px] overflow-hidden">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="absolute inset-0 h-full w-full object-cover"
-        >
-          <source src="/team-video-about.mp4" type="video/mp4" />
-        </video>
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)]/80 via-[var(--color-primary)]/30 to-[var(--color-primary)]/40" />
-        {/* Content */}
-        <div className="relative flex h-full items-center justify-center px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <p
-              className="text-2xl font-bold text-white drop-shadow-lg sm:text-3xl lg:text-4xl"
-              style={{ textShadow: '0 2px 12px rgba(0,0,0,0.8)' }}
-            >
-              {language === 'es'
-                ? 'Construyendo vidas, no solo crédito.'
-                : 'Building lives, not just credit.'}
-            </p>
-            <p
-              className="mx-auto mt-3 max-w-xl text-lg text-white/80"
-              style={{ textShadow: '0 1px 8px rgba(0,0,0,0.8)' }}
-            >
-              {language === 'es'
-                ? 'Un equipo comprometido con tu futuro financiero.'
-                : 'A team committed to your financial future.'}
-            </p>
           </motion.div>
         </div>
       </section>
@@ -900,7 +845,7 @@ export function LandingPage() {
                             <Button
                               onClick={() => scrollTo('contact')}
                               variant="outline"
-                              className="border-white/50 text-white hover:bg-white/15 backdrop-blur-sm px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base"
+                              className="border-2 border-white bg-white/10 text-white font-semibold hover:bg-white/25 backdrop-blur-sm px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base shadow-md"
                             >
                               {t.landing.learnMore}
                             </Button>
@@ -1197,7 +1142,7 @@ export function LandingPage() {
             {/* trust badges */}
             <div className="mt-8 grid grid-cols-2 gap-3">
               {[
-                { icon: Shield, label: language === 'es' ? 'Sin cobros por adelantado' : 'No upfront fees' },
+                { icon: Shield, label: language === 'es' ? 'Evaluación sin costo inicial' : 'Evaluation at no initial cost' },
                 { icon: Star, label: language === 'es' ? 'Ley federal' : 'Federal law' },
                 { icon: PhoneCall, label: language === 'es' ? 'Todo el país' : 'Nationwide' },
                 { icon: Users, label: language === 'es' ? 'Profesionales licenciados' : 'Licensed professionals' },
@@ -1213,7 +1158,7 @@ export function LandingPage() {
             <div className="mt-8 space-y-3 text-sm">
               <a href="tel:+14077169478" className="flex items-center gap-3 text-white/70 transition hover:text-[var(--color-gold)]">
                 <Phone className="h-4 w-4 text-[var(--color-gold)]" />
-                (407) 716-9478
+                +1 (407) 716-9478
               </a>
               <a href="mailto:admin@reyssmartsolution.com" className="flex items-center gap-3 text-white/70 transition hover:text-[var(--color-gold)]">
                 <Mail className="h-4 w-4 text-[var(--color-gold)]" />
@@ -1238,12 +1183,9 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* ── Team Section (PDF button) ───────────────────── */}
-      <section id="team" className="relative overflow-hidden bg-gray-50 py-20">
-        <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-[var(--color-accent)]/6 blur-3xl" />
-        <div className="pointer-events-none absolute -right-40 bottom-20 h-80 w-80 rounded-full bg-[var(--color-gold)]/6 blur-3xl" />
-
-        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      {/* ── Team Section (PDF button only) ─────────────── */}
+      <section id="team" className="bg-gray-50 py-20">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1270,28 +1212,9 @@ export function LandingPage() {
                 className="inline-flex items-center gap-3 rounded-2xl bg-[var(--color-accent)] px-8 py-5 text-base font-semibold text-white shadow-xl shadow-[var(--color-accent)]/25 transition-all hover:scale-105 hover:brightness-110 active:scale-100"
               >
                 <FileText className="h-6 w-6" />
-                <span className="flex flex-col items-start">
-                  <span>{language === 'es' ? 'Ver equipo completo' : 'View full team'}</span>
-                  <span className="text-xs font-normal opacity-80">PDF</span>
-                </span>
+                <span>{language === 'es' ? 'Ver equipo completo (PDF)' : 'View full team (PDF)'}</span>
                 <ExternalLink className="h-4 w-4 opacity-70" />
               </a>
-            </div>
-
-            {/* Quick stats */}
-            <div className="mx-auto mt-10 grid max-w-md grid-cols-3 gap-4">
-              <div>
-                <p className="text-3xl font-bold text-[var(--color-accent)]">13+</p>
-                <p className="text-xs uppercase tracking-wide text-gray-500">{language === 'es' ? 'Profesionales' : 'Professionals'}</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-[var(--color-accent)]">6+</p>
-                <p className="text-xs uppercase tracking-wide text-gray-500">{language === 'es' ? 'Años' : 'Years'}</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-[var(--color-accent)]">3</p>
-                <p className="text-xs uppercase tracking-wide text-gray-500">{language === 'es' ? 'Frentes' : 'Fronts'}</p>
-              </div>
             </div>
           </motion.div>
         </div>
@@ -1517,7 +1440,7 @@ export function LandingPage() {
               <ul className="space-y-3 text-sm">
                 <li className="flex items-center gap-2">
                   <Phone className="h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />
-                  <a href="tel:+14077169478" className="transition-colors hover:text-[var(--color-gold)]">(407) 716-9478</a>
+                  <a href="tel:+14077169478" className="transition-colors hover:text-[var(--color-gold)]">+1 (407) 716-9478</a>
                 </li>
                 <li className="flex items-center gap-2">
                   <Mail className="h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />
@@ -1531,7 +1454,7 @@ export function LandingPage() {
               <ul className="space-y-3 text-sm">
                 <li className="flex items-center gap-2">
                   <Phone className="h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />
-                  (407) 716-9478
+                  +1 (407) 716-9478
                 </li>
                 <li className="flex items-center gap-2">
                   <Mail className="h-4 w-4 flex-shrink-0 text-[var(--color-gold)]" />

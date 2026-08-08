@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
         email: 'admin@reysmartsolution.com',
         name: 'Rey Admin',
         passwordHash: adminPassword,
-        phone: '(407) 716-9478',
+        phone: '+1 (407) 716-9478',
         role: 'admin',
         language: 'en',
       },
@@ -497,7 +497,7 @@ export async function POST(request: NextRequest) {
     await db.companySettings.create({
       data: {
         companyName: 'Rey Smart Solution',
-        phone: '(407) 716-9478',
+        phone: '+1 (407) 716-9478',
         email: 'info@reysmartsolution.com',
         address: '7800 S US Hwy 17/92, Ste 194, Fern Park, FL 32730',
         website: 'https://reysmartsolution.com',

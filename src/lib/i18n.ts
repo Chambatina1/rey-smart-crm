@@ -145,7 +145,7 @@ export const translations = {
       ctaTitle: 'Ready to take the first step?',
       ctaSubtitle: 'Your consultation is free, confidential, and with no obligation. Let\u2019s review your report together and see what we can do.',
       ctaButton: 'Get My Free Consultation',
-      ctaButtonAlt: 'Call (407) 716-9478',
+      ctaButtonAlt: 'Call +1 (407) 716-9478',
       // Disclaimer
       disclaimerTitle: 'Important Disclosure',
       disclaimerText: 'REYS Smart Solutions does not guarantee specific results. Results vary depending on each case. All negative information is disputed in accordance with applicable federal laws (FCRA / FDCPA). You have the right to dispute any item on your credit report yourself, free of charge. This website is for informational purposes and is not legal or financial advice.',
@@ -626,7 +626,7 @@ export const translations = {
       ctaTitle: '¿Listo para dar el primer paso?',
       ctaSubtitle: 'Tu consulta es gratuita, confidencial y sin compromiso. Revisemos juntos tu reporte y veamos qué podemos hacer.',
       ctaButton: 'Quiero Mi Consulta Gratis',
-      ctaButtonAlt: 'Llamar al (407) 716-9478',
+      ctaButtonAlt: 'Llamar al +1 (407) 716-9478',
       // Disclaimer
       disclaimerTitle: 'Aviso Importante',
       disclaimerText: 'REYS Smart Solutions no garantiza resultados específicos. Los resultados varían según cada caso. Toda información negativa se disputa conforme a las leyes federales aplicables (FCRA / FDCPA). Tienes el derecho de disputar cualquier item de tu reporte de crédito tú mismo, sin costo. Este sitio web es informativo y no constituye asesoría legal ni financiera.',
