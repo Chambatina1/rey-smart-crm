@@ -67,7 +67,7 @@ import { PricingSection } from '@/components/landing/PricingSection';
 import { FinanceCalculator } from '@/components/landing/FinanceCalculator';
 import { BridgeHowItWorks } from '@/components/landing/BridgeHowItWorks';
 import { RotatingVideoBackground } from '@/components/landing/RotatingVideoBackground';
-import { TeamCarousel } from '@/components/landing/TeamCarousel';
+import TeamSection from '@/components/landing/TeamSection';
 
 /* ── animated counter ──────────────────────────────────────────── */
 function useCountUp(end: number, duration = 2000, startCounting = false) {
@@ -780,7 +780,7 @@ export function LandingPage() {
             <p className="mb-8 text-center text-sm text-gray-500">
               {language === 'es' ? 'Desliza para conocer a los profesionales detrás de REYS' : 'Swipe to meet the professionals behind REYS'}
             </p>
-            <TeamCarousel />
+            <TeamSection />
           </motion.div>
         </div>
       </section>

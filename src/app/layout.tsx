@@ -16,8 +16,18 @@ export const metadata: Metadata = {
   title: "REYS Smart Solutions | Credit Education & Financial Solutions",
   description: "Professional credit education, financial guidance, and personalized solutions. Helping families and businesses build a stronger financial future.",
   keywords: ["credit education", "credit solutions", "financial guidance", "credit consulting", "financial solutions"],
+  manifest: "/manifest.json",
   icons: {
-    icon: "/reys-logo.png",
+    icon: [
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "REYS Smart Solutions",
   },
 };
 

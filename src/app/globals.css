@@ -187,6 +187,23 @@
   object-fit: contain;
 }
 
+/* ── Sección Equipo — código oficial del cliente ─────── */
+.reys-team-section {
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+}
+
+.reys-team-image {
+  width: 100%;
+  height: 90vh;
+  object-fit: cover;
+  object-position: center;
+}
+
 /* ── Premium animation keyframes ─────────────────────── */
 @keyframes shimmer {
   0% { background-position: -200% 0; }
