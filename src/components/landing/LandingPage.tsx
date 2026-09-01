@@ -395,15 +395,16 @@ export function LandingPage() {
       >
         <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            {/* Logo */}
-            <div className="flex cursor-pointer items-center gap-2.5" onClick={() => navigate('landing')}>
+            {/* Logo — estilo cliente: clamp(120px, 16vw, 190px) */}
+            <a href="/" className="logo-link flex cursor-pointer items-center" onClick={(e) => { e.preventDefault(); navigate('landing'); }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/reys-logo.png"
                 alt="REYS Smart Solutions"
-                className={`h-12 w-auto transition-all sm:h-14 ${scrolled ? 'drop-shadow-sm' : 'brightness-0 invert drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]'}`}
+                className="reys-logo block h-auto object-contain"
+                style={{ width: 'clamp(120px, 16vw, 190px)' }}
               />
-            </div>
+            </a>
 
             {/* Desktop nav */}
             <div className="hidden items-center gap-7 md:flex">
@@ -1403,7 +1404,7 @@ export function LandingPage() {
             <div>
               <div className="mb-4 flex items-center gap-2.5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/reys-logo.png" alt="REYS Smart Solutions" className="h-9 w-auto brightness-0 invert" />
+                <img src="/reys-logo.png" alt="REYS Smart Solutions" className="reys-logo brightness-0 invert" />
               </div>
               <p className="mb-4 text-sm text-white/40">
                 {language === 'es'

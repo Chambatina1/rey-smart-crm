@@ -172,6 +172,21 @@
   animation: fade-in 0.3s ease-out;
 }
 
+/* ── Logo REYS — estilo oficial del cliente ──────────── */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 20px;
+}
+
+.reys-logo {
+  width: clamp(120px, 16vw, 190px);
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
 /* ── Premium animation keyframes ─────────────────────── */
 @keyframes shimmer {
   0% { background-position: -200% 0; }
