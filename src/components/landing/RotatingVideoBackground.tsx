@@ -18,7 +18,7 @@ export function RotatingVideoBackground() {
         poster="/hero-poster.jpg"
         className="absolute inset-0 h-full w-full object-cover"
       >
-        <source src="/bg-pool.mp4" type="video/mp4" />
+        <source src="/hero-corp.mp4" type="video/mp4" />
       </video>
 
       {/* Navy overlay */}
