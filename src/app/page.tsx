@@ -34,7 +34,13 @@ export default function Home() {
   // First mount: show landing immediately to avoid white screen
   useEffect(() => {
     setMounted(true);
-  }, []);
+    // Acceso admin oculto: ?admin=1 en la URL → login
+    try {
+      if (window.location.search.includes('admin=1')) {
+        navigate('login');
+      }
+    } catch { /* SSR guard */ }
+  }, [navigate]);
 
   // Check if user is already logged in (token in localStorage)
   useEffect(() => {

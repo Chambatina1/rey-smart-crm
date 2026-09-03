@@ -45,8 +45,6 @@ import {
   ChevronDown,
   Plus,
   Minus,
-  Youtube,
-  Play,
   Sparkles,
   CheckCircle2,
   CreditCard,
@@ -67,7 +65,7 @@ import { PricingSection } from '@/components/landing/PricingSection';
 import { FinanceCalculator } from '@/components/landing/FinanceCalculator';
 import { BridgeHowItWorks } from '@/components/landing/BridgeHowItWorks';
 import { RotatingVideoBackground } from '@/components/landing/RotatingVideoBackground';
-import TeamSection from '@/components/landing/TeamSection';
+import { AboutSection } from '@/components/landing/AboutSection';
 
 /* ── animated counter ──────────────────────────────────────────── */
 function useCountUp(end: number, duration = 2000, startCounting = false) {
@@ -394,15 +392,15 @@ export function LandingPage() {
         }`}
       >
         <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            {/* Logo — estilo cliente: clamp(120px, 16vw, 190px) */}
+          <div className="flex h-20 items-center justify-between">
+            {/* Logo — tamaño por alto para nunca cortarse */}
             <a href="/" className="logo-link flex cursor-pointer items-center" onClick={(e) => { e.preventDefault(); navigate('landing'); }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/reys-logo.png"
                 alt="REYS Smart Solutions"
-                className="reys-logo block h-auto object-contain"
-                style={{ width: 'clamp(120px, 16vw, 190px)' }}
+                className={`reys-logo block w-auto object-contain ${scrolled ? '' : ''}`}
+                style={{ height: 'clamp(44px, 8vw, 64px)' }}
               />
             </a>
 
@@ -426,9 +424,7 @@ export function LandingPage() {
               <button
                 onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
                 className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
-                  scrolled
-                    ? 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                    : 'text-white/80 hover:bg-white/10 hover:text-white'
+                  'text-[var(--color-primary)]/80 hover:bg-white/60 hover:text-[var(--color-primary)]'
                 }`}
               >
                 <Globe className="h-4 w-4" />
@@ -442,7 +438,7 @@ export function LandingPage() {
               </Button>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`p-2 md:hidden ${scrolled ? 'text-muted-foreground' : 'text-white'}`}
+                className="p-2 text-[var(--color-primary)] md:hidden"
               >
                 {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </button>
@@ -509,8 +505,7 @@ export function LandingPage() {
             >
               {/* Logo large */}
               <h1
-                className="text-4xl font-extrabold leading-[1.1] text-white sm:text-5xl lg:text-6xl"
-                style={{ textShadow: '0 2px 12px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.6)' }}
+                className="text-4xl font-extrabold leading-[1.1] text-[var(--color-primary)] sm:text-5xl lg:text-6xl"
               >
                 {language === 'es' ? (
                   <>
@@ -519,7 +514,6 @@ export function LandingPage() {
                     a tu{' '}
                     <span
                       className="text-[var(--color-accent)]"
-                      style={{ textShadow: '0 2px 12px rgba(0,0,0,0.9), 0 0 30px rgba(27,127,75,0.5)' }}
                     >
                       futuro financiero
                     </span>
@@ -532,7 +526,6 @@ export function LandingPage() {
                     to your{' '}
                     <span
                       className="text-[var(--color-accent)]"
-                      style={{ textShadow: '0 2px 12px rgba(0,0,0,0.9), 0 0 30px rgba(27,127,75,0.5)' }}
                     >
                       financial future
                     </span>
@@ -543,23 +536,22 @@ export function LandingPage() {
 
               {/* Subtitle — clear, benefit-oriented */}
               <p
-                className="mt-5 max-w-xl text-xl leading-relaxed text-white"
-                style={{ textShadow: '0 1px 8px rgba(0,0,0,0.9)' }}
+                className="mt-5 max-w-xl text-xl leading-relaxed text-gray-700"
               >
                 {t.landing.heroSubtitle}
               </p>
 
               {/* Trust badges — large, prominent (conversion-critical) */}
               <div className="mt-7 flex flex-wrap gap-3">
-                <span className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
+                <span className="flex items-center gap-2 rounded-full border border-gray-200 bg-white/90 px-4 py-2 text-sm font-semibold text-[var(--color-primary)] shadow-sm">
                   <CheckCircle2 className="h-4 w-4 text-[var(--color-accent)]" />
                   {language === 'es' ? 'Evaluación 100% gratuita' : '100% Free Evaluation'}
                 </span>
-                <span className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
+                <span className="flex items-center gap-2 rounded-full border border-gray-200 bg-white/90 px-4 py-2 text-sm font-semibold text-[var(--color-primary)] shadow-sm">
                   <CheckCircle2 className="h-4 w-4 text-[var(--color-accent)]" />
                   {language === 'es' ? 'Cada caso se evalúa individualmente' : 'Each case evaluated individually'}
                 </span>
-                <span className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>
+                <span className="flex items-center gap-2 rounded-full border border-gray-200 bg-white/90 px-4 py-2 text-sm font-semibold text-[var(--color-primary)] shadow-sm">
                   <CheckCircle2 className="h-4 w-4 text-[var(--color-accent)]" />
                   {language === 'es' ? 'Métodos comprobados' : 'Proven methods'}
                 </span>
@@ -578,7 +570,7 @@ export function LandingPage() {
                   onClick={() => scrollTo('how-it-works')}
                   size="lg"
                   variant="outline"
-                  className="border-white/30 bg-white/5 px-8 py-6 text-base text-white backdrop-blur-sm transition hover:bg-white/15"
+                  className="border-[var(--color-primary)]/30 bg-white/60 px-8 py-6 text-base text-[var(--color-primary)] backdrop-blur-sm transition hover:bg-white"
                 >
                   {language === 'es' ? 'Cómo Funciona' : 'How it Works'}
                 </Button>
@@ -592,7 +584,7 @@ export function LandingPage() {
                   { icon: PhoneCall, label: language === 'es' ? 'Servicio en todo EE.UU.' : 'Serving all 50 states' },
                   { icon: Users, label: language === 'es' ? 'Equipo profesional certificado' : 'Certified professional team' },
                 ].map((b, i) => (
-                  <div key={i} className="flex items-center gap-1.5 text-base font-medium text-white" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.9)' }}>
+                  <div key={i} className="flex items-center gap-1.5 text-base font-medium text-[var(--color-primary)]">
                     <b.icon className="h-5 w-5 text-[var(--color-gold)]" />
                     {b.label}
                   </div>
@@ -600,190 +592,16 @@ export function LandingPage() {
               </div>
             </motion.div>
 
-            {/* Right — luminous orb composition (golden/blue light atmosphere) */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="relative hidden items-center justify-center lg:flex"
-            >
-              <div className="relative h-[440px] w-[440px]">
-                {/* Central glowing orb — golden light core */}
-                <motion.div
-                  animate={{ scale: [1, 1.08, 1], opacity: [0.7, 1, 0.7] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full"
-                  style={{
-                    background: 'radial-gradient(circle, oklch(0.85 0.15 80) 0%, oklch(0.65 0.18 65) 30%, oklch(0.40 0.12 250 / 0.6) 70%, transparent 100%)',
-                    filter: 'blur(20px)',
-                  }}
-                />
-
-                {/* Inner bright core */}
-                <motion.div
-                  animate={{ opacity: [0.5, 0.9, 0.5] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/80 blur-2xl"
-                />
-
-                {/* Orbiting rings */}
-                <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--color-gold)]/15 [animation:spin_30s_linear_infinite]" />
-                <div className="absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[oklch(0.60_0.14_245)]/20 [animation:spin_22s_linear_infinite_reverse]" />
-                <div className="absolute left-1/2 top-1/2 h-[240px] w-[240px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 [animation:spin_16s_linear_infinite]" />
-
-                {/* Floating light particles */}
-                {[
-                  { top: '15%', left: '20%', delay: 0, color: 'bg-[var(--color-gold)]' },
-                  { top: '25%', left: '75%', delay: 0.5, color: 'bg-white' },
-                  { top: '65%', left: '15%', delay: 1, color: 'bg-[oklch(0.70_0.12_240)]' },
-                  { top: '75%', left: '80%', delay: 1.5, color: 'bg-[var(--color-gold)]' },
-                  { top: '40%', left: '90%', delay: 0.8, color: 'bg-white' },
-                  { top: '85%', left: '45%', delay: 2, color: 'bg-[var(--color-gold)]' },
-                  { top: '10%', left: '50%', delay: 1.2, color: 'bg-white' },
-                  { top: '50%', left: '5%', delay: 0.3, color: 'bg-[oklch(0.70_0.12_240)]' },
-                ].map((p, i) => (
-                  <motion.div
-                    key={i}
-                    animate={{ y: [0, -20, 0], opacity: [0.3, 1, 0.3] }}
-                    transition={{ duration: 4 + (i % 3), repeat: Infinity, ease: 'easeInOut', delay: p.delay }}
-                    className={`absolute h-2 w-2 rounded-full ${p.color} blur-[1px]`}
-                    style={{ top: p.top, left: p.left }}
-                  />
-                ))}
-
-              </div>
-            </motion.div>
           </div>
         </div>
 
         {/* Bottom fade into next section */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[var(--color-primary)] to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
       </section>
 
-      {/* ── About / Who We Are (with video) ────────────── */}
-      <section id="about" className="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white py-20">
-        {/* Decorative background elements */}
-        <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-[var(--color-accent)]/8 blur-3xl" />
-        <div className="pointer-events-none absolute -right-40 bottom-20 h-80 w-80 rounded-full bg-[var(--color-gold)]/8 blur-3xl" />
+      {/* ── About / Quiénes Somos ─────────────────────── */}
+      <AboutSection />
 
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          {/* Heading */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-12 text-center"
-          >
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--color-gold)]/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-gold)]">
-              <Sparkles className="h-3.5 w-3.5" />
-              {t.landing.aboutEyebrow}
-            </span>
-            <h2 className="mt-5 text-4xl font-bold text-gray-900 sm:text-5xl">
-              {t.landing.aboutTitle}
-            </h2>
-          </motion.div>
-
-          {/* Featured video — large and prominent */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.6 }}
-            className="relative mx-auto mb-10 max-w-4xl"
-          >
-            {/* Glow behind video */}
-            <div className="absolute -inset-3 -z-10 rounded-3xl bg-gradient-to-br from-[var(--color-gold)]/20 via-[var(--color-accent)]/15 to-[var(--color-primary)]/20 blur-2xl" />
-            <div className="relative overflow-hidden rounded-2xl border border-black/10 shadow-2xl">
-              <div className="relative aspect-video">
-                <iframe
-                  src="https://www.youtube.com/embed/5RMMZPs0u1o?rel=0&modestbranding=1"
-                  title="REYS Smart Solutions — Quiénes Somos"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="absolute inset-0 h-full w-full"
-                />
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Text + CTA + channel button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mx-auto max-w-3xl text-center"
-          >
-            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-gray-600">
-              {t.landing.aboutText1}
-            </p>
-
-            {/* Scannable bullets */}
-            <div className="mx-auto mt-6 grid max-w-xl gap-3 text-left sm:grid-cols-2">
-              {[
-                language === 'es' ? '3 frentes simultáneos: protección, construcción y educación' : '3 simultaneous fronts: protection, building, and education',
-                language === 'es' ? 'Métodos comprobados conforme a la normativa vigente' : 'Proven methods compliant with applicable regulations',
-                language === 'es' ? 'Acompañamiento real en cada paso' : 'Real guidance at every step',
-                language === 'es' ? 'El precio depende de tu evaluación personalizada.' : 'Pricing depends on your personalized evaluation.',
-              ].map((item, i) => (
-                <div key={i} className="flex items-start gap-2.5">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[var(--color-accent)]" />
-                  <span className="text-sm leading-snug text-gray-700">{item}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Buttons */}
-            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button
-                onClick={() => scrollTo('contact')}
-                className="bg-[var(--color-accent)] px-7 py-5 text-base font-semibold text-white shadow-lg shadow-[var(--color-accent)]/25 transition hover:brightness-110"
-              >
-                {language === 'es' ? 'Solicitar Evaluación' : 'Get Evaluation'}
-                <ChevronRight className="ml-1 h-5 w-5" />
-              </Button>
-              <a
-                href="https://youtube.com/@reyssmartsolutionadmin"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="YouTube"
-                className="flex items-center gap-2 rounded-xl bg-[#FF0000] px-7 py-5 text-base font-semibold text-white shadow-lg shadow-red-600/25 transition hover:brightness-110 active:scale-[0.98]"
-              >
-                <Youtube className="h-5 w-5" />
-                <Play className="h-4 w-4 fill-white" />
-              </a>
-            </div>
-          </motion.div>
-
-          {/* Mini stats row */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto mt-14"
-          >
-            {/* Stats unificados en la banda gradient, no aquí */}
-          </motion.div>
-
-          {/* Team Carousel */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-16"
-          >
-            <h3 className="mb-2 text-center text-2xl font-bold text-gray-900">
-              {language === 'es' ? 'Conoce a nuestro equipo' : 'Meet our team'}
-            </h3>
-            <p className="mb-8 text-center text-sm text-gray-500">
-              {language === 'es' ? 'Desliza para conocer a los profesionales detrás de REYS' : 'Swipe to meet the professionals behind REYS'}
-            </p>
-            <TeamSection />
-          </motion.div>
-        </div>
-      </section>
 
       {/* ── Service Carousel ───────────────────────────── */}
       <section className="py-16 sm:py-20 bg-white overflow-hidden">
@@ -1417,9 +1235,6 @@ export function LandingPage() {
                 </a>
                 <a href="https://www.instagram.com/reyssmartsolutions/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white/70 ring-1 ring-white/10 transition-colors hover:bg-gradient-to-br hover:from-[#E4405F] hover:to-[#F77737] hover:text-white">
                   <Instagram className="h-5 w-5" />
-                </a>
-                <a href="https://youtube.com/@reyssmartsolutionadmin" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white/70 ring-1 ring-white/10 transition-colors hover:bg-[#FF0000] hover:text-white">
-                  <Youtube className="h-5 w-5" />
                 </a>
                 <a href="https://share.google/wYRuoJ1b4issdbx72" target="_blank" rel="noopener noreferrer" aria-label="Google Reviews" className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white/70 ring-1 ring-white/10 transition-colors hover:bg-[#4285F4] hover:text-white">
                   <Star className="h-5 w-5" />
